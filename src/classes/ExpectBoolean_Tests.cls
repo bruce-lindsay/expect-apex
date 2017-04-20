@@ -1,17 +1,18 @@
 @isTest
 public class ExpectBoolean_Tests {
     private abstract class ThrowCheck {
+        final String ASSERTION_MESSAGE = 'Expect.AssertException expected';
         abstract void testCase();
         public void verify() {
             try {
                 testCase();
-                System.assert(false, 'Expect.AssertException expected');
+                System.assert(false, ASSERTION_MESSAGE);
             } catch(Expect.AssertException unused) { }
         }
         public void verifyMessage(string expectedMessage) {
             try {
                 testCase();
-                System.assert(false, 'Expect.AssertException expected');
+                System.assert(false, ASSERTION_MESSAGE);
             } catch(Expect.AssertException exceptionValue) {
                 System.assertEquals(expectedMessage, exceptionValue.getMessage());
             }
@@ -26,7 +27,7 @@ public class ExpectBoolean_Tests {
     @isTest
     public static void ExpectShouldBeFalseForTrueThrowsDefaultMessage() {
         Expect.UseSystemAssert = false;
-        new ShouldBeFalseThrowsForTrue().verifyMessage('Expected false value');
+        new ShouldBeFalseThrowsForTrue().verifyMessage(Expect.BOOLEAN_SHOULD_BE_FALSE_MESSAGE);
     }
 
     private class ShouldBeFalseForTrueThrowsSpecificMessage extends ThrowCheck {
@@ -60,7 +61,7 @@ public class ExpectBoolean_Tests {
     @isTest
     public static void ExpectShouldBeTrueForFalseThrowsDefaultMessage() {
         Expect.UseSystemAssert = false;
-        new ShouldBeTrueThrowsForFalse().verifyMessage('Expected true value');
+        new ShouldBeTrueThrowsForFalse().verifyMessage(Expect.BOOLEAN_SHOULD_BE_TRUE_MESSAGE);
     }
 
     private class ShouldBeTrueForFalseThrowsSpecificMessage extends ThrowCheck {
