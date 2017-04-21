@@ -1,6 +1,8 @@
 public class Expect {
     public static Boolean UseSystemAssert = true;
-
+    public static final String SHOULD_BE_MESSAGE = 'Expected {0} should{1} be {2}';
+    public static final String BOOLEAN_SHOULD_BE_FALSE_MESSAGE = 'Expected true should be false';
+    public static final String BOOLEAN_SHOULD_BE_TRUE_MESSAGE = 'Expected false should be true';
     public class AssertException extends System.Exception {}
 
     private static void assert(Boolean expected, String message) {
@@ -13,8 +15,18 @@ public class Expect {
         }
     }
 
-    public static final String BOOLEAN_SHOULD_BE_FALSE_MESSAGE = 'Expected true should be false';
-    public static final String BOOLEAN_SHOULD_BE_TRUE_MESSAGE = 'Expected false should be true';
+    public static String formatMessage(List<String> expectedDelimiterActuals) {
+        return String.format(SHOULD_BE_MESSAGE, expectedDelimiterActuals);
+    }
+
+    private static String[] shouldBe (Object expected, Object actual) {
+        return new List<String>{String.valueOf(expected), '', String.valueOf(actual)};
+    }
+
+    private static String[] shouldNotBe(Object expected, Object actual) {
+        return new List<String>{String.valueOf(expected), ' not', String.valueOf(actual)};
+    }
+
     public class ExpectBoolean {
         private final Boolean expected;
 
@@ -42,8 +54,6 @@ public class Expect {
         }
     }
 
-    //probably we can use this string for the other implementations as well?
-    public static final String INTEGER_SHOULD_BE_MESSAGE = 'Expected {0} should{1} be {2}';
     public class ExpectInteger {
         private final Integer expected;
 
@@ -51,15 +61,39 @@ public class Expect {
             this.expected = expected;
         }
         public void shouldEqual(Integer actual) {
-            shouldEqual(actual, String.format(INTEGER_SHOULD_BE_MESSAGE, new String[]{String.valueOf(expected), '', String.valueOf(actual)}));
+            shouldEqual(actual, formatMessage(shouldBe(expected, actual)));
         }
         public void shouldEqual(Integer actual, String message) {
             assert(expected == actual, message);
         }
         public void shouldNotEqual(Integer actual) {
-            shouldNotEqual(actual, String.format(INTEGER_SHOULD_BE_MESSAGE, new String[]{String.valueOf(expected), ' not', String.valueOf(actual)}));
+            shouldNotEqual(actual, formatMessage(shouldNotBe(expected, actual)));
         }
         public void shouldNotEqual(Integer actual, String message) {
+            assert(expected != actual, message);
+        }
+    }
+
+    public class ExpectObject {
+        private final Object expected;
+
+        private ExpectObject(Object expected) {
+            this.expected = expected;
+        }
+
+        public void shouldEqual(Object actual) {
+            shouldEqual(actual, formatMessage(shouldBe(expected, actual)));
+        }
+
+        public void shouldEqual(Object actual, String message) {
+            assert(expected == actual, message);
+        }
+
+        public void shouldNotEqual(Object actual) {
+            shouldNotEqual(actual, formatMessage(shouldNotBe(expected, actual)));
+        }
+
+        public void shouldNotEqual(Object actual, String message) {
             assert(expected != actual, message);
         }
     }
@@ -69,5 +103,9 @@ public class Expect {
     }
     public static ExpectInteger that(Integer expected) {
         return new ExpectInteger(expected);
+    }
+
+    public static ExpectObject that(Object expected) {
+        return new ExpectObject(expected);
     }
 }
