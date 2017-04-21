@@ -44,6 +44,8 @@ public class Expect {
 
     //probably we can use this string for the other implementations as well?
     public static final String INTEGER_SHOULD_BE_MESSAGE = 'Expected {0} should{1} be {2}';
+    public static final String INTEGER_SHOULD_BE_LESS_MESSAGE = 'Expected {0} should be less than {1}';
+    public static final String INTEGER_SHOULD_BE_GREATER_MESSAGE = 'Expected {0} should be greater than {1}';
     public class ExpectInteger {
         private final Integer expected;
 
@@ -51,16 +53,36 @@ public class Expect {
             this.expected = expected;
         }
         public void shouldEqual(Integer actual) {
-            shouldEqual(actual, String.format(INTEGER_SHOULD_BE_MESSAGE, new String[]{String.valueOf(expected), '', String.valueOf(actual)}));
+            shouldEqual(actual, String.format(INTEGER_SHOULD_BE_MESSAGE, new String[]{
+                String.valueOf(expected), '', String.valueOf(actual)}));
         }
         public void shouldEqual(Integer actual, String message) {
             assert(expected == actual, message);
         }
         public void shouldNotEqual(Integer actual) {
-            shouldNotEqual(actual, String.format(INTEGER_SHOULD_BE_MESSAGE, new String[]{String.valueOf(expected), ' not', String.valueOf(actual)}));
+            shouldNotEqual(actual, String.format(INTEGER_SHOULD_BE_MESSAGE, new String[]{
+                String.valueOf(expected), ' not', String.valueOf(actual)}));
         }
         public void shouldNotEqual(Integer actual, String message) {
             assert(expected != actual, message);
+        }
+        public void shouldBeLessThan(Integer actual, string message) {
+            assert(expected < actual, message);
+        }
+        public void shouldBeLessThan(Integer actual) {
+            shouldBeLessThan(actual, String.format(INTEGER_SHOULD_BE_LESS_MESSAGE, new String[]{
+                String.valueOf(expected),
+                String.valueOf(actual)
+            }));
+        }
+        public void shouldBeGreaterThan(Integer actual, string message) {
+            assert(expected > actual, message);
+        }
+        public void shouldBeGreaterThan(Integer actual) {
+            shouldBeGreaterThan(actual, String.format(INTEGER_SHOULD_BE_GREATER_MESSAGE, new String[]{
+                String.valueOf(expected),
+                String.valueOf(actual)
+            }));
         }
     }
 
