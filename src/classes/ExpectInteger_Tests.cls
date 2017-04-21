@@ -28,7 +28,7 @@ public class ExpectInteger_Tests {
     }
 
     @isTest
-    static void ExpectEqualNonMatchingValueShouldThrowCustomMessage() {
+    static void ExpectShouldEqualNonMatchingValueShouldThrowCustomMessage() {
         Expect.UseSystemAssert = false;
         new ShouldEqualNonMatchingValueShouldThrowCustomMessage('Unequal').verifyMessage('Unequal');
     }
@@ -126,7 +126,6 @@ public class ExpectInteger_Tests {
             Expect.that(5).shouldBeGreaterThan(7, this.message);
         }
     }
-
 
     @isTest
     static void ExpectShouldBeLessThanValuesDoesNotThrow() {
