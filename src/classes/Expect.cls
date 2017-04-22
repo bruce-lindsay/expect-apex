@@ -47,6 +47,7 @@ public class Expect {
     public static final String INTEGER_SHOULD_BE_LESS_MESSAGE = 'Expected {0} should be less than {1}';
     public static final String INTEGER_SHOULD_BE_LESS_OR_EQUAL_MESSAGE = 'Expected {0} should be less than or equal to {1}';
     public static final String INTEGER_SHOULD_BE_GREATER_MESSAGE = 'Expected {0} should be greater than {1}';
+    public static final String INTEGER_SHOULD_BE_GREATER_OR_EQUAL_MESSAGE = 'Expected {0} should be greater than or equal to {1}';
     public class ExpectInteger {
         private final Integer expected;
 
@@ -94,6 +95,15 @@ public class Expect {
         }
         public ExpectInteger shouldBeGreaterThan(Integer actual) {
             return shouldBeGreaterThan(actual, String.format(INTEGER_SHOULD_BE_GREATER_MESSAGE, new String[]{
+                String.valueOf(expected),
+                String.valueOf(actual)
+            }));
+        }
+        public ExpectInteger shouldBeGreaterThanOrEqualTo(Integer actual, string message) {
+            return assertThis(expected >= actual, message);
+        }
+        public ExpectInteger shouldBeGreaterThanOrEqualTo(Integer actual) {
+            return shouldBeGreaterThanOrEqualTo(actual, String.format(INTEGER_SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, new String[]{
                 String.valueOf(expected),
                 String.valueOf(actual)
             }));
