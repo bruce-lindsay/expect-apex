@@ -166,7 +166,7 @@ public class ExpectInteger_Tests {
         Expect.that(7).shouldBeBetween(8, 6);
     }
 
-    private class ShouldBeBeBetweenThrows extends ThrowCheck {
+    private class ShouldBeBetweenThrows extends ThrowCheck {
         protected override void testCase() {
             Expect.that(5).shouldBeBetween(6, 7);
         }
@@ -176,14 +176,14 @@ public class ExpectInteger_Tests {
     }
 
     @isTest
-    static void ExpectShouldBeBeBetweenThrowsThrowsDefaultMessage() {
-        new ShouldBeBeBetweenThrows()
+    static void ExpectShouldBeBetweenThrowsThrowsDefaultMessage() {
+        new ShouldBeBetweenThrows()
             .verifyMessage('Expected 5 should be between 6 and 7');
     }
 
     @isTest
-    static void ExpectShouldBeBeBetweenThrowsSpecificMessage() {
-        new ShouldBeBeBetweenThrows()
+    static void ExpectShouldBeBetweenThrowsSpecificMessage() {
+        new ShouldBeBetweenThrows()
             .verifyCustomMessage('outside allowed range');
     }
 
