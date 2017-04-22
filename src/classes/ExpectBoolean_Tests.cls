@@ -88,8 +88,8 @@ public class ExpectBoolean_Tests {
     @isTest
     public static void ExpectShouldEqualThrowsForMismatchDefaultMessage() {
         Expect.UseSystemAssert = false;
-        new ShouldEqualThrowsForMismatchDefaultMessage(true, false).verifyMessage('Expected true should equal false');
-        new ShouldEqualThrowsForMismatchDefaultMessage(false, true).verifyMessage('Expected false should equal true');
+        new ShouldEqualThrowsForMismatchDefaultMessage(true, false).verifyMessage('Expected true should be false');
+        new ShouldEqualThrowsForMismatchDefaultMessage(false, true).verifyMessage('Expected false should be true');
     }
 
     private class ShouldEqualThrowsForMismatchSpecificMessage extends ThrowCheck {
