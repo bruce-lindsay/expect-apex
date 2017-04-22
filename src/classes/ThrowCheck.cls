@@ -1,11 +1,7 @@
 public abstract class ThrowCheck {
     final String ASSERTION_MESSAGE = 'Expect.AssertException expected';
-    protected virtual void testCase() {
-        System.assert(false, 'not implemented');
-    }
-    protected virtual void testCase(string message) {
-        System.assert(false, 'not implemented');
-    }
+    protected abstract void testCase();
+    protected abstract void testCase(string message);
     public string verify() {
         Expect.UseSystemAssert = false;
         try {
