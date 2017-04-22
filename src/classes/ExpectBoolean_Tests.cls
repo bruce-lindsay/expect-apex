@@ -12,7 +12,7 @@ public class ExpectBoolean_Tests {
     @isTest
     public static void ExpectShouldBeFalseForTrueThrowsDefaultMessage() {
         new ShouldBeFalseThrowsForTrue()
-            .verifyMessage(Expect.BOOLEAN_SHOULD_BE_FALSE_MESSAGE);
+            .verifyMessage(ExpectBoolean.BOOLEAN_SHOULD_BE_FALSE_MESSAGE);
     }
 
     @isTest
@@ -43,7 +43,7 @@ public class ExpectBoolean_Tests {
     @isTest
     public static void ExpectShouldBeTrueForFalseThrowsDefaultMessage() {
         new ShouldBeTrueThrowsForFalse()
-            .verifyMessage(Expect.BOOLEAN_SHOULD_BE_TRUE_MESSAGE);
+            .verifyMessage(ExpectBoolean.BOOLEAN_SHOULD_BE_TRUE_MESSAGE);
     }
 
     @isTest
