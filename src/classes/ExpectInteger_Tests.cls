@@ -103,4 +103,11 @@ public class ExpectInteger_Tests {
     static void ExpectShouldBeLessThanValuesDoesNotThrow() {
         Expect.that(5).shouldBeLessThan(7);
     }
+
+    @isTest
+    static void ExpectShouldIntegerChainDoesNotThrow() {
+        Expect.that(5).shouldBeLessThan(7)
+            .andit.shouldBeGreaterThan(1)
+            .andit.shouldEqual(5);
+    }
 }
