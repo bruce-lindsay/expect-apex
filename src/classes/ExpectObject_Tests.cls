@@ -1,11 +1,11 @@
 @isTest
 public class ExpectObject_Tests {
     @isTest
-    static void ExpectEqualObjectsShouldNotThrow() {
+    static void ExpectNotEqualObjectsShouldNotThrow() {
         Object one = new List<Account>{new Account(Name = 'Hello', Phone = '1')};
         Object two = new List<Account>{new Account(Phone = '1', Name = 'Hello')};
 
-        Expect.that(one).shouldEqual(two);
+        Expect.that(one).shouldNotEqual(two);
     }
 
     @isTest

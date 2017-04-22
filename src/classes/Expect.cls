@@ -57,7 +57,7 @@ public class Expect {
         }
 
         public void shouldEqual(Object actual, String message) {
-            assert(expected == actual, message);
+            assert(JSON.serialize(expected).equals(JSON.serialize(actual)), message);
         }
 
         public void shouldNotEqual(Object actual) {
@@ -65,7 +65,7 @@ public class Expect {
         }
 
         public void shouldNotEqual(Object actual, String message) {
-            assert(expected != actual, message);
+            assert(!JSON.serialize(expected).equals(JSON.serialize(actual)), message);
         }
 
         public void shouldBeGreaterThan(Object actual) {
@@ -73,7 +73,7 @@ public class Expect {
         }
 
         public void shouldBeGreaterThan(Object actual, String message) {
-            assert(JSON.serialize(expected).hashCode() > JSON.serialize(actual).hashCode(), message);
+            assert(JSON.serialize(expected) > JSON.serialize(actual), message);
         }
 
         public void shouldBeGreaterThanOrEqual(Object actual) {
@@ -81,7 +81,7 @@ public class Expect {
         }
 
         public void shouldBeGreaterThanOrEqual(Object actual, String message) {
-            assert(JSON.serialize(expected).hashCode() >= JSON.serialize(actual).hashCode(), message);
+            assert(JSON.serialize(expected) >= JSON.serialize(actual), message);
         }
 
         public void shouldBeLessThan(Object actual) {
@@ -89,7 +89,7 @@ public class Expect {
         }
 
         public void shouldBeLessThan(Object actual, String message) {
-            assert(JSON.serialize(expected).hashCode() < JSON.serialize(actual).hashCode(), message);
+            assert(JSON.serialize(expected) < JSON.serialize(actual), message);
         }
 
         public void shouldBeLessThanOrEqual(Object actual) {
@@ -97,7 +97,7 @@ public class Expect {
         }
 
         public void shouldBeLessThanOrEqual(Object actual, String message) {
-            assert(JSON.serialize(expected).hashCode() <= JSON.serialize(actual).hashCode(), message);
+            assert(JSON.serialize(expected) <= JSON.serialize(actual), message);
         }
 
         public void shouldBeFalse() {
