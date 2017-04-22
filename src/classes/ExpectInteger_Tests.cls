@@ -159,6 +159,35 @@ public class ExpectInteger_Tests {
     }
 
     @isTest
+    static void ExpectShouldBeBetweenDoesNotThrow() {
+        Expect.that(7).shouldBeBetween(7, 8);
+        Expect.that(7).shouldBeBetween(6, 7);
+        Expect.that(7).shouldBeBetween(6, 8);
+        Expect.that(7).shouldBeBetween(8, 6);
+    }
+
+    private class ShouldBeBeBetweenThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that(5).shouldBeBetween(6, 7);
+        }
+        protected override void testCase(String message) {
+            Expect.that(5).shouldBeBetween(6, 7, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldBeBeBetweenThrowsThrowsDefaultMessage() {
+        new ShouldBeBeBetweenThrows()
+            .verifyMessage('Expected 5 should be between 6 and 7');
+    }
+
+    @isTest
+    static void ExpectShouldBeBeBetweenThrowsSpecificMessage() {
+        new ShouldBeBeBetweenThrows()
+            .verifyCustomMessage('outside allowed range');
+    }
+
+    @isTest
     static void ExpectShouldIntegerChainDoesNotThrow() {
         Expect.that(5).shouldBeLessThan(7)
             .andit.shouldBeGreaterThan(1)

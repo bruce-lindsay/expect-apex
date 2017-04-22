@@ -48,6 +48,7 @@ public class Expect {
     public static final String INTEGER_SHOULD_BE_LESS_OR_EQUAL_MESSAGE = 'Expected {0} should be less than or equal to {1}';
     public static final String INTEGER_SHOULD_BE_GREATER_MESSAGE = 'Expected {0} should be greater than {1}';
     public static final String INTEGER_SHOULD_BE_GREATER_OR_EQUAL_MESSAGE = 'Expected {0} should be greater than or equal to {1}';
+    public static final String INTEGER_BETWEEN_MESSAGE = 'Expected {0} should be between {1} and {2}';
     public class ExpectInteger {
         private final Integer expected;
 
@@ -107,6 +108,21 @@ public class Expect {
                 String.valueOf(expected),
                 String.valueOf(actual)
             }));
+        }
+        public ExpectInteger shouldBeBetween(Integer rangeStart, Integer rangeEnd) {
+            return shouldBeBetween(rangeStart, rangeEnd,
+                String.format(INTEGER_BETWEEN_MESSAGE, new String[]{
+                    String.valueOf(expected),
+                    String.valueOf(rangeStart),
+                    String.valueOf(rangeEnd)
+                }));
+        }
+        public ExpectInteger shouldBeBetween(Integer rangeStart, Integer rangeEnd, string message) {
+            Boolean testedBetween = (rangeStart < rangeEnd) ?
+                rangeStart <= this.expected && this.expected <= rangeEnd :
+                rangeEnd <= this.expected && this.expected <= rangeStart;
+
+            return assertThis(testedBetween, message);
         }
         public ExpectInteger andIt { get { return this; } }
     }
