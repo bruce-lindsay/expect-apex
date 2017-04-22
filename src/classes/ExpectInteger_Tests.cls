@@ -79,6 +79,33 @@ public class ExpectInteger_Tests {
     }
 
     @isTest
+    static void ExpectShouldBeLessThanOrEqualToDoesNotThrow() {
+        Expect.that(7).shouldBeLessThanOrEqualTo(7);
+        Expect.that(7).shouldBeLessThanOrEqualTo(8);
+    }
+
+    private class ShouldBeLessThanOrEqualToThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that(7).shouldBeLessThanOrEqualTo(5);
+        }
+        protected override void testCase(String message) {
+            Expect.that(7).shouldBeLessThanOrEqualTo(5, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanOrEqualToThrowsDefaultMessage() {
+        new ShouldBeLessThanOrEqualToThrows()
+            .verifyMessage('Expected 7 should be less than or equal to 5');
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanOrEqualToThrowsCustomMessage() {
+        new ShouldBeLessThanOrEqualToThrows()
+            .verifyCustomMessage('too high');
+    }
+
+    @isTest
     static void ExpectShouldBeGreaterThanDoesNotThrow() {
         Expect.that(7).shouldBeGreaterThan(5);
     }
