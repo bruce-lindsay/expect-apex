@@ -9,56 +9,42 @@ public class ExpectInteger_Tests {
         protected override void testCase() {
             Expect.that(1).shouldEqual(2);
         }
+        protected override void testCase(string message) {
+            Expect.that(1).shouldEqual(2, message);
+        }
     }
 
     @isTest
     static void ExpectShouldEqualNonMatchingValuesDoesThrow() {
-        Expect.UseSystemAssert = false;
-        new ShouldEqualNonMatchingValueShouldThrow().verifyMessage('Expected 1 should be 2');
-    }
-
-    private class ShouldEqualNonMatchingValueShouldThrowCustomMessage extends ThrowCheck {
-        private final String message;
-        private ShouldEqualNonMatchingValueShouldThrowCustomMessage(String message) {
-            this.message = message;
-        }
-        protected override void testCase() {
-            Expect.that(1).shouldEqual(2, this.message);
-        }
+        new ShouldEqualNonMatchingValueShouldThrow()
+            .verifyMessage('Expected 1 should be 2');
     }
 
     @isTest
     static void ExpectShouldEqualNonMatchingValueShouldThrowCustomMessage() {
-        Expect.UseSystemAssert = false;
-        new ShouldEqualNonMatchingValueShouldThrowCustomMessage('Unequal').verifyMessage('Unequal');
+        new ShouldEqualNonMatchingValueShouldThrow()
+            .verifyCustomMessage('Unequal');
     }
 
     private class ShouldNotEqualMatchingValuesDoesThrow extends ThrowCheck {
         protected override void testCase() {
             Expect.that(1).shouldNotEqual(1);
         }
+        protected override void testCase(string message) {
+            Expect.that(1).shouldNotEqual(1, message);
+        }
     }
 
     @isTest
     static void ExpectShouldNotEqualMatchingValuesDoesThrow() {
-        Expect.UseSystemAssert = false;
-        new ShouldNotEqualMatchingValuesDoesThrow().verifyMessage('Expected 1 should not be 1');
-    }
-
-    private class ShouldNotEqualMatchingValuesDoesThrowCustomMessage extends ThrowCheck {
-        private final String message;
-        private ShouldNotEqualMatchingValuesDoesThrowCustomMessage(String message) {
-            this.message = message;
-        }
-        protected override void testCase() {
-            Expect.that(1).shouldNotEqual(1, this.message);
-        }
+        new ShouldNotEqualMatchingValuesDoesThrow()
+            .verifyMessage('Expected 1 should not be 1');
     }
 
     @isTest
     static void ExpectShouldNotEqualMatchingValuesDoesThrowCustomMessage() {
-        Expect.UseSystemAssert = false;
-        new ShouldNotEqualMatchingValuesDoesThrowCustomMessage('equaled').verifyMessage('equaled');
+        new ShouldNotEqualMatchingValuesDoesThrow()
+            .verifyCustomMessage('equaled');
     }
 
     @isTest
@@ -68,30 +54,23 @@ public class ExpectInteger_Tests {
 
     @isTest
     static void ExpectShouldBeLessThanValuesDoesThrow() {
-        Expect.UseSystemAssert = false;
-        new ShouldBeLessThanValuesDoesThrow().verifyMessage('Expected 7 should be less than 5');
+        new ShouldBeLessThanValuesDoesThrow()
+            .verifyMessage('Expected 7 should be less than 5');
     }
 
     private class ShouldBeLessThanValuesDoesThrow extends ThrowCheck {
         protected override void testCase() {
             Expect.that(7).shouldBeLessThan(5);
         }
+        protected override void testCase(String message) {
+            Expect.that(7).shouldBeLessThan(5, message);
+        }
     }
 
     @isTest
     static void ExpectShouldBeLessThanValuesDoesThrowCustomMessage() {
-        Expect.UseSystemAssert = false;
-        new ShouldBeLessThanValuesDoesThrowCustomMessage('too high').verifyMessage('too high');
-    }
-
-    private class ShouldBeLessThanValuesDoesThrowCustomMessage extends ThrowCheck {
-        private final String message;
-        public ShouldBeLessThanValuesDoesThrowCustomMessage(String message) {
-            this.message = message;
-        }
-        protected override void testCase() {
-            Expect.that(7).shouldBeLessThan(5, this.message);
-        }
+        new ShouldBeLessThanValuesDoesThrow()
+            .verifyCustomMessage('too high');
     }
 
     @isTest
@@ -101,30 +80,23 @@ public class ExpectInteger_Tests {
 
     @isTest
     static void ExpectShouldBeGreaterThanValuesDoesThrow() {
-        Expect.UseSystemAssert = false;
-        new ShouldBeGreaterThanValuesDoesThrow().verifyMessage('Expected 5 should be greater than 7');
+        new ShouldBeGreaterThanValuesDoesThrow()
+            .verifyMessage('Expected 5 should be greater than 7');
     }
 
     private class ShouldBeGreaterThanValuesDoesThrow extends ThrowCheck {
         protected override void testCase() {
             Expect.that(5).shouldBeGreaterThan(7);
         }
+        protected override void testCase(String message) {
+            Expect.that(5).shouldBeGreaterThan(7, message);
+        }
     }
 
     @isTest
     static void ExpectShouldBeGreaterThanValuesDoesThrowCustomMessage() {
-        Expect.UseSystemAssert = false;
-        new ShouldBeGreaterThanValuesDoesThrowCustomMessage('too low').verifyMessage('too low');
-    }
-
-    private class ShouldBeGreaterThanValuesDoesThrowCustomMessage extends ThrowCheck {
-        private final String message;
-        private ShouldBeGreaterThanValuesDoesThrowCustomMessage(STring message) {
-            this.message = message;
-        }
-        protected override void testCase() {
-            Expect.that(5).shouldBeGreaterThan(7, this.message);
-        }
+        new ShouldBeGreaterThanValuesDoesThrow()
+            .verifyCustomMessage('too low');
     }
 
     @isTest

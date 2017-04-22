@@ -4,28 +4,21 @@ public class ExpectBoolean_Tests {
         protected override void testCase() {
             Expect.that(true).shouldBeFalse();
         }
-    }
-
-    @isTest
-    public static void ExpectShouldBeFalseForTrueThrowsDefaultMessage() {
-        Expect.UseSystemAssert = false;
-        new ShouldBeFalseThrowsForTrue().verifyMessage(Expect.BOOLEAN_SHOULD_BE_FALSE_MESSAGE);
-    }
-
-    private class ShouldBeFalseForTrueThrowsSpecificMessage extends ThrowCheck {
-        private final string message;
-        private ShouldBeFalseForTrueThrowsSpecificMessage(String m) {
-            this.message = m;
-        }
-        protected override void testCase() {
+        protected override void testCase(string message) {
             Expect.that(true).shouldBeFalse(message);
         }
     }
 
     @isTest
+    public static void ExpectShouldBeFalseForTrueThrowsDefaultMessage() {
+        new ShouldBeFalseThrowsForTrue()
+            .verifyMessage(Expect.BOOLEAN_SHOULD_BE_FALSE_MESSAGE);
+    }
+
+    @isTest
     public static void ExpectShouldBeFalseForTrueThrowsSpecificMessage() {
-        Expect.UseSystemAssert = false;
-        new ShouldBeFalseForTrueThrowsSpecificMessage('False').verifyMessage('False');
+        new ShouldBeFalseThrowsForTrue()
+            .verifyCustomMessage('False');
     }
 
     @isTest
@@ -42,29 +35,21 @@ public class ExpectBoolean_Tests {
         protected override void testCase() {
             Expect.that(false).shouldBeTrue();
         }
+        protected override void testCase(string message) {
+            Expect.that(false).shouldBeTrue(message);
+        }
     }
 
     @isTest
     public static void ExpectShouldBeTrueForFalseThrowsDefaultMessage() {
-        Expect.UseSystemAssert = false;
-        new ShouldBeTrueThrowsForFalse().verifyMessage(Expect.BOOLEAN_SHOULD_BE_TRUE_MESSAGE);
-    }
-
-    private class ShouldBeTrueForFalseThrowsSpecificMessage extends ThrowCheck {
-        private final string message;
-        private ShouldBeTrueForFalseThrowsSpecificMessage(String m) {
-            this.message = m;
-        }
-        protected override void testCase() {
-            Expect.that(false).shouldBeTrue(this.message);
-        }
+        new ShouldBeTrueThrowsForFalse()
+            .verifyMessage(Expect.BOOLEAN_SHOULD_BE_TRUE_MESSAGE);
     }
 
     @isTest
     public static void ExpectShouldBeTrueForFalseThrowsSpecificMessage() {
-        Expect.UseSystemAssert = false;
-        new ShouldBeTrueForFalseThrowsSpecificMessage('Truth')
-            .verifyMessage('Truth');
+        new ShouldBeTrueThrowsForFalse()
+            .verifyCustomMessage('Truth');
     }
 
     @isTest
@@ -73,39 +58,32 @@ public class ExpectBoolean_Tests {
         Expect.that(false).shouldEqual(false);
     }
 
-    private class ShouldEqualThrowsForMismatchDefaultMessage extends ThrowCheck {
+    private class ShouldEqualThrowsForMismatch extends ThrowCheck {
         final Boolean ths;
         final Boolean that;
-        private ShouldEqualThrowsForMismatchDefaultMessage(Boolean ths, Boolean that) {
+        private ShouldEqualThrowsForMismatch(Boolean ths, Boolean that) {
             this.ths = ths;
             this.that = that;
         }
         protected override void testCase() {
             Expect.that(ths).shouldEqual(that);
         }
+        protected override void testCase(string message) {
+            Expect.that(ths).shouldEqual(that, message);
+        }
     }
 
     @isTest
     public static void ExpectShouldEqualThrowsForMismatchDefaultMessage() {
-        Expect.UseSystemAssert = false;
-        new ShouldEqualThrowsForMismatchDefaultMessage(true, false).verifyMessage('Expected true should equal false');
-        new ShouldEqualThrowsForMismatchDefaultMessage(false, true).verifyMessage('Expected false should equal true');
-    }
-
-    private class ShouldEqualThrowsForMismatchSpecificMessage extends ThrowCheck {
-        private final string message;
-        private ShouldEqualThrowsForMismatchSpecificMessage(String m) {
-            this.message = m;
-        }
-        protected override void testCase() {
-            Expect.that(false).shouldEqual(true, this.message);
-        }
+        new ShouldEqualThrowsForMismatch(true, false)
+            .verifyMessage('Expected true should equal false');
+        new ShouldEqualThrowsForMismatch(false, true)
+            .verifyMessage('Expected false should equal true');
     }
 
     @isTest
     public static void ExpectShouldEqualThrowsForMismatchSpecificMessage() {
-        Expect.UseSystemAssert = false;
-        new ShouldEqualThrowsForMismatchSpecificMessage('Mismatched')
-            .verifyMessage('Mismatched');
+        new ShouldEqualThrowsForMismatch(true, false)
+            .verifyCustomMessage('Mismatched');
     }
 }
