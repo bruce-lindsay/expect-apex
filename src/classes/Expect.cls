@@ -55,6 +55,14 @@ public virtual class Expect {
         return new Expect(expected);
     }
 
+    public static ExpectBoolean that(Boolean expected) {
+        return new ExpectBoolean(expected);
+    }
+
+    public static ExpectInteger that(Integer expected) {
+        return new ExpectInteger(expected);
+    }
+
     private String expectedMessage(Object actual, String delimiter) {
         return String.format(SHOULD_BE_MESSAGE, new String[]{
             String.valueOf(expected),

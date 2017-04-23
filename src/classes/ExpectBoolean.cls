@@ -7,9 +7,7 @@ public class ExpectBoolean extends Expect {
         this.expected = expected;
     }
     public ExpectBoolean andThat { get { return this; } }
-    public static ExpectBoolean that(Boolean expected) {
-        return new ExpectBoolean(expected);
-    }
+
     public ExpectBoolean shouldBeFalse() {
         shouldBeFalse(BOOLEAN_SHOULD_BE_FALSE_MESSAGE);
         return this;

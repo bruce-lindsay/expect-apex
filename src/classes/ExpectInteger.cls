@@ -13,9 +13,6 @@ public class ExpectInteger extends Expect {
 
     public ExpectInteger andIt { get { return this; } }
 
-    public static ExpectInteger that(Integer expected) {
-        return new ExpectInteger(expected);
-    }
     public ExpectInteger shouldEqual(Integer actual) {
         return shouldEqual(actual, String.format(SHOULD_BE_MESSAGE, new String[]{
             String.valueOf(expected), '', String.valueOf(actual)}));
