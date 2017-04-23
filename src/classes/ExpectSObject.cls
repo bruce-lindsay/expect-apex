@@ -26,7 +26,7 @@ public class ExpectSObject extends Expect {
     }
 
     public ExpectSObject shouldNotEqual(SObject actual, String message) {
-        assert(expected != actual, message);
+        assert(expected !== actual, message);
         return this;
     }
 
