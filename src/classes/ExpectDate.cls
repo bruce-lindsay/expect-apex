@@ -2,6 +2,7 @@ public class ExpectDate extends Expect {
     private final Date expected;
 
     public ExpectDate(Date expected) {
+        super(expected);
         this.expected = expected;
     }
     private ExpectDate assertThis(Boolean test, String message) {

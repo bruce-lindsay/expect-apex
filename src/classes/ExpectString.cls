@@ -25,11 +25,29 @@ public class ExpectString extends Expect {
     }
 
     public ExpectString shouldNotEqual(String actual) {
-        return shouldNotEqual(actual, expectedMessage(actual,'not '));
+        return shouldNotEqual(actual, expectedMessage(actual,' not'));
     }
 
     public ExpectString shouldNotEqual(String actual, String message) {
         assert(!expected.equals(actual), message);
+        return this;
+    }
+
+    public ExpectString shouldContain(String actual) {
+        return shouldContain(actual, expectedMessage(actual, SHOULD_CONTAIN_MESSAGE, ''));
+    }
+
+    public ExpectString shouldContain(String actual, String message) {
+        assert(expected.contains(actual), message);
+        return this;
+    }
+
+    public ExpectString shouldNotContain(String actual) {
+        return shouldNotContain(actual, expectedMessage(actual, SHOULD_CONTAIN_MESSAGE, ' not'));
+    }
+
+    public ExpectString shouldNotContain(String actual, String message) {
+        assert(expected.containsNone(actual), message);
         return this;
     }
 }

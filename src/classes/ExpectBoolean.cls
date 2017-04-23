@@ -2,6 +2,7 @@ public class ExpectBoolean extends Expect {
     private final Boolean expected;
 
     public ExpectBoolean(Boolean expected) {
+        super(expected);
         this.expected = expected;
     }
     public ExpectBoolean andThat { get { return this; } }

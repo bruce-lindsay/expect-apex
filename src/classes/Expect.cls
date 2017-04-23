@@ -8,6 +8,8 @@ public virtual class Expect {
     public static final String SHOULD_BE_BETWEEN_MESSAGE = 'Expected {0} should be between {1} and {2}';
     public static final String SHOULD_BE_FALSE_MESSAGE = 'Expected true should be false';
     public static final String SHOULD_BE_TRUE_MESSAGE = 'Expected false should be true';
+    public static final String SHOULD_CONTAIN_MESSAGE = 'Expected {0} should{1} contain {2}';
+
     private Object expected;
 
     protected Expect() {}
@@ -70,7 +72,6 @@ public virtual class Expect {
         return new ExpectInteger(expected);
     }
 
-
     public static ExpectString that(String expected) {
         return new ExpectString(expected);
     }
@@ -79,8 +80,16 @@ public virtual class Expect {
         return new ExpectDate(expected);
     }
 
+    public static ExpectSObject that(SObject expected) {
+        return new ExpectSObject(expected);
+    }
+
     protected String expectedMessage(Object actual, String delimiter) {
-        return String.format(SHOULD_BE_MESSAGE, new String[]{
+        return expectedMessage(actual, SHOULD_BE_MESSAGE, delimiter);
+    }
+
+    protected String expectedMessage(Object actual, String formatString, String delimiter) {
+        return String.format(formatString, new String[] {
             String.valueOf(expected),
             delimiter,
             String.valueOf(actual)

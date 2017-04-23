@@ -2,6 +2,7 @@ public class ExpectInteger extends Expect {
     private final Integer expected;
 
     public ExpectInteger(Integer expected) {
+        super(expected);
         this.expected = expected;
     }
 
