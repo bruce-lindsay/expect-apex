@@ -67,7 +67,7 @@ public virtual class Expect {
         return new ExpectString(expected);
     }
 
-    private String expectedMessage(Object actual, String delimiter) {
+    protected String expectedMessage(Object actual, String delimiter) {
         return String.format(SHOULD_BE_MESSAGE, new String[]{
             String.valueOf(expected),
             delimiter,
