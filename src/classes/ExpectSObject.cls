@@ -51,9 +51,11 @@ public class ExpectSObject extends Expect {
         return this;
     }
 
-    public static void shouldBeOK() {
+    public ExpectSObject shouldBeOK() {
         if(!isSuccess) {
-            throw new Expect.AssertException('Should have succeeded');
+            throw new Expect.AssertException('Should have succeeded, instead got error: ' + exceptionString);
         }
+
+        return this;
     }
 }
