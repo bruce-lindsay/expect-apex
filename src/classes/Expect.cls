@@ -18,4 +18,7 @@ public class Expect {
     public static ExpectInteger that(Integer expected) {
         return new ExpectInteger(expected);
     }
+    public static ExpectDate that(Date expected) {
+        return new ExpectDate(expected);
+    }
 }
