@@ -1,23 +1,23 @@
 @isTest
 public class ExpectDate_Tests {
-    private static final Date MARCH_ONE = Date.newInstance(2001,03,01);
-    private static final Date MARCH_TWO = Date.newInstance(2001,03,02);
-    private static final Date MARCH_THREE = Date.newInstance(2001,03,03);
+    private static final Date MARCH_ONE = Date.newInstance(2001, 03, 01);
+    private static final Date MARCH_TWO = Date.newInstance(2001, 03, 02);
+    private static final Date MARCH_THREE = Date.newInstance(2001, 03, 03);
     private static final String MARCH_ONE_S = String.valueOf(MARCH_ONE);
     private static final String MARCH_TWO_S = String.valueOf(MARCH_TWO);
     private static final String MARCH_THREE_S = String.valueOf(MARCH_THREE);
 
     @isTest
     static void ExpectShouldEqualMatchingValueDoesNotThrow() {
-        Expect.that(Date.newInstance(2001, 03, 01)).shouldEqual(Date.newInstance(2001, 03, 01));
+        Expect.that(MARCH_ONE).shouldEqual(MARCH_ONE);
     }
 
     private class ShouldEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(Date.newInstance(2001, 03, 01)).shouldEqual(Date.newInstance(2001, 03, 02));
+            Expect.that(MARCH_ONE).shouldEqual(MARCH_TWO);
         }
         protected override void testCase(string message) {
-            Expect.that(Date.newInstance(2001, 03, 01)).shouldEqual(Date.newInstance(2001, 03, 02), message);
+            Expect.that(MARCH_ONE).shouldEqual(MARCH_TWO, message);
         }
     }
 
@@ -35,15 +35,15 @@ public class ExpectDate_Tests {
 
     @isTest
     static void ExpectShouldNotEqualDoesNotThrow() {
-        Expect.that(Date.newInstance(2001, 03, 01)).shouldNotEqual(Date.newInstance(2001, 03, 02));
+        Expect.that(MARCH_ONE).shouldNotEqual(MARCH_TWO);
     }
 
     private class ShouldNotEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(Date.newInstance(2001, 03, 01)).shouldNotEqual(Date.newInstance(2001, 03, 01));
+            Expect.that(MARCH_ONE).shouldNotEqual(MARCH_ONE);
         }
         protected override void testCase(string message) {
-            Expect.that(Date.newInstance(2001, 03, 01)).shouldNotEqual(Date.newInstance(2001, 03, 01), message);
+            Expect.that(MARCH_ONE).shouldNotEqual(MARCH_ONE, message);
         }
     }
 
@@ -61,15 +61,15 @@ public class ExpectDate_Tests {
 
     @isTest
     static void ExpectShouldBeLessThanDoesNotThrow() {
-        Expect.that(Date.newInstance(2001, 03, 01)).shouldBeLessThan(Date.newInstance(2001, 03, 02));
+        Expect.that(MARCH_ONE).shouldBeLessThan(MARCH_TWO);
     }
 
     private class ShouldBeLessThanThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(Date.newInstance(2001, 03, 02)).shouldBeLessThan(Date.newInstance(2001, 03, 01));
+            Expect.that(MARCH_TWO).shouldBeLessThan(MARCH_ONE);
         }
         protected override void testCase(String message) {
-            Expect.that(Date.newInstance(2001, 03, 02)).shouldBeLessThan(Date.newInstance(2001, 03, 01), message);
+            Expect.that(MARCH_TWO).shouldBeLessThan(MARCH_ONE, message);
         }
     }
 
