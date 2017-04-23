@@ -1,5 +1,5 @@
 public class ExpectString extends Expect {
-    private String expected;
+    private final String expected;
 
     public ExpectString(String expected) {
         super(expected);

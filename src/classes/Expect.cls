@@ -10,7 +10,7 @@ public virtual class Expect {
     public static final String SHOULD_BE_TRUE_MESSAGE = 'Expected false should be true';
     public static final String SHOULD_CONTAIN_MESSAGE = 'Expected {0} should{1} contain {2}';
 
-    private Object expected;
+    private final Object expected;
 
     protected Expect() {}
 

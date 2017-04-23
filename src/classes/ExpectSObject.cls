@@ -2,7 +2,7 @@ public class ExpectSObject extends Expect {
     private static Boolean isSuccess = true;
     private static Boolean isFail = false;
     private static String exceptionString;
-    private SObject expected;
+    private final SObject expected;
 
     public ExpectSObject(SObject expected) {
         super(expected);
