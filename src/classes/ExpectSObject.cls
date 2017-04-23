@@ -30,12 +30,14 @@ public class ExpectSObject extends Expect {
         return this;
     }
 
-    public ExpectSObject whenTryingToUpdate() {
+    public ExpectSObject whenTryingToUpsert() {
         try {
-            update this.expected;
+            upsert this.expected;
+            System.assert(false, new Expect.AssertException('Upsert failed'));
         } catch (Exception ex) {
-            isFail = true;
-            isSuccess = false;
+            Boolean isUnintendedException = ex instanceof Expect.AssertException;
+            isFail = !isUnintendedException;
+            isSuccess = isUnintendedException;
             exceptionString = ex.getMessage();
         }
 

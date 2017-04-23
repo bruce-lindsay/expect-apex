@@ -1,39 +1,25 @@
 @isTest
 public class ExpectSObject_Tests {
-    static Contact one;
-    static Contact two;
-
-    static void testSetup() {
-        one = TestDataGenerator.createContact();
-        insert one;
-
-        two = TestDataGenerator.createContact();
-        two.Email = 'somethingInTheWaySheMoves@gmail.com';
-        two.EmailUnique__c = two.Email;
-        insert two;
-
-        two.Email = one.Email;
-    }
+    static String tooLong = 'Account*Name*Cannot*Be*More*Than*255*Characters=================================================================================================================================================================================================================';
+    static Account account = new Account(Name = tooLong);
 
     @isTest
     static void ExpectShouldProperlyFailForExceptionOnUpdate() {
-        testSetup();
-        Expect.that(two).whenTryingToUpdate().shouldFailWithMessage('DUPLICATE_VALUE');
+        Expect.that(account).whenTryingToUpsert().shouldFailWithMessage('');
     }
 
     private class ShouldNotBeOK extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(two).whenTryingToUpdate().shouldBeOK();
+            Expect.that(account).whenTryingToUpsert().shouldBeOK();
         }
 
         protected override void testCase(String message) {
-            Expect.that(two).whenTryingToUpdate().shouldBeOK();
+            Expect.that(account).whenTryingToUpsert().shouldBeOK();
         }
     }
 
     @isTest
     static void ExpectShouldNotBeOKForThrownExceptionOnUpdate() {
-        testSetup();
         new ShouldNotBeOK().verify();
     }
 }
