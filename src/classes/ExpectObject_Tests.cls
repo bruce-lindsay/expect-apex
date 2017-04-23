@@ -18,7 +18,6 @@ public class ExpectObject_Tests {
 
     @isTest
     static void ExpectNotEqualReferenceObjectsShouldThrowForStrictEquals() {
-        Expect.UseSystemAssert = false;
         new StrictlyNonEqualObjects().verify();
         new StrictlyNonEqualObjects().verifyCustomMessage('hello');
     }
@@ -93,7 +92,6 @@ public class ExpectObject_Tests {
 
     @isTest
     static void ExpectEqualObjectsShouldThrowForNotEquals() {
-        Expect.UseSystemAssert = false;
         new NotEqualObject().verify();
         new NotEqualObject().verifyCustomMessage('hello');
     }

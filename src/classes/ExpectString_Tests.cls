@@ -22,7 +22,6 @@ public class ExpectString_Tests {
 
     @isTest
     static void ExpectNonEqualLettersShouldThrowForEquals() {
-        Expect.UseSystemAssert = false;
         new NonEqualLetters().verifyMessage(String.format(Expect.SHOULD_BE_MESSAGE, new String[]{'a','', 'b'}));
         new NonEqualLetters().verifyCustomMessage('hello');
     }
@@ -38,7 +37,6 @@ public class ExpectString_Tests {
 
     @isTest
     static void ExpectEqualLettersShouldThrowForNotEquals() {
-        Expect.UseSystemAssert = false;
         new EqualLettersThrowsForNotEqual().verifyMessage(String.format(Expect.SHOULD_BE_MESSAGE, new String[]{'a','not ', 'a'}));
         new EqualLettersThrowsForNotEqual().verifyCustomMessage('hello');
     }
@@ -54,7 +52,6 @@ public class ExpectString_Tests {
 
     @isTest
     static void ExpectACapitalLetterShouldNotEqualALowerCaseLetter() {
-        Expect.UseSystemAssert = false;
         new CapitalLetter().verifyMessage(String.format(Expect.SHOULD_BE_MESSAGE, new String[]{'a','','A'}));
         new CapitalLetter().verifyCustomMessage('A != a');
     }
