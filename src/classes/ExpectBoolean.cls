@@ -2,9 +2,13 @@ public class ExpectBoolean extends Expect {
     private final Boolean expected;
 
     public ExpectBoolean(Boolean expected) {
-        super(expected);
         this.expected = expected;
     }
+
+    protected override String getExpectedAsString() {
+        return String.valueOf(expected);
+    }
+
     public ExpectBoolean andThat { get { return this; } }
 
     public ExpectBoolean shouldBeFalse() {

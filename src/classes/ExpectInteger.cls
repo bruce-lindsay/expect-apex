@@ -2,8 +2,11 @@ public class ExpectInteger extends Expect {
     private final Integer expected;
 
     public ExpectInteger(Integer expected) {
-        super(expected);
         this.expected = expected;
+    }
+
+    protected override String getExpectedAsString() {
+        return String.valueOf(expected);
     }
 
     public ExpectInteger andIt { get { return this; } }

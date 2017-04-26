@@ -2,8 +2,11 @@ public class ExpectString extends Expect {
     private final String expected;
 
     public ExpectString(String expected) {
-        super(expected);
         this.expected = expected;
+    }
+
+    protected override String getExpectedAsString() {
+        return expected;
     }
 
     public ExpectString shouldEqual(String actual) {

@@ -5,8 +5,11 @@ public class ExpectSObject extends Expect {
     private final SObject expected;
 
     public ExpectSObject(SObject expected) {
-        super(expected);
         this.expected = expected;
+    }
+
+    protected override String getExpectedAsString() {
+        return String.valueOf(expected);
     }
 
     public ExpectSObject andIt { get { return this; } }
