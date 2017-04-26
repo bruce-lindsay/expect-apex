@@ -81,4 +81,37 @@ public class ExpectSObject_Tests {
     static void ExpectShouldNotBeOKForThrownExceptionOnUpdate() {
         new ShouldNotBeOK().verify();
     }
+
+    @isTest
+    static void ExpectShouldHandleComparingSObjectTypes() {
+        Expect.that(account).sObjectTypeEquals(new Account());
+        Expect.that(account).sObjectTypeEquals(Schema.Account.SObjectType);
+    }
+
+    private class DifferentSObjectTypes extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that(new Contact()).sObjectTypeEquals(new Account());
+        }
+
+        protected override void testCase(String message) {
+            Expect.that(new Contact()).sObjectTypeEquals(account.getSObjectType(), message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldThrowExceptionForDifferentSObjectTypesForEquals() {
+        new DifferentSObjectTypes().verifyMessage('Expected Contact:{} should be Account');
+        new DifferentSObjectTypes().verifyCustomMessage('Should throw for different SObjectTypes!');
+    }
+
+    @isTest
+    static void ExpectShouldHandleNulls() {
+        Account thisAccount;
+        Expect.that(thisAccount).shouldEqual(null);
+
+        thisAccount = new Account(Name = 'Not too long');
+        insert thisAccount;
+
+        Expect.that(thisAccount.Id).shouldNotEqual(null);
+    }
 }

@@ -33,6 +33,24 @@ public class ExpectSObject extends Expect {
         return this;
     }
 
+    public ExpectSObject sObjectTypeEquals(SObject actual) {
+        return sObjectTypeEquals(actual, expectedMessage(actual.getSObjectType(),''));
+    }
+
+    public ExpectSObject sObjectTypeEquals(SObject actual, String message) {
+        assert(expected.getSObjectType() == actual.getSObjectType(), message);
+        return this;
+    }
+
+    public ExpectSObject sObjectTypeEquals(SObjectType objType) {
+        return sObjectTypeEquals(objType, expectedMessage(objType,''));
+    }
+
+    public ExpectSObject sObjectTypeEquals(SObjectType objType, String message) {
+        assert(expected.getSObjectType() == objType, message);
+        return this;
+    }
+
     public ExpectSObject whenTryingToUpsert() {
         try {
             upsert this.expected;
