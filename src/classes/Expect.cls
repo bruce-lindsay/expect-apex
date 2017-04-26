@@ -1,4 +1,4 @@
-public virtual class Expect {
+public abstract class Expect {
     public static Boolean UseSystemAssert = true;
     public static final String SHOULD_BE_MESSAGE = 'Expected {0} should{1} be {2}';
     public static final String SHOULD_BE_LESS_MESSAGE = 'Expected {0} should be less than {1}';
@@ -10,15 +10,9 @@ public virtual class Expect {
     public static final String SHOULD_BE_TRUE_MESSAGE = 'Expected false should be true';
     public static final String SHOULD_CONTAIN_MESSAGE = 'Expected {0} should{1} contain {2}';
 
-    private final Object expected;
-
     protected Expect() {}
 
-    public Expect(Object expected) {
-        this.expected = expected;
-    }
-
-    public Expect andIt { get { return this; } }
+    protected abstract String getExpectedAsString();
 
     public class AssertException extends System.Exception {}
 
@@ -32,36 +26,8 @@ public virtual class Expect {
         }
     }
 
-    public Expect shouldEqual(Object actual) {
-        shouldEqual(actual, expectedMessage(actual,''));
-        return this;
-    }
-
-    public Expect shouldEqual(Object actual, String message) {
-        assert(expected === actual, message);
-        return this;
-    }
-
-    public Expect shouldNotEqual(Object actual) {
-        return shouldNotEqual(actual, expectedMessage(actual,' not'));
-    }
-
-    public Expect shouldNotEqual(Object actual, String message) {
-        assert(expected != actual, message);
-        return this;
-    }
-
-    public Expect isEquivalentTo(Object actual) {
-        return isEquivalentTo(actual, expectedMessage(actual,''));
-    }
-
-    public Expect isEquivalentTo(Object actual, String message) {
-        assert(expected == actual, message);
-        return this;
-    }
-
-    public static Expect that(Object expected) {
-        return new Expect(expected);
+    public static ExpectObject that(Object expected) {
+        return new ExpectObject(expected);
     }
 
     public static ExpectBoolean that(Boolean expected) {
@@ -90,7 +56,7 @@ public virtual class Expect {
 
     protected String expectedMessage(Object actual, String formatString, String delimiter) {
         return String.format(formatString, new String[] {
-            String.valueOf(expected),
+            this.getExpectedAsString(),
             delimiter,
             String.valueOf(actual)
         });
