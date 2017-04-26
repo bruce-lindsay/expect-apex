@@ -1,30 +1,30 @@
 @isTest
 public class ExpectDate_Tests {
-    private static final Date MARCH_ONE = Date.newInstance(2001, 03, 01);
-    private static final Date MARCH_TWO = Date.newInstance(2001, 03, 02);
-    private static final Date MARCH_THREE = Date.newInstance(2001, 03, 03);
-    private static final String MARCH_ONE_S = String.valueOf(MARCH_ONE);
-    private static final String MARCH_TWO_S = String.valueOf(MARCH_TWO);
-    private static final String MARCH_THREE_S = String.valueOf(MARCH_THREE);
+    private static final Date DATE_LOWEST = Date.newInstance(2001, 03, 01);
+    private static final Date DATE_MIDDLE = Date.newInstance(2001, 03, 02);
+    private static final Date DATE_HIGHEST = Date.newInstance(2001, 03, 03);
+    private static final String DATE_LOWEST_S = String.valueOf(DATE_LOWEST);
+    private static final String DATE_MIDDLE_S = String.valueOf(DATE_MIDDLE);
+    private static final String DATE_HIGHEST_S = String.valueOf(DATE_HIGHEST);
 
     @isTest
     static void ExpectShouldEqualMatchingValueDoesNotThrow() {
-        Expect.that(MARCH_ONE).shouldEqual(MARCH_ONE);
+        Expect.that(DATE_LOWEST).shouldEqual(DATE_LOWEST);
     }
 
     private class ShouldEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(MARCH_ONE).shouldEqual(MARCH_TWO);
+            Expect.that(DATE_LOWEST).shouldEqual(DATE_MIDDLE);
         }
         protected override void testCase(string message) {
-            Expect.that(MARCH_ONE).shouldEqual(MARCH_TWO, message);
+            Expect.that(DATE_LOWEST).shouldEqual(DATE_MIDDLE, message);
         }
     }
 
     @isTest
     static void ExpectShouldEqualThrowsDefaultMessage() {
         new ShouldEqualThrows()
-            .verifyMessage('Expected ' + MARCH_ONE_S + ' should be ' + MARCH_TWO_S);
+            .verifyMessage('Expected ' + DATE_LOWEST_S + ' should be ' + DATE_MIDDLE_S);
     }
 
     @isTest
@@ -35,22 +35,22 @@ public class ExpectDate_Tests {
 
     @isTest
     static void ExpectShouldNotEqualDoesNotThrow() {
-        Expect.that(MARCH_ONE).shouldNotEqual(MARCH_TWO);
+        Expect.that(DATE_LOWEST).shouldNotEqual(DATE_MIDDLE);
     }
 
     private class ShouldNotEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(MARCH_ONE).shouldNotEqual(MARCH_ONE);
+            Expect.that(DATE_LOWEST).shouldNotEqual(DATE_LOWEST);
         }
         protected override void testCase(string message) {
-            Expect.that(MARCH_ONE).shouldNotEqual(MARCH_ONE, message);
+            Expect.that(DATE_LOWEST).shouldNotEqual(DATE_LOWEST, message);
         }
     }
 
     @isTest
     static void ExpectShouldNotEqualThrowsDefaultMessage() {
         new ShouldNotEqualThrows()
-            .verifyMessage('Expected ' + MARCH_ONE_S + ' should not be ' + MARCH_ONE_S);
+            .verifyMessage('Expected ' + DATE_LOWEST_S + ' should not be ' + DATE_LOWEST_S);
     }
 
     @isTest
@@ -61,22 +61,22 @@ public class ExpectDate_Tests {
 
     @isTest
     static void ExpectShouldBeLessThanDoesNotThrow() {
-        Expect.that(MARCH_ONE).shouldBeLessThan(MARCH_TWO);
+        Expect.that(DATE_LOWEST).shouldBeLessThan(DATE_MIDDLE);
     }
 
     private class ShouldBeLessThanThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(MARCH_TWO).shouldBeLessThan(MARCH_ONE);
+            Expect.that(DATE_MIDDLE).shouldBeLessThan(DATE_LOWEST);
         }
         protected override void testCase(String message) {
-            Expect.that(MARCH_TWO).shouldBeLessThan(MARCH_ONE, message);
+            Expect.that(DATE_MIDDLE).shouldBeLessThan(DATE_LOWEST, message);
         }
     }
 
     @isTest
     static void ExpectShouldBeLessThanThrowsDefaultMessage() {
         new ShouldBeLessThanThrows()
-            .verifyMessage('Expected ' + MARCH_TWO_S + ' should be less than ' + MARCH_ONE_S);
+            .verifyMessage('Expected ' + DATE_MIDDLE_S + ' should be less than ' + DATE_LOWEST_S);
     }
 
     @isTest
@@ -87,23 +87,23 @@ public class ExpectDate_Tests {
 
     @isTest
     static void ExpectShouldBeLessThanOrEqualToDoesNotThrow() {
-        Expect.that(MARCH_ONE).shouldBeLessThanOrEqualTo(MARCH_ONE);
-        Expect.that(MARCH_ONE).shouldBeLessThanOrEqualTo(MARCH_TWO);
+        Expect.that(DATE_LOWEST).shouldBeLessThanOrEqualTo(DATE_LOWEST);
+        Expect.that(DATE_LOWEST).shouldBeLessThanOrEqualTo(DATE_MIDDLE);
     }
 
     private class ShouldBeLessThanOrEqualToThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(MARCH_TWO).shouldBeLessThanOrEqualTo(MARCH_ONE);
+            Expect.that(DATE_MIDDLE).shouldBeLessThanOrEqualTo(DATE_LOWEST);
         }
         protected override void testCase(String message) {
-            Expect.that(MARCH_TWO).shouldBeLessThanOrEqualTo(MARCH_ONE, message);
+            Expect.that(DATE_MIDDLE).shouldBeLessThanOrEqualTo(DATE_LOWEST, message);
         }
     }
 
     @isTest
     static void ExpectShouldBeLessThanOrEqualToThrowsDefaultMessage() {
         new ShouldBeLessThanOrEqualToThrows()
-            .verifyMessage('Expected ' + MARCH_TWO_S + ' should be less than or equal to ' + MARCH_ONE_S);
+            .verifyMessage('Expected ' + DATE_MIDDLE_S + ' should be less than or equal to ' + DATE_LOWEST_S);
     }
 
     @isTest
@@ -114,22 +114,22 @@ public class ExpectDate_Tests {
 
     @isTest
     static void ExpectShouldBeGreaterThanDoesNotThrow() {
-        Expect.that(MARCH_TWO).shouldBeGreaterThan(MARCH_ONE);
+        Expect.that(DATE_MIDDLE).shouldBeGreaterThan(DATE_LOWEST);
     }
 
     private class ShouldBeGreaterThanThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(MARCH_ONE).shouldBeGreaterThan(MARCH_TWO);
+            Expect.that(DATE_LOWEST).shouldBeGreaterThan(DATE_MIDDLE);
         }
         protected override void testCase(String message) {
-            Expect.that(MARCH_ONE).shouldBeGreaterThan(MARCH_TWO, message);
+            Expect.that(DATE_LOWEST).shouldBeGreaterThan(DATE_MIDDLE, message);
         }
     }
 
     @isTest
     static void ExpectShouldBeGreaterThanThrowsDefaultMessage() {
         new ShouldBeGreaterThanThrows()
-            .verifyMessage('Expected ' + MARCH_ONE_S + ' should be greater than '+ MARCH_TWO_S);
+            .verifyMessage('Expected ' + DATE_LOWEST_S + ' should be greater than '+ DATE_MIDDLE_S);
     }
 
     @isTest
@@ -140,23 +140,23 @@ public class ExpectDate_Tests {
 
     @isTest
     static void ExpectShouldBeGreaterThanOrEqualToDoesNotThrow() {
-        Expect.that(MARCH_TWO).shouldBeGreaterThanOrEqualTo(MARCH_ONE);
-        Expect.that(MARCH_ONE).shouldBeGreaterThanOrEqualTo(MARCH_ONE);
+        Expect.that(DATE_MIDDLE).shouldBeGreaterThanOrEqualTo(DATE_LOWEST);
+        Expect.that(DATE_LOWEST).shouldBeGreaterThanOrEqualTo(DATE_LOWEST);
     }
 
     private class ShouldBeGreaterThanOrEqualToThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(MARCH_ONE).shouldBeGreaterThanOrEqualTo(MARCH_TWO);
+            Expect.that(DATE_LOWEST).shouldBeGreaterThanOrEqualTo(DATE_MIDDLE);
         }
         protected override void testCase(String message) {
-            Expect.that(MARCH_ONE).shouldBeGreaterThanOrEqualTo(MARCH_TWO, message);
+            Expect.that(DATE_LOWEST).shouldBeGreaterThanOrEqualTo(DATE_MIDDLE, message);
         }
     }
 
     @isTest
     static void ExpectShouldBeGreaterThanOrEqualToThrowsDefaultMessage() {
         new ShouldBeGreaterThanOrEqualToThrows()
-            .verifyMessage('Expected ' + MARCH_ONE_S + ' should be greater than or equal to ' + MARCH_TWO_S);
+            .verifyMessage('Expected ' + DATE_LOWEST_S + ' should be greater than or equal to ' + DATE_MIDDLE_S);
     }
 
     @isTest
@@ -167,25 +167,25 @@ public class ExpectDate_Tests {
 
     @isTest
     static void ExpectShouldBeBetweenDoesNotThrow() {
-        Expect.that(MARCH_TWO).shouldBeBetween(MARCH_TWO, MARCH_THREE);
-        Expect.that(MARCH_TWO).shouldBeBetween(MARCH_ONE, MARCH_TWO);
-        Expect.that(MARCH_TWO).shouldBeBetween(MARCH_ONE, MARCH_THREE);
-        Expect.that(MARCH_TWO).shouldBeBetween(MARCH_THREE, MARCH_TWO);
+        Expect.that(DATE_MIDDLE).shouldBeBetween(DATE_MIDDLE, DATE_HIGHEST);
+        Expect.that(DATE_MIDDLE).shouldBeBetween(DATE_LOWEST, DATE_MIDDLE);
+        Expect.that(DATE_MIDDLE).shouldBeBetween(DATE_LOWEST, DATE_HIGHEST);
+        Expect.that(DATE_MIDDLE).shouldBeBetween(DATE_HIGHEST, DATE_MIDDLE);
     }
 
     private class ShouldBeBetweenThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(MARCH_ONE).shouldBeBetween(MARCH_TWO, MARCH_THREE);
+            Expect.that(DATE_LOWEST).shouldBeBetween(DATE_MIDDLE, DATE_HIGHEST);
         }
         protected override void testCase(String message) {
-            Expect.that(MARCH_ONE).shouldBeBetween(MARCH_TWO, MARCH_THREE, message);
+            Expect.that(DATE_LOWEST).shouldBeBetween(DATE_MIDDLE, DATE_HIGHEST, message);
         }
     }
 
     @isTest
     static void ExpectShouldBeBetweenThrowsThrowsDefaultMessage() {
         new ShouldBeBetweenThrows()
-            .verifyMessage('Expected ' + MARCH_ONE_S + ' should be between ' + MARCH_TWO_S + ' and ' + MARCH_THREE_S);
+            .verifyMessage('Expected ' + DATE_LOWEST_S + ' should be between ' + DATE_MIDDLE_S + ' and ' + DATE_HIGHEST_S);
     }
 
     @isTest
@@ -196,8 +196,8 @@ public class ExpectDate_Tests {
 
     @isTest
     static void ExpectDateChains() {
-        Expect.that(MARCH_ONE).shouldBeLessThan(MARCH_TWO)
-            .andit.shouldEqual(MARCH_ONE);
+        Expect.that(DATE_LOWEST).shouldBeLessThan(DATE_MIDDLE)
+            .andit.shouldEqual(DATE_LOWEST);
     }
 
 }
