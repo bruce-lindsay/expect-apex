@@ -1,0 +1,203 @@
+@isTest
+public class Expect{{datatype}}_Tests {
+    private static final {{datatype}} {{upper datatype}}_LOWEST = {{{lowestValue}}};
+    private static final {{datatype}} {{upper datatype}}_MIDDLE = {{{middleValue}}};
+    private static final {{datatype}} {{upper datatype}}_HIGHEST = {{{highestValue}}};
+    private static final String {{upper datatype}}_LOWEST_S = String.valueOf({{upper datatype}}_LOWEST);
+    private static final String {{upper datatype}}_MIDDLE_S = String.valueOf({{upper datatype}}_MIDDLE);
+    private static final String {{upper datatype}}_HIGHEST_S = String.valueOf({{upper datatype}}_HIGHEST);
+
+    @isTest
+    static void ExpectShouldEqualMatchingValueDoesNotThrow() {
+        Expect.that({{upper datatype}}_LOWEST).shouldEqual({{upper datatype}}_LOWEST);
+    }
+
+    private class ShouldEqualThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that({{upper datatype}}_LOWEST).shouldEqual({{upper datatype}}_MIDDLE);
+        }
+        protected override void testCase(string message) {
+            Expect.that({{upper datatype}}_LOWEST).shouldEqual({{upper datatype}}_MIDDLE, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldEqualThrowsDefaultMessage() {
+        new ShouldEqualThrows()
+            .verifyMessage('Expected ' + {{upper datatype}}_LOWEST_S + ' should be ' + {{upper datatype}}_MIDDLE_S);
+    }
+
+    @isTest
+    static void ExpectShouldEqualThrowsSpecificMessage() {
+        new ShouldEqualThrows()
+            .verifyCustomMessage('Unequal');
+    }
+
+    @isTest
+    static void ExpectShouldNotEqualDoesNotThrow() {
+        Expect.that({{upper datatype}}_LOWEST).shouldNotEqual({{upper datatype}}_MIDDLE);
+    }
+
+    private class ShouldNotEqualThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that({{upper datatype}}_LOWEST).shouldNotEqual({{upper datatype}}_LOWEST);
+        }
+        protected override void testCase(string message) {
+            Expect.that({{upper datatype}}_LOWEST).shouldNotEqual({{upper datatype}}_LOWEST, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldNotEqualThrowsDefaultMessage() {
+        new ShouldNotEqualThrows()
+            .verifyMessage('Expected ' + {{upper datatype}}_LOWEST_S + ' should not be ' + {{upper datatype}}_LOWEST_S);
+    }
+
+    @isTest
+    static void ExpectShouldNotEqualThrowsSpecificMessage() {
+        new ShouldNotEqualThrows()
+            .verifyCustomMessage('equaled');
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanDoesNotThrow() {
+        Expect.that({{upper datatype}}_LOWEST).shouldBeLessThan({{upper datatype}}_MIDDLE);
+    }
+
+    private class ShouldBeLessThanThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that({{upper datatype}}_MIDDLE).shouldBeLessThan({{upper datatype}}_LOWEST);
+        }
+        protected override void testCase(String message) {
+            Expect.that({{upper datatype}}_MIDDLE).shouldBeLessThan({{upper datatype}}_LOWEST, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanThrowsDefaultMessage() {
+        new ShouldBeLessThanThrows()
+            .verifyMessage('Expected ' + {{upper datatype}}_MIDDLE_S + ' should be less than ' + {{upper datatype}}_LOWEST_S);
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanThrowsCustomMessage() {
+        new ShouldBeLessThanThrows()
+            .verifyCustomMessage('too high');
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanOrEqualToDoesNotThrow() {
+        Expect.that({{upper datatype}}_LOWEST).shouldBeLessThanOrEqualTo({{upper datatype}}_LOWEST);
+        Expect.that({{upper datatype}}_LOWEST).shouldBeLessThanOrEqualTo({{upper datatype}}_MIDDLE);
+    }
+
+    private class ShouldBeLessThanOrEqualToThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that({{upper datatype}}_MIDDLE).shouldBeLessThanOrEqualTo({{upper datatype}}_LOWEST);
+        }
+        protected override void testCase(String message) {
+            Expect.that({{upper datatype}}_MIDDLE).shouldBeLessThanOrEqualTo({{upper datatype}}_LOWEST, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanOrEqualToThrowsDefaultMessage() {
+        new ShouldBeLessThanOrEqualToThrows()
+            .verifyMessage('Expected ' + {{upper datatype}}_MIDDLE_S + ' should be less than or equal to ' + {{upper datatype}}_LOWEST_S);
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanOrEqualToThrowsCustomMessage() {
+        new ShouldBeLessThanOrEqualToThrows()
+            .verifyCustomMessage('too high');
+    }
+
+    @isTest
+    static void ExpectShouldBeGreaterThanDoesNotThrow() {
+        Expect.that({{upper datatype}}_MIDDLE).shouldBeGreaterThan({{upper datatype}}_LOWEST);
+    }
+
+    private class ShouldBeGreaterThanThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that({{upper datatype}}_LOWEST).shouldBeGreaterThan({{upper datatype}}_MIDDLE);
+        }
+        protected override void testCase(String message) {
+            Expect.that({{upper datatype}}_LOWEST).shouldBeGreaterThan({{upper datatype}}_MIDDLE, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldBeGreaterThanThrowsDefaultMessage() {
+        new ShouldBeGreaterThanThrows()
+            .verifyMessage('Expected ' + {{upper datatype}}_LOWEST_S + ' should be greater than '+ {{upper datatype}}_MIDDLE_S);
+    }
+
+    @isTest
+    static void ExpectShouldBeGreaterThanThrowsSpecificMessage() {
+        new ShouldBeGreaterThanThrows()
+            .verifyCustomMessage('too low');
+    }
+
+    @isTest
+    static void ExpectShouldBeGreaterThanOrEqualToDoesNotThrow() {
+        Expect.that({{upper datatype}}_MIDDLE).shouldBeGreaterThanOrEqualTo({{upper datatype}}_LOWEST);
+        Expect.that({{upper datatype}}_LOWEST).shouldBeGreaterThanOrEqualTo({{upper datatype}}_LOWEST);
+    }
+
+    private class ShouldBeGreaterThanOrEqualToThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that({{upper datatype}}_LOWEST).shouldBeGreaterThanOrEqualTo({{upper datatype}}_MIDDLE);
+        }
+        protected override void testCase(String message) {
+            Expect.that({{upper datatype}}_LOWEST).shouldBeGreaterThanOrEqualTo({{upper datatype}}_MIDDLE, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldBeGreaterThanOrEqualToThrowsDefaultMessage() {
+        new ShouldBeGreaterThanOrEqualToThrows()
+            .verifyMessage('Expected ' + {{upper datatype}}_LOWEST_S + ' should be greater than or equal to ' + {{upper datatype}}_MIDDLE_S);
+    }
+
+    @isTest
+    static void ExpectShouldBeGreaterThanOrEqualToThrowsSpecificMessage() {
+        new ShouldBeGreaterThanOrEqualToThrows()
+            .verifyCustomMessage('too low');
+    }
+
+    @isTest
+    static void ExpectShouldBeBetweenDoesNotThrow() {
+        Expect.that({{upper datatype}}_MIDDLE).shouldBeBetween({{upper datatype}}_MIDDLE, {{upper datatype}}_HIGHEST);
+        Expect.that({{upper datatype}}_MIDDLE).shouldBeBetween({{upper datatype}}_LOWEST, {{upper datatype}}_MIDDLE);
+        Expect.that({{upper datatype}}_MIDDLE).shouldBeBetween({{upper datatype}}_LOWEST, {{upper datatype}}_HIGHEST);
+        Expect.that({{upper datatype}}_MIDDLE).shouldBeBetween({{upper datatype}}_HIGHEST, {{upper datatype}}_MIDDLE);
+    }
+
+    private class ShouldBeBetweenThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that({{upper datatype}}_LOWEST).shouldBeBetween({{upper datatype}}_MIDDLE, {{upper datatype}}_HIGHEST);
+        }
+        protected override void testCase(String message) {
+            Expect.that({{upper datatype}}_LOWEST).shouldBeBetween({{upper datatype}}_MIDDLE, {{upper datatype}}_HIGHEST, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldBeBetweenThrowsThrowsDefaultMessage() {
+        new ShouldBeBetweenThrows()
+            .verifyMessage('Expected ' + {{upper datatype}}_LOWEST_S + ' should be between ' + {{upper datatype}}_MIDDLE_S + ' and ' + {{upper datatype}}_HIGHEST_S);
+    }
+
+    @isTest
+    static void ExpectShouldBeBetweenThrowsSpecificMessage() {
+        new ShouldBeBetweenThrows()
+            .verifyCustomMessage('outside allowed range');
+    }
+
+    @isTest
+    static void Expect{{datatype}}Chains() {
+        Expect.that({{upper datatype}}_LOWEST).shouldBeLessThan({{upper datatype}}_MIDDLE)
+            .andit.shouldEqual({{upper datatype}}_LOWEST);
+    }
+
+}
