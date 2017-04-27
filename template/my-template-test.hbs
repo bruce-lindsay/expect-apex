@@ -1,5 +1,5 @@
 @isTest
-public class Expect{{datatype}}_Tests {
+public class Expect{{datatype}}{{#if subclass}}Base{{/if}}_Tests {
     private static final {{datatype}} {{upper datatype}}_LOWEST = {{{lowestValue}}};
     private static final {{datatype}} {{upper datatype}}_MIDDLE = {{{middleValue}}};
     private static final {{datatype}} {{upper datatype}}_HIGHEST = {{{highestValue}}};
