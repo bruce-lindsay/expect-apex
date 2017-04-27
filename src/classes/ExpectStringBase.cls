@@ -7,7 +7,7 @@ public virtual class ExpectStringBase extends Expect {
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
-    private ExpectString assertThis(Boolean test, String message) {
+    protected ExpectString assertThis(Boolean test, String message) {
         Expect.assert(test, message);
         return (ExpectString) this;
     }
@@ -15,7 +15,7 @@ public virtual class ExpectStringBase extends Expect {
         return shouldEqual(actual, expectedShouldBeMessage(actual));
     }
     public ExpectString shouldEqual(String actual, String message) {
-        return assertThis(expected == actual, message);
+        return assertThis(expected.equals(actual), message);
     }
     public ExpectString shouldNotEqual(String actual) {
         return shouldNotEqual(actual, expectedShouldNotBeMessage(actual));

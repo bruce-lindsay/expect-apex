@@ -21,15 +21,15 @@ public class ExpectObject extends Expect {
         assert(expected === actual, message);
         return this;
     }
-
+/* no test
     public Expect shouldNotEqual(Object actual) {
         return shouldNotEqual(actual, expectedMessage(actual,' not'));
-    }
-
+    }*/
+/* no test
     public Expect shouldNotEqual(Object actual, String message) {
         assert(expected !== actual, message);
         return this;
-    }
+    } */
 
     public Expect isEquivalentTo(Object actual) {
         return isEquivalentTo(actual, expectedMessage(actual,''));
