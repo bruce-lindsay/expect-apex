@@ -20,8 +20,7 @@ public class ExpectSObject extends Expect {
     }
 
     public ExpectSObject shouldEqual(SObject actual, String message) {
-        assert(expected === actual, message);
-        return this;
+        return assertSObject(expected === actual, message);
     }
 
     public ExpectSObject shouldNotEqual(SObject actual) {
@@ -29,8 +28,7 @@ public class ExpectSObject extends Expect {
     }
 
     public ExpectSObject shouldNotEqual(SObject actual, String message) {
-        assert(expected !== actual, message);
-        return this;
+        return assertSObject(expected !== actual, message);
     }
 
     public ExpectSObject sObjectTypeEquals(SObject actual) {
@@ -38,8 +36,7 @@ public class ExpectSObject extends Expect {
     }
 
     public ExpectSObject sObjectTypeEquals(SObject actual, String message) {
-        assert(expected.getSObjectType() == actual.getSObjectType(), message);
-        return this;
+        return sObjectTypeEquals(actual.getSObjectType(), message);
     }
 
     public ExpectSObject sObjectTypeEquals(SObjectType objType) {
@@ -47,14 +44,17 @@ public class ExpectSObject extends Expect {
     }
 
     public ExpectSObject sObjectTypeEquals(SObjectType objType, String message) {
-        assert(expected.getSObjectType() == objType, message);
-        return this;
+        return assertSObject(expected.getSObjectType() == objType, message);
     }
 
-    public ExpectSObject whenTryingToUpsert() {
+    public ExpectSObject shouldFailToUpsert() {
+        return shouldFailToUpsertWithMessage('Upsert failed');
+    }
+
+    public ExpectSObject shouldFailToUpsertWithMessage(String message) {
         try {
             upsert this.expected;
-            System.assert(false, new Expect.AssertException('Upsert failed'));
+            System.assert(false, new Expect.AssertException(message));
         } catch (Exception ex) {
             Boolean isUnintendedException = ex instanceof Expect.AssertException;
             isFail = !isUnintendedException;
@@ -70,8 +70,7 @@ public class ExpectSObject extends Expect {
             throw new Expect.AssertException('Should have failed');
         }
 
-        assert(exceptionString.contains(errorKeywords), expectedMessage(exceptionString, SHOULD_CONTAIN_MESSAGE, ' not'));
-        return this;
+        return assertSObject(exceptionString.contains(errorKeywords), expectedMessage(exceptionString, SHOULD_CONTAIN_MESSAGE, ' not'));
     }
 
     public ExpectSObject shouldBeOK() {
@@ -79,6 +78,11 @@ public class ExpectSObject extends Expect {
             throw new Expect.AssertException('Should have succeeded, instead got error: ' + exceptionString);
         }
 
+        return this;
+    }
+
+    private ExpectSObject assertSObject(Boolean test, String message) {
+        assert(test, message);
         return this;
     }
 }

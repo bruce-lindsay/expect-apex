@@ -1,6 +1,6 @@
 @isTest
 public class ExpectSObject_Tests {
-    static String tooLong = 'Account*Name*Cannot*Be*More*Than*255*Characters=================================================================================================================================================================================================================';
+    static String tooLong = 'Limit255Chars'.center(256, '=');
     static Account account = new Account(Name = tooLong);
 
     private static Account getAccount() { return new Account(); }
@@ -64,16 +64,16 @@ public class ExpectSObject_Tests {
 
     @isTest
     static void ExpectShouldProperlyFailForExceptionOnUpdate() {
-        Expect.that(account).whenTryingToUpsert().shouldFailWithMessage('');
+        Expect.that(account).shouldFailToUpsert().shouldFailWithMessage('');
     }
 
     private class ShouldNotBeOK extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(account).whenTryingToUpsert().shouldBeOK();
+            Expect.that(account).shouldFailToUpsert().shouldBeOK();
         }
 
         protected override void testCase(String message) {
-            Expect.that(account).whenTryingToUpsert().shouldBeOK();
+            Expect.that(account).shouldFailToUpsert().shouldBeOK();
         }
     }
 
@@ -113,5 +113,13 @@ public class ExpectSObject_Tests {
         insert thisAccount;
 
         Expect.that(thisAccount.Id).shouldNotEqual(null);
+    }
+
+    @isTest
+    static void ExpectEquivalenceShouldNotEqualEqualityForSObjects() {
+        Account oneAccount = getAccount();
+        Account twoAccount = getAccount();
+
+        Expect.that(oneAccount).shouldNotEqual(twoAccount);
     }
 }

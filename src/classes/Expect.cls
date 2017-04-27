@@ -19,10 +19,8 @@ public abstract class Expect {
     public static void assert(Boolean expected, String message) {
         if(UseSystemAssert) {
             System.assert(expected, message);
-        } else {
-            if(!expected) {
-                throw new Expect.AssertException(message);
-            }
+        } else if (!expected) {
+            throw new Expect.AssertException(message);
         }
     }
 
