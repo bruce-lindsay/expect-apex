@@ -24,6 +24,7 @@ const dataDateTime = {
 
 const dataString = {
     datatype: 'String',
+    subclass: true,
     lowestValue: '\'aaa\'',
     middleValue: '\'bbb\'',
     highestValue: '\'ccc\''
@@ -54,7 +55,7 @@ fs.readFile('my-template.hbs', 'utf-8', function(err, data) {
     console.log('loaded file ' + data.length);
     const templateClass = handlebars.compile(data);
     types.forEach(function(element) {
-        const fileName = 'Expect' + element.datatype;
+        const fileName = 'Expect' + element.datatype + ((element.subclass) ? 'Base' : '');
         fs.writeFile(fileName + '.cls', templateClass(element));
         copyXml(fileName + '.cls-meta.xml');
     });
@@ -67,7 +68,7 @@ fs.readFile('my-template-test.hbs', 'utf-8', function(err, data) {
     }
     const templateClass = handlebars.compile(data);
     types.forEach(function(element) {
-        const fileName = 'Expect' + element.datatype + '_Tests';
+        const fileName = 'Expect' + element.datatype + ((element.subclass) ? 'Base' : '') + '_Tests';
         fs.writeFile(fileName + '.cls', templateClass(element));
         copyXml(fileName + '.cls-meta.xml');
     });

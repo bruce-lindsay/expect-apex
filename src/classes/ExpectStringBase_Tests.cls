@@ -1,5 +1,5 @@
 @isTest
-public class ExpectString_Tests {
+public class ExpectStringBase_Tests {
     private static final String STRING_LOWEST = 'aaa';
     private static final String STRING_MIDDLE = 'bbb';
     private static final String STRING_HIGHEST = 'ccc';
