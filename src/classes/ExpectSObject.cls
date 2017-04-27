@@ -21,7 +21,7 @@ public class ExpectSObject extends Expect {
     }
 
     public ExpectSObject shouldNotEqual(SObject actual) {
-        return shouldNotEqual(actual, expectedMessage(actual,' not'));
+        return shouldNotEqual(actual, expectedShouldNotBeMessage(actual));
     }
 
     public ExpectSObject shouldNotEqual(SObject actual, String message) {

@@ -8,8 +8,7 @@ public class ExpectString extends ExpectStringBase {
     }
 
     public ExpectString shouldEqualIgnoreOrdinalCase(String actual, String message) {
-        assert(expected.equalsIgnoreCase(actual), message);
-        return this;
+        return assertThis(expected.equalsIgnoreCase(actual), message);
     }
 
     public ExpectString shouldContain(String actual) {
@@ -17,8 +16,7 @@ public class ExpectString extends ExpectStringBase {
     }
 
     public ExpectString shouldContain(String actual, String message) {
-        assert(expected.contains(actual), message);
-        return this;
+        return assertThis(expected.contains(actual), message);
     }
 
     public ExpectString shouldNotContain(String actual) {
@@ -26,7 +24,6 @@ public class ExpectString extends ExpectStringBase {
     }
 
     public ExpectString shouldNotContain(String actual, String message) {
-        assert(expected.containsNone(actual), message);
-        return this;
+        return assertThis(expected.containsNone(actual), message);
     }
 }
