@@ -4,6 +4,7 @@ public class ExpectSObject_Tests {
     static Account account = new Account(Name = tooLong);
 
     private static Account getAccount() { return new Account(); }
+    private static Account getAccountWithName() { return new Account(Name = 'NotTooLong'); }
 
     @isTest
     static void ExpectShouldEqualShouldNotThrowForSameSObject() {
@@ -64,33 +65,34 @@ public class ExpectSObject_Tests {
 
     @isTest
     static void ExpectShouldProperlyFailForExceptionOnUpdate() {
-        Expect.that(account).shouldFailToUpsert().shouldFailWithMessage('');
+        Expect.that(account).shouldFailToUpsertWithMessage('');
     }
 
     private class ShouldNotBeOK extends ThrowCheck {
+        Account acc = getAccountWithName();
         protected override void testCase() {
-            Expect.that(account).shouldFailToUpsert().shouldBeOK();
+            Expect.that(acc).shouldFailToUpsert();
         }
 
         protected override void testCase(String message) {
-            Expect.that(account).shouldFailToUpsert().shouldBeOK();
+            Expect.that(acc).shouldFailToUpsert();
         }
     }
 
     @isTest
-    static void ExpectShouldNotBeOKForThrownExceptionOnUpdate() {
+    static void ExpectExceptionShouldBeThrownIfShouldFailToUpsertIsCalledAndUpsertSucceeds() {
         new ShouldNotBeOK().verify();
     }
 
     @isTest
     static void ExpectShouldHandleComparingSObjectTypes() {
-        Expect.that(account).sObjectTypeEquals(new Account());
+        Expect.that(account).sObjectTypeEquals(getAccount());
         Expect.that(account).sObjectTypeEquals(Schema.Account.SObjectType);
     }
 
     private class DifferentSObjectTypes extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(new Contact()).sObjectTypeEquals(new Account());
+            Expect.that(new Contact()).sObjectTypeEquals(getAccount());
         }
 
         protected override void testCase(String message) {
@@ -109,7 +111,7 @@ public class ExpectSObject_Tests {
         Account thisAccount;
         Expect.that(thisAccount).shouldEqual(null);
 
-        thisAccount = new Account(Name = 'Not too long');
+        thisAccount = getAccountWithName();
         insert thisAccount;
 
         Expect.that(thisAccount.Id).shouldNotEqual(null);

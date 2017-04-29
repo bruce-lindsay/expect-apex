@@ -1,7 +1,4 @@
 public class ExpectSObject extends Expect {
-    private static Boolean isSuccess = true;
-    private static Boolean isFail = false;
-    private static String exceptionString;
     private final SObject expected;
 
     public ExpectSObject(SObject expected) {
@@ -54,28 +51,15 @@ public class ExpectSObject extends Expect {
     public ExpectSObject shouldFailToUpsertWithMessage(String message) {
         try {
             upsert this.expected;
-            System.assert(false, new Expect.AssertException(message));
+            throw new Expect.AssertException('Should have failed to upsert but didn\'t');
         } catch (Exception ex) {
-            Boolean isUnintendedException = ex instanceof Expect.AssertException;
-            isFail = !isUnintendedException;
-            isSuccess = isUnintendedException;
-            exceptionString = ex.getMessage();
-        }
-
-        return this;
-    }
-
-    public ExpectSObject shouldFailWithMessage(String errorKeywords) {
-        if(!isFail) {
-            throw new Expect.AssertException('Should have failed');
-        }
-
-        return assertSObject(exceptionString.contains(errorKeywords), expectedMessage(exceptionString, SHOULD_CONTAIN_MESSAGE, ' not'));
-    }
-
-    public ExpectSObject shouldBeOK() {
-        if(!isSuccess) {
-            throw new Expect.AssertException('Should have succeeded, instead got error: ' + exceptionString);
+            Boolean isIntendedException = !(ex instanceof Expect.AssertException);
+            if(isIntendedException) {
+                String exceptionString = ex.getMessage();
+                return assertSObject(exceptionString.contains(message), expectedMessage(exceptionString, SHOULD_CONTAIN_MESSAGE, ' not'));
+            } else {
+                throw ex;
+            }
         }
 
         return this;
