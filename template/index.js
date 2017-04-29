@@ -27,7 +27,8 @@ const dataString = {
     subclass: true,
     lowestValue: '\'aaa\'',
     middleValue: '\'bbb\'',
-    highestValue: '\'ccc\''
+    highestValue: '\'ccc\'',
+    equalityExpression: 'expected.equals(actual)'
 };
 
 

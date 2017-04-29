@@ -1,21 +1,29 @@
 public {{#if subclass}}virtual {{/if}}class Expect{{datatype}}{{#if subclass}}Base{{/if}} extends Expect {
     protected final {{datatype}} expected;
 
+{{#if subclass}}
+    protected Expect{{datatype}}Base({{datatype}} expected) {
+{{else}}
     public Expect{{datatype}}({{datatype}} expected) {
+{{/if}}
         this.expected = expected;
     }
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
-    private Expect{{datatype}} assertThis(Boolean test, String message) {
+    {{#if subclass}}protected{{else}}private{{/if}} Expect{{datatype}} assertThis(Boolean test, String message) {
         Expect.assert(test, message);
-        return this;
+        return {{#if subclass}}(Expect{{datatype}}) {{/if}}this;
     }
     public Expect{{datatype}} shouldEqual({{datatype}} actual) {
         return shouldEqual(actual, expectedShouldBeMessage(String.valueOf(actual)));
     }
     public Expect{{datatype}} shouldEqual({{datatype}} actual, String message) {
+{{#if equalityExpression}}
+        return assertThis({{equalityExpression}}, message);
+{{else}}
         return assertThis(expected == actual, message);
+{{/if}}
     }
     public Expect{{datatype}} shouldNotEqual({{datatype}} actual) {
         return shouldNotEqual(actual, expectedShouldNotBeMessage(String.valueOf(actual)));
@@ -57,5 +65,5 @@ public {{#if subclass}}virtual {{/if}}class Expect{{datatype}}{{#if subclass}}Ba
 
         return assertThis(testedBetween, message);
     }
-    public Expect{{datatype}} andIt { get { return this; } }
+    public Expect{{datatype}} andIt { get { return{{#if subclass}} (Expect{{datatype}}){{/if}} this; } }
 }
