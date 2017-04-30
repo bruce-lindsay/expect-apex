@@ -1,30 +1,27 @@
-public class ExpectDate {
-    //probably we can use this string for the other implementations as well?
-    public static final String DATE_SHOULD_BE_MESSAGE = 'Expected {0} should{1} be {2}';
-    public static final String DATE_SHOULD_BE_LESS_MESSAGE = 'Expected {0} should be less than {1}';
-    public static final String DATE_SHOULD_BE_LESS_OR_EQUAL_MESSAGE = 'Expected {0} should be less than or equal to {1}';
-    public static final String DATE_SHOULD_BE_GREATER_MESSAGE = 'Expected {0} should be greater than {1}';
-    public static final String DATE_SHOULD_BE_GREATER_OR_EQUAL_MESSAGE = 'Expected {0} should be greater than or equal to {1}';
-    public static final String DATE_BETWEEN_MESSAGE = 'Expected {0} should be between {1} and {2}';
-
+public class ExpectDate extends Expect {
     private final Date expected;
 
     public ExpectDate(Date expected) {
         this.expected = expected;
     }
+
+    protected override String getExpectedAsString() {
+        return String.valueOf(expected);
+    }
+
     private ExpectDate assertThis(Boolean test, String message) {
         Expect.assert(test, message);
         return this;
     }
     public ExpectDate shouldEqual(Date actual) {
-        return shouldEqual(actual, String.format(DATE_SHOULD_BE_MESSAGE, new String[]{
+        return shouldEqual(actual, String.format(SHOULD_BE_MESSAGE, new String[]{
             String.valueOf(expected), '', String.valueOf(actual)}));
     }
     public ExpectDate shouldEqual(Date actual, String message) {
         return assertThis(expected == actual, message);
     }
     public ExpectDate shouldNotEqual(Date actual) {
-        return shouldNotEqual(actual, String.format(DATE_SHOULD_BE_MESSAGE, new String[]{
+        return shouldNotEqual(actual, String.format(SHOULD_BE_MESSAGE, new String[]{
             String.valueOf(expected), ' not', String.valueOf(actual)}));
     }
     public ExpectDate shouldNotEqual(Date actual, String message) {
@@ -34,7 +31,7 @@ public class ExpectDate {
         return assertThis(expected < actual, message);
     }
     public ExpectDate shouldBeLessThan(Date actual) {
-        return shouldBeLessThan(actual, String.format(DATE_SHOULD_BE_LESS_MESSAGE, new String[]{
+        return shouldBeLessThan(actual, String.format(SHOULD_BE_LESS_MESSAGE, new String[]{
             String.valueOf(expected),
             String.valueOf(actual)
         }));
@@ -43,7 +40,7 @@ public class ExpectDate {
         return assertThis(expected <= actual, message);
     }
     public ExpectDate shouldBeLessThanOrEqualTo(Date actual) {
-        return shouldBeLessThanOrEqualTo(actual, String.format(DATE_SHOULD_BE_LESS_OR_EQUAL_MESSAGE, new String[]{
+        return shouldBeLessThanOrEqualTo(actual, String.format(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, new String[]{
             String.valueOf(expected),
             String.valueOf(actual)
         }));
@@ -52,7 +49,7 @@ public class ExpectDate {
         return assertThis(expected > actual, message);
     }
     public ExpectDate shouldBeGreaterThan(Date actual) {
-        return shouldBeGreaterThan(actual, String.format(DATE_SHOULD_BE_GREATER_MESSAGE, new String[]{
+        return shouldBeGreaterThan(actual, String.format(SHOULD_BE_GREATER_MESSAGE, new String[]{
             String.valueOf(expected),
             String.valueOf(actual)
         }));
@@ -61,14 +58,14 @@ public class ExpectDate {
         return assertThis(expected >= actual, message);
     }
     public ExpectDate shouldBeGreaterThanOrEqualTo(Date actual) {
-        return shouldBeGreaterThanOrEqualTo(actual, String.format(DATE_SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, new String[]{
+        return shouldBeGreaterThanOrEqualTo(actual, String.format(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, new String[]{
             String.valueOf(expected),
             String.valueOf(actual)
         }));
     }
     public ExpectDate shouldBeBetween(Date rangeStart, Date rangeEnd) {
         return shouldBeBetween(rangeStart, rangeEnd,
-            String.format(DATE_BETWEEN_MESSAGE, new String[]{
+            String.format(SHOULD_BE_BETWEEN_MESSAGE, new String[]{
                 String.valueOf(expected),
                 String.valueOf(rangeStart),
                 String.valueOf(rangeEnd)
