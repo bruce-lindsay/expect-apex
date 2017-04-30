@@ -1,61 +1,61 @@
-public class ExpectDate extends Expect {
-    protected final Date expected;
+public class ExpectDatetime extends Expect {
+    protected final Datetime expected;
 
-    public ExpectDate(Date expected) {
+    public ExpectDatetime(Datetime expected) {
         this.expected = expected;
     }
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
-    private ExpectDate assertThis(Boolean test, String message) {
+    private ExpectDatetime assertThis(Boolean test, String message) {
         Expect.assert(test, message);
         return this;
     }
-    public ExpectDate shouldEqual(Date actual) {
+    public ExpectDatetime shouldEqual(Datetime actual) {
         return shouldEqual(actual, expectedShouldBeMessage(String.valueOf(actual)));
     }
-    public ExpectDate shouldEqual(Date actual, String message) {
+    public ExpectDatetime shouldEqual(Datetime actual, String message) {
         return assertThis(expected == actual, message);
     }
-    public ExpectDate shouldNotEqual(Date actual) {
+    public ExpectDatetime shouldNotEqual(Datetime actual) {
         return shouldNotEqual(actual, expectedShouldNotBeMessage(String.valueOf(actual)));
     }
-    public ExpectDate shouldNotEqual(Date actual, String message) {
+    public ExpectDatetime shouldNotEqual(Datetime actual, String message) {
         return assertThis(expected != actual, message);
     }
-    public ExpectDate shouldBeLessThan(Date actual, string message) {
+    public ExpectDatetime shouldBeLessThan(Datetime actual, string message) {
         return assertThis(expected < actual, message);
     }
-    public ExpectDate shouldBeLessThan(Date actual) {
+    public ExpectDatetime shouldBeLessThan(Datetime actual) {
         return shouldBeLessThan(actual, expectedFormatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
     }
-    public ExpectDate shouldBeLessThanOrEqualTo(Date actual, string message) {
+    public ExpectDatetime shouldBeLessThanOrEqualTo(Datetime actual, string message) {
         return assertThis(expected <= actual, message);
     }
-    public ExpectDate shouldBeLessThanOrEqualTo(Date actual) {
+    public ExpectDatetime shouldBeLessThanOrEqualTo(Datetime actual) {
         return shouldBeLessThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
-    public ExpectDate shouldBeGreaterThan(Date actual, string message) {
+    public ExpectDatetime shouldBeGreaterThan(Datetime actual, string message) {
         return assertThis(expected > actual, message);
     }
-    public ExpectDate shouldBeGreaterThan(Date actual) {
+    public ExpectDatetime shouldBeGreaterThan(Datetime actual) {
         return shouldBeGreaterThan(actual, expectedFormatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
     }
-    public ExpectDate shouldBeGreaterThanOrEqualTo(Date actual, string message) {
+    public ExpectDatetime shouldBeGreaterThanOrEqualTo(Datetime actual, string message) {
         return assertThis(expected >= actual, message);
     }
-    public ExpectDate shouldBeGreaterThanOrEqualTo(Date actual) {
+    public ExpectDatetime shouldBeGreaterThanOrEqualTo(Datetime actual) {
         return shouldBeGreaterThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
-    public ExpectDate shouldBeBetween(Date rangeStart, Date rangeEnd) {
+    public ExpectDatetime shouldBeBetween(Datetime rangeStart, Datetime rangeEnd) {
         return shouldBeBetween(rangeStart, rangeEnd, expectedShouldBeBetweenMessage(String.valueOf(rangeStart), String.valueOf(rangeEnd)));
     }
-    public ExpectDate shouldBeBetween(Date rangeStart, Date rangeEnd, string message) {
+    public ExpectDatetime shouldBeBetween(Datetime rangeStart, Datetime rangeEnd, string message) {
         Boolean testedBetween = (rangeStart < rangeEnd) ?
             rangeStart <= this.expected && this.expected <= rangeEnd :
             rangeEnd <= this.expected && this.expected <= rangeStart;
 
         return assertThis(testedBetween, message);
     }
-    public ExpectDate andIt { get { return this; } }
+    public ExpectDatetime andIt { get { return this; } }
 }

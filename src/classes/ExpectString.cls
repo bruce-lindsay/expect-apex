@@ -1,21 +1,6 @@
-public class ExpectString extends Expect {
-    private final String expected;
-
-    public ExpectString(String expected) {
-        this.expected = expected;
-    }
-
-    protected override String getExpectedAsString() {
-        return expected;
-    }
-
-    public ExpectString shouldEqual(String actual) {
-        return shouldEqual(actual, expectedMessage(actual,''));
-    }
-
-    public ExpectString shouldEqual(String actual, String message) {
-        assert(expected.equals(actual), message);
-        return this;
+public class ExpectString extends ExpectStringBase {
+    public ExpectString(string s) {
+        super(s);
     }
 
     public ExpectString shouldEqualIgnoreOrdinalCase(String actual) {
@@ -23,17 +8,7 @@ public class ExpectString extends Expect {
     }
 
     public ExpectString shouldEqualIgnoreOrdinalCase(String actual, String message) {
-        assert(expected.equalsIgnoreCase(actual), message);
-        return this;
-    }
-
-    public ExpectString shouldNotEqual(String actual) {
-        return shouldNotEqual(actual, expectedMessage(actual,' not'));
-    }
-
-    public ExpectString shouldNotEqual(String actual, String message) {
-        assert(!expected.equals(actual), message);
-        return this;
+        return assertThis(expected.equalsIgnoreCase(actual), message);
     }
 
     public ExpectString shouldContain(String actual) {
@@ -41,8 +16,7 @@ public class ExpectString extends Expect {
     }
 
     public ExpectString shouldContain(String actual, String message) {
-        assert(expected.contains(actual), message);
-        return this;
+        return assertThis(expected.contains(actual), message);
     }
 
     public ExpectString shouldNotContain(String actual) {
@@ -50,7 +24,6 @@ public class ExpectString extends Expect {
     }
 
     public ExpectString shouldNotContain(String actual, String message) {
-        assert(expected.containsNone(actual), message);
-        return this;
+        return assertThis(expected.containsNone(actual), message);
     }
 }
