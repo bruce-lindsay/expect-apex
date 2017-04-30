@@ -12,7 +12,7 @@ public class ExpectSObject extends Expect {
     public ExpectSObject andIt { get { return this; } }
 
     public ExpectSObject shouldEqual(SObject actual) {
-        shouldEqual(actual, expectedMessage(actual,''));
+        shouldEqual(actual, expectedShouldBeMessage(actual));
         return this;
     }
 
@@ -21,7 +21,7 @@ public class ExpectSObject extends Expect {
     }
 
     public ExpectSObject shouldNotEqual(SObject actual) {
-        return shouldNotEqual(actual, expectedMessage(actual,' not'));
+        return shouldNotEqual(actual, expectedShouldNotBeMessage(actual));
     }
 
     public ExpectSObject shouldNotEqual(SObject actual, String message) {
@@ -29,7 +29,7 @@ public class ExpectSObject extends Expect {
     }
 
     public ExpectSObject sObjectTypeEquals(SObject actual) {
-        return sObjectTypeEquals(actual, expectedMessage(actual.getSObjectType(),''));
+        return sObjectTypeEquals(actual.getSObjectType());
     }
 
     public ExpectSObject sObjectTypeEquals(SObject actual, String message) {
@@ -37,7 +37,7 @@ public class ExpectSObject extends Expect {
     }
 
     public ExpectSObject sObjectTypeEquals(SObjectType objType) {
-        return sObjectTypeEquals(objType, expectedMessage(objType,''));
+        return sObjectTypeEquals(objType, expectedShouldBeMessage(objType));
     }
 
     public ExpectSObject sObjectTypeEquals(SObjectType objType, String message) {

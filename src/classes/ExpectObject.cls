@@ -13,7 +13,7 @@ public class ExpectObject extends Expect {
     public ExpectObject andIt { get { return this; } }
 
     public Expect shouldEqual(Object actual) {
-        shouldEqual(actual, expectedMessage(actual,''));
+        shouldEqual(actual, expectedShouldBeMessage(actual));
         return this;
     }
 
@@ -21,18 +21,18 @@ public class ExpectObject extends Expect {
         assert(expected === actual, message);
         return this;
     }
-
+/* no test
     public Expect shouldNotEqual(Object actual) {
-        return shouldNotEqual(actual, expectedMessage(actual,' not'));
-    }
-
+        return shouldNotEqual(actual, expectedShouldNotBeMessage(actual));
+    }*/
+/* no test
     public Expect shouldNotEqual(Object actual, String message) {
         assert(expected !== actual, message);
         return this;
-    }
+    } */
 
     public Expect isEquivalentTo(Object actual) {
-        return isEquivalentTo(actual, expectedMessage(actual,''));
+        return isEquivalentTo(actual, expectedShouldBeMessage(actual));
     }
 
     public Expect isEquivalentTo(Object actual, String message) {

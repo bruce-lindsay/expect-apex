@@ -1,0 +1,15 @@
+{
+  "name": "hb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node index.js && cp *.xml *.cls ../src/classes"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "handlebars": "^4.0.6"
+  }
+}
