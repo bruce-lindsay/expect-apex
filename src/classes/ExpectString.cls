@@ -4,7 +4,7 @@ public class ExpectString extends ExpectStringBase {
     }
 
     public ExpectString shouldEqualIgnoreOrdinalCase(String actual) {
-        return shouldEqualIgnoreOrdinalCase(actual, expectedMessage(actual,''));
+        return shouldEqualIgnoreOrdinalCase(actual, expectedShouldBeMessage(actual));
     }
 
     public ExpectString shouldEqualIgnoreOrdinalCase(String actual, String message) {
@@ -12,7 +12,7 @@ public class ExpectString extends ExpectStringBase {
     }
 
     public ExpectString shouldContain(String actual) {
-        return shouldContain(actual, expectedMessage(actual, SHOULD_CONTAIN_MESSAGE, ''));
+        return shouldContain(actual, expectedFormatMessage(SHOULD_CONTAIN_MESSAGE, actual));
     }
 
     public ExpectString shouldContain(String actual, String message) {
@@ -20,7 +20,7 @@ public class ExpectString extends ExpectStringBase {
     }
 
     public ExpectString shouldNotContain(String actual) {
-        return shouldNotContain(actual, expectedMessage(actual, SHOULD_CONTAIN_MESSAGE, ' not'));
+        return shouldNotContain(actual, expectedFormatNotMessage(SHOULD_CONTAIN_MESSAGE, actual));
     }
 
     public ExpectString shouldNotContain(String actual, String message) {

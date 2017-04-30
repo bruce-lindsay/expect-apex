@@ -53,19 +53,19 @@ public abstract class Expect {
     }
 
     protected String expectedShouldBeMessage(Object actual) {
-        return expectedMessage(actual, SHOULD_BE_MESSAGE, 'should');
+        return expectedFormatMessage(SHOULD_BE_MESSAGE, actual);
     }
 
     protected String expectedShouldNotBeMessage(Object actual) {
-        return expectedMessage(actual, SHOULD_BE_MESSAGE, 'should not');
+        return expectedFormatNotMessage(SHOULD_BE_MESSAGE, actual);
     }
 
     protected String expectedFormatMessage(String formatString, Object actual) {
-        return expectedMessage(actual, formatString, 'should');
+        return expectedMessage(formatString, actual, 'should');
     }
 
     protected String expectedFormatNotMessage(String formatString, Object actual) {
-        return expectedMessage(actual, formatString, 'should not');
+        return expectedMessage(formatString, actual, 'should not');
     }
 
     protected String expectedShouldBeBetweenMessage(Object beginRange, Object endRange) {
@@ -77,18 +77,14 @@ public abstract class Expect {
         });
     }
 
-// TODO: refactor this to be more explicit?
-// expectedShouldBe expectedShouldNotBe
-    protected String expectedMessage(Object actual, String delimiter) {
-        return expectedMessage(actual, SHOULD_BE_MESSAGE, delimiter);
+    private String expectedMessage(Object actual, String delimiter) {
+        return expectedMessage(SHOULD_BE_MESSAGE, actual, delimiter);
     }
-// TODO: refactor this to be more explicit?
-// formatExpectedMessage? formatString actual
-// formatExpectedMessageNot? formatString actual
-    protected String expectedMessage(Object actual, String formatString, String delimiter) {
+
+    private String expectedMessage(String formatString, Object actual, String delimiter) {
         return String.format(formatString, new String[] {
             this.getExpectedAsString(),
-            delimiter == '' ? 'should' : delimiter, //temporary!
+            delimiter,
             String.valueOf(actual)
         });
     }
