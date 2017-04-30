@@ -44,27 +44,6 @@ public class ExpectSObject extends Expect {
         return assertSObject(expected.getSObjectType() == objType, message);
     }
 
-    public ExpectSObject shouldFailToUpsert() {
-        return shouldFailToUpsertWithMessage('Upsert failed');
-    }
-
-    public ExpectSObject shouldFailToUpsertWithMessage(String message) {
-        try {
-            upsert this.expected;
-            throw new Expect.AssertException('Should have failed to upsert but didn\'t');
-        } catch (Exception ex) {
-            Boolean isIntendedException = !(ex instanceof Expect.AssertException);
-            if(isIntendedException) {
-                String exceptionString = ex.getMessage();
-                return assertSObject(exceptionString.contains(message), expectedMessage(exceptionString, SHOULD_CONTAIN_MESSAGE, ' not'));
-            } else {
-                throw ex;
-            }
-        }
-
-        return this;
-    }
-
     private ExpectSObject assertSObject(Boolean test, String message) {
         assert(test, message);
         return this;

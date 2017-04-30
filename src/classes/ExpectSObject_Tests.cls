@@ -1,10 +1,6 @@
 @isTest
 public class ExpectSObject_Tests {
-    static String tooLong = 'Limit255Chars'.center(256, '=');
-    static Account account = new Account(Name = tooLong);
-
     private static Account getAccount() { return new Account(); }
-    private static Account getAccountWithName() { return new Account(Name = 'NotTooLong'); }
 
     @isTest
     static void ExpectShouldEqualShouldNotThrowForSameSObject() {
@@ -64,30 +60,9 @@ public class ExpectSObject_Tests {
     }
 
     @isTest
-    static void ExpectShouldProperlyFailForExceptionOnUpdate() {
-        Expect.that(account).shouldFailToUpsertWithMessage('');
-    }
-
-    private class ShouldNotBeOK extends ThrowCheck {
-        Account acc = getAccountWithName();
-        protected override void testCase() {
-            Expect.that(acc).shouldFailToUpsert();
-        }
-
-        protected override void testCase(String message) {
-            Expect.that(acc).shouldFailToUpsert();
-        }
-    }
-
-    @isTest
-    static void ExpectExceptionShouldBeThrownIfShouldFailToUpsertIsCalledAndUpsertSucceeds() {
-        new ShouldNotBeOK().verify();
-    }
-
-    @isTest
     static void ExpectShouldHandleComparingSObjectTypes() {
-        Expect.that(account).sObjectTypeEquals(getAccount());
-        Expect.that(account).sObjectTypeEquals(Schema.Account.SObjectType);
+        Expect.that(getAccount()).sObjectTypeEquals(getAccount());
+        Expect.that(getAccount()).sObjectTypeEquals(Schema.Account.SObjectType);
     }
 
     private class DifferentSObjectTypes extends ThrowCheck {
@@ -108,13 +83,12 @@ public class ExpectSObject_Tests {
 
     @isTest
     static void ExpectShouldHandleNulls() {
-        Account thisAccount;
-        Expect.that(thisAccount).shouldEqual(null);
+        SObject sObjectInstance;
+        Expect.that(sObjectInstance).shouldEqual(null);
 
-        thisAccount = getAccountWithName();
-        insert thisAccount;
+        sObjectInstance = new Account();
 
-        Expect.that(thisAccount.Id).shouldNotEqual(null);
+        Expect.that(sObjectInstance).shouldNotEqual(null);
     }
 
     @isTest
