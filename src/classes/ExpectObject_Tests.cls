@@ -24,10 +24,9 @@ public class ExpectObject_Tests {
 
     @isTest
     static void ExpectObjectsWithSameReferenceShouldNotThrowForStrictEquals() {
-        Object one = new List<Account>{new Account(Name = 'Hello', Phone = '1')};
-        Object two = one;
+        Object listSObject = new List<Account>{new Account(Name = 'Hello', Phone = '1')};
 
-        Expect.that(one).shouldEqual(two);
+        Expect.that(listSObject).shouldEqual(listSObject);
     }
 
     @isTest
@@ -74,19 +73,22 @@ public class ExpectObject_Tests {
         Expect.that(one).shouldNotEqual(two);
     }
 
-    private class NotEqualObject extends ThrowCheck {
-        protected override void testCase() {
-            Account one = new Account(Name = 'EF');
-            Account two = one;
+    @isTest
+    static void ExpectSObjectsExposesAndIt() {
+        Object one = new Account();
+        Contact two = new Contact();
 
-            Expect.that(one).shouldNotEqual(two);
+        Expect.that(one).shouldEqual(one).andIt.shouldNotEqual(two);
+    }
+
+    private class NotEqualObject extends ThrowCheck {
+        private final Object o = new Account();
+        protected override void testCase() {
+            Expect.that(o).shouldNotEqual(o);
         }
 
         protected override void testCase(String message) {
-            Account one = new Account(Name = 'EF');
-            Account two = one;
-
-            Expect.that(one).shouldNotEqual(two, message);
+            Expect.that(o).shouldNotEqual(o, message);
         }
     }
 
