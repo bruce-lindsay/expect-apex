@@ -34,32 +34,6 @@ public class ExpectObject_Tests {
         Expect.that(one).isEquivalentTo(two);
     }
 
-    private class UnequalComplexObject extends ThrowCheck {
-        protected override void testCase() {
-            Account oneAccount = new Account(Name = 'Hello');
-            insert oneAccount;
-            Object one = new Map<Id,SObject>{oneAccount.Id => oneAccount};
-
-            Account twoAccount = new Account(Name = 'Hello');
-            insert twoAccount;
-            Object two = new Map<Id,SObject>{twoAccount.Id => twoAccount};
-
-            Expect.that(one).shouldEqual(two);
-        }
-
-        protected override void testCase(String message) {
-            Account oneAccount = new Account(Name = 'Hello');
-            insert oneAccount;
-            Object one = new Map<Id,SObject>{oneAccount.Id => oneAccount};
-
-            Account twoAccount = new Account(Name = 'Hello');
-            insert twoAccount;
-            Object two = new Map<Id,SObject>{twoAccount.Id => twoAccount};
-
-            Expect.that(one).shouldEqual(two, message);
-        }
-    }
-
     @isTest
     static void ExpectNotEqualObjectsShouldNotThrowForNotEquals() {
         Account one = new Account();
