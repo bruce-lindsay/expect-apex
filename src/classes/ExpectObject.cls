@@ -28,16 +28,23 @@ public class ExpectObject extends Expect {
     }
 
     public Expect shouldNotEqual(Object actual, String message) {
-        assert(expected !== actual, message);
-        return this;
+        return assertThis(expected !== actual, message);
     }
 
-    public ExpectObject isEquivalentTo(Object actual) {
-        return isEquivalentTo(actual, expectedShouldBeMessage(actual));
+    public ExpectObject shouldBeEquivalentTo(Object actual) {
+        return shouldBeEquivalentTo(actual, expectedShouldBeMessage(actual));
     }
 
-    public ExpectObject isEquivalentTo(Object actual, String message) {
+    public ExpectObject shouldBeEquivalentTo(Object actual, String message) {
         return assertThis(expected == actual, message);
+    }
+
+    public ExpectObject shouldNotBeEquivalentTo(Object actual) {
+        return shouldNotBeEquivalentTo(actual, expectedShouldNotBeMessage(actual));
+    }
+
+    public ExpectObject shouldNotBeEquivalentTo(Object actual, string message) {
+        return assertThis(expected != actual, message);
     }
 
     public ExpectObject andIt { get { return this; } }
