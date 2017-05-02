@@ -1,17 +1,12 @@
 @isTest
 public class ExpectObject_Tests {
     private class StrictlyNonEqualObjects extends ThrowCheck {
+        private final Object one = new List<Account>{new Account(Name = 'Hello', Phone = '1')};
+        private final Object two = new List<Account>{new Account(Phone = '1', Name = 'Hello')};
         protected override void testCase() {
-            Object one = new List<Account>{new Account(Name = 'Hello', Phone = '1')};
-            Object two = new List<Account>{new Account(Phone = '1', Name = 'Hello')};
-
             Expect.that(one).shouldEqual(two);
         }
-
         protected override void testCase(String message) {
-            Object one = new List<Account>{new Account(Name = 'Hello', Phone = '1')};
-            Object two = new List<Account>{new Account(Phone = '1', Name = 'Hello')};
-
             Expect.that(one).shouldEqual(two, message);
         }
     }
