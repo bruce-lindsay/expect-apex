@@ -6,8 +6,6 @@ public abstract class Expect {
     public static final String SHOULD_BE_GREATER_MESSAGE = 'Expected {0} {1} be greater than {2}';
     public static final String SHOULD_BE_GREATER_OR_EQUAL_MESSAGE = 'Expected {0} {1} be greater than or equal to {2}';
     private static final String SHOULD_BE_BETWEEN_MESSAGE = 'Expected {0} {1} be between {2} and {3}';
-    public static final String SHOULD_BE_FALSE_MESSAGE = 'Expected true {1} be false'; //  remove in favor of SHOULD_BE_MESSAGE?
-    public static final String SHOULD_BE_TRUE_MESSAGE = 'Expected false {1} be true'; // remove in favor of SHOULD_BE_MESSAGE?
     public static final String SHOULD_CONTAIN_MESSAGE = 'Expected {0} {1} contain {2}';
 
     protected Expect() {}
