@@ -31,8 +31,14 @@ const dataString = {
     equalityExpression: 'expected.equals(actual)'
 };
 
+const dataId = {
+    datatype: 'Id',
+    lowestValue: 'Id.valueOf(\'0014100000K0TKtAAN\')',
+    middleValue: 'Id.valueOf(\'0014100000K0TKuAAN\')',
+    highestValue: 'Id.valueOf(\'0014100000K0TKvAAN\')'
+};
 
-const types = [dataInteger, dataDate, dataDateTime, dataString];
+const types = [dataInteger, dataDate, dataDateTime, dataString, dataId];
 
 handlebars.registerHelper('upper', function(str) {
     return str.toUpperCase();

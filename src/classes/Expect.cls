@@ -50,6 +50,10 @@ public abstract class Expect {
         return new ExpectSObject(expected);
     }
 
+    public static ExpectId that(Id expected) {
+        return new ExpectId(expected);
+    }
+
     protected String expectedShouldBeMessage(Object actual) {
         return expectedFormatMessage(SHOULD_BE_MESSAGE, actual);
     }
