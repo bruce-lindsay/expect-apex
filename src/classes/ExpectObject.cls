@@ -10,33 +10,42 @@ public class ExpectObject extends Expect {
         return String.valueOf(expected);
     }
 
-    public ExpectObject andIt { get { return this; } }
-
-    public Expect shouldEqual(Object actual) {
-        shouldEqual(actual, expectedShouldBeMessage(actual));
+    private ExpectObject assertThis(Boolean test, String message) {
+        Expect.assert(test, message);
         return this;
     }
 
-    public Expect shouldEqual(Object actual, String message) {
-        assert(expected === actual, message);
-        return this;
+    public ExpectObject shouldEqual(Object actual) {
+        return shouldEqual(actual, expectedShouldBeMessage(actual));
     }
-/* no test
+
+    public ExpectObject shouldEqual(Object actual, String message) {
+        return assertThis(expected === actual, message);
+    }
+
     public Expect shouldNotEqual(Object actual) {
         return shouldNotEqual(actual, expectedShouldNotBeMessage(actual));
-    }*/
-/* no test
+    }
+
     public Expect shouldNotEqual(Object actual, String message) {
-        assert(expected !== actual, message);
-        return this;
-    } */
-
-    public Expect isEquivalentTo(Object actual) {
-        return isEquivalentTo(actual, expectedShouldBeMessage(actual));
+        return assertThis(expected !== actual, message);
     }
 
-    public Expect isEquivalentTo(Object actual, String message) {
-        assert(expected == actual, message);
-        return this;
+    public ExpectObject shouldBeEquivalentTo(Object actual) {
+        return shouldBeEquivalentTo(actual, expectedShouldBeMessage(actual));
     }
+
+    public ExpectObject shouldBeEquivalentTo(Object actual, String message) {
+        return assertThis(expected == actual, message);
+    }
+
+    public ExpectObject shouldNotBeEquivalentTo(Object actual) {
+        return shouldNotBeEquivalentTo(actual, expectedShouldNotBeMessage(actual));
+    }
+
+    public ExpectObject shouldNotBeEquivalentTo(Object actual, string message) {
+        return assertThis(expected != actual, message);
+    }
+
+    public ExpectObject andIt { get { return this; } }
 }

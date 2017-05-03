@@ -1,18 +1,34 @@
 @isTest
 public class ExpectObject_Tests {
+    private class Equals {
+        private final Integer foo;
+        public Equals(Integer value) {
+            foo = value;
+        }
+        public Boolean equals(Object obj) {
+            return (obj instanceof Equals) && ((Equals) obj).foo == foo;
+        }
+        public Integer hashCode() {
+            return foo;
+        }
+    }
+
+    private static final Equals EqualsOneInstanceA = new Equals(1);
+    private static final Equals EqualsOneInstanceB = new Equals(1);
+    private static final Equals EqualsTwo = new Equals(2);
+
+    @isTest
+    static void ExpectObjectsWithSameReferenceShouldNotThrowForStrictEquals() {
+        Expect.that(EqualsOneInstanceA).shouldEqual(EqualsOneInstanceA);
+        Expect.that(EqualsOneInstanceA).shouldEqual(EqualsOneInstanceA, 'ShouldEqual');
+    }
+
     private class StrictlyNonEqualObjects extends ThrowCheck {
         protected override void testCase() {
-            Object one = new List<Account>{new Account(Name = 'Hello', Phone = '1')};
-            Object two = new List<Account>{new Account(Phone = '1', Name = 'Hello')};
-
-            Expect.that(one).shouldEqual(two);
+            Expect.that(EqualsOneInstanceA).shouldEqual(EqualsOneInstanceB);
         }
-
         protected override void testCase(String message) {
-            Object one = new List<Account>{new Account(Name = 'Hello', Phone = '1')};
-            Object two = new List<Account>{new Account(Phone = '1', Name = 'Hello')};
-
-            Expect.that(one).shouldEqual(two, message);
+            Expect.that(EqualsOneInstanceA).shouldEqual(EqualsOneInstanceB, message);
         }
     }
 
@@ -23,70 +39,43 @@ public class ExpectObject_Tests {
     }
 
     @isTest
-    static void ExpectObjectsWithSameReferenceShouldNotThrowForStrictEquals() {
-        Object one = new List<Account>{new Account(Name = 'Hello', Phone = '1')};
-        Object two = one;
+    static void ExpectEquivalentObjectsShouldNotThrowWhenCheckingEquivalance() {
+        Expect.that(EqualsOneInstanceA).shouldBeEquivalentTo(EqualsOneInstanceB);
+        Expect.that(EqualsOneInstanceA).shouldBeEquivalentTo(EqualsOneInstanceB, 'Equivalent');
+    }
 
-        Expect.that(one).shouldEqual(two);
+    private class ShouldBeEquivalentToThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that(EqualsOneInstanceA).shouldBeEquivalentTo(EqualsTwo);
+        }
+        protected override void testCase(String message) {
+            Expect.that(EqualsOneInstanceA).shouldBeEquivalentTo(EqualsTwo, message);
+        }
     }
 
     @isTest
-    static void ExpectEquivalentObjectsShouldNotThrowWhenCheckingEquivalance() {
-        Account oneAccount = new Account(Name = 'Hello');
-        insert oneAccount;
-        Object one = new Map<Id,SObject>{oneAccount.Id => oneAccount};
-        Object two = new Map<Id,SObject>{oneAccount.Id => oneAccount};
-
-        Expect.that(one).isEquivalentTo(two);
-    }
-
-    private class UnequalComplexObject extends ThrowCheck {
-        protected override void testCase() {
-            Account oneAccount = new Account(Name = 'Hello');
-            insert oneAccount;
-            Object one = new Map<Id,SObject>{oneAccount.Id => oneAccount};
-
-            Account twoAccount = new Account(Name = 'Hello');
-            insert twoAccount;
-            Object two = new Map<Id,SObject>{twoAccount.Id => twoAccount};
-
-            Expect.that(one).shouldEqual(two);
-        }
-
-        protected override void testCase(String message) {
-            Account oneAccount = new Account(Name = 'Hello');
-            insert oneAccount;
-            Object one = new Map<Id,SObject>{oneAccount.Id => oneAccount};
-
-            Account twoAccount = new Account(Name = 'Hello');
-            insert twoAccount;
-            Object two = new Map<Id,SObject>{twoAccount.Id => twoAccount};
-
-            Expect.that(one).shouldEqual(two, message);
-        }
+    static void ExpectShouldBeEquivalentThrows() {
+        new ShouldBeEquivalentToThrows().verifyMessage('Expected ' + String.valueOf(EqualsOneInstanceA) + ' should be ' + String.valueOf(EqualsTwo));
+        new ShouldBeEquivalentToThrows().verifyCustomMessage('ShouldBeEquivalent');
     }
 
     @isTest
     static void ExpectNotEqualObjectsShouldNotThrowForNotEquals() {
-        Account one = new Account();
-        Contact two = new Contact();
+        Expect.that(EqualsOneInstanceA).shouldNotEqual(EqualsOneInstanceB);
+    }
 
-        Expect.that(one).shouldNotEqual(two);
+    @isTest
+    static void ExpectSObjectsExposesAndIt() {
+        Expect.that(EqualsOneInstanceA).shouldEqual(EqualsOneInstanceA).andIt.shouldNotEqual(EqualsOneInstanceB);
     }
 
     private class NotEqualObject extends ThrowCheck {
         protected override void testCase() {
-            Account one = new Account(Name = 'EF');
-            Account two = one;
-
-            Expect.that(one).shouldNotEqual(two);
+            Expect.that(EqualsOneInstanceA).shouldNotEqual(EqualsOneInstanceA);
         }
 
         protected override void testCase(String message) {
-            Account one = new Account(Name = 'EF');
-            Account two = one;
-
-            Expect.that(one).shouldNotEqual(two, message);
+            Expect.that(EqualsOneInstanceA).shouldNotEqual(EqualsOneInstanceA, message);
         }
     }
 
@@ -94,5 +83,26 @@ public class ExpectObject_Tests {
     static void ExpectEqualObjectsShouldThrowForNotEquals() {
         new NotEqualObject().verify();
         new NotEqualObject().verifyCustomMessage('hello');
+    }
+
+    @isTest
+    static void ExpectShouldNotBeEquivalentDoesNotThrow() {
+        Expect.that(EqualsOneInstanceA).shouldNotBeEquivalentTo(EqualsTwo);
+        Expect.that(EqualsOneInstanceA).shouldNotBeEquivalentTo(EqualsTwo, 'NotEquivalent');
+    }
+
+    private class ShouldNotBeEquivalentThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that(EqualsOneInstanceA).shouldNotBeEquivalentTo(EqualsOneInstanceB);
+        }
+        protected override void testCase(String message) {
+            Expect.that(EqualsOneInstanceA).shouldNotBeEquivalentTo(EqualsOneInstanceB, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldNotBeEquivalentThrows() {
+        new ShouldNotBeEquivalentThrows().verify();
+        new ShouldNotBeEquivalentThrows().verifyCustomMessage('hello');
     }
 }
