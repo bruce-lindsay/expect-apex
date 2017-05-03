@@ -98,4 +98,70 @@ public class ExpectSObject_Tests {
 
         Expect.that(oneAccount).shouldNotEqual(twoAccount);
     }
+
+    @isTest
+    static void ExpectErrorMessageDoesNotThrow() {
+        Account account = new Account(Name='TooLong'.center(500, '-'));
+        Expect.that(account).hasError().onInsert();
+    }
+
+    class ShouldHaveErrorOnInsertThrows extends ThrowCheck {
+        protected override void testCase() {
+            Account account = new Account(Name='NotTooLong');
+            Expect.that(account).hasError().onInsert();
+        }
+
+        protected override void testCase(String message) {}
+    }
+
+    @isTest
+    static void ExpectShouldHaveErrorOnInsertThrows() {
+        new ShouldHaveErrorOnInsertThrows().verify();
+    }
+
+    @isTest
+    static void ExpectShouldHaveInsertErrorDoesNotThrow() {
+        Account account = new Account();
+        Expect.that(account).shouldHaveInsertError();
+    }
+
+    @isTest
+    static void ExpectShouldHaveInsertErrorWithExpectStringAndErrorMessageDoesNotThrow() {
+        Account account = new Account();
+        Expect.that(account)
+            .shouldHaveInsertError()
+            .andErrorMessage
+            .shouldContain('REQUIRED_FIELD_MISSING');
+    }
+
+    class ShouldHaveInsertErrorThrows extends ThrowCheck {
+        protected override void testCase() {
+            Account account = new Account(Name='Name');
+            Expect.that(account).shouldHaveInsertError();
+        }
+
+        protected override void testCase(String message) {}
+    }
+
+    @isTest
+    static void ExpectShouldHaveInsertErrorThrows() {
+        new ShouldHaveInsertErrorThrows().verify();
+    }
+
+    class ShouldHaveInsertErrorWithExpectStringThrows extends ThrowCheck {
+        protected override void testCase() {
+            Account account = new Account();
+            Expect.that(account)
+                .shouldHaveInsertError()
+                .andErrorMessage
+                .shouldContain('ExpectSObject_Tests.cls');
+        }
+
+        protected override void testCase(String message) {}
+    }
+
+    @isTest
+    static void ExpectShouldHaveInsertErrorWithExpectStringThrows() {
+        new ShouldHaveInsertErrorWithExpectStringThrows().verify();
+    }
 }

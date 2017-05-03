@@ -48,4 +48,18 @@ public class ExpectSObject extends Expect {
         assert(test, message);
         return this;
     }
+
+    public ExpectSObjectError hasError() {
+        return new ExpectSObjectError(expected);
+    }
+
+    public ExpectError shouldHaveInsertError() {
+        try {
+            insert expected;
+        } catch(Exception ex) {
+            return new ExpectError(ex);
+        }
+        assert(false, 'error wanted');
+        return null;
+    }
 }
