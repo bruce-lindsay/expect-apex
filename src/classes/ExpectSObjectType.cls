@@ -1,6 +1,6 @@
 public class ExpectSObjectType extends Expect {
     protected final SObjectType expected;
-    public static final String SHOULD_BE_MESSAGE = 'Expected {0} {1} have records';
+    public static final String SHOULD_HAVE_RECORDS = 'Expected {0} {1} have records';
     public ExpectSObjectType(SObjectType expected) {
         this.expected = expected;
     }
@@ -12,7 +12,7 @@ public class ExpectSObjectType extends Expect {
         return records.size() > 0;
     }
     public ExpectSObjectType shouldNotHaveRecords() {
-        shouldNotHaveRecords(expectedFormatNotMessage(SHOULD_BE_MESSAGE, null));
+        shouldNotHaveRecords(expectedFormatNotMessage(SHOULD_HAVE_RECORDS, null));
         return this;
     }
     public ExpectSObjectType shouldNotHaveRecords(String message) {
@@ -20,7 +20,7 @@ public class ExpectSObjectType extends Expect {
         return this;
     }
     public ExpectSObjectType shouldHaveRecords() {
-        shouldHaveRecords(expectedFormatMessage(SHOULD_BE_MESSAGE, null));
+        shouldHaveRecords(expectedFormatMessage(SHOULD_HAVE_RECORDS, null));
         return this;
     }
     public ExpectSObjectType shouldHaveRecords(String message) {
