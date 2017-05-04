@@ -50,6 +50,10 @@ public abstract class Expect {
         return new ExpectSObject(expected);
     }
 
+    public static ExpectSObjectType that(SObjectType expected) {
+        return new ExpectSObjectType(expected);
+    }
+
     public static ExpectId that(Id expected) {
         return new ExpectId(expected);
     }
