@@ -48,15 +48,9 @@ public class ExpectString_Tests {
         Expect.that('a').shouldNotContain('A');
     }
 
-    private class StringDoesContain extends ThrowCheck {
+    private class StringDoesContainThrows extends ThrowCheck {
         protected override void testCase() {
-            Account account = new Account(Name = 'Hello');
-            insert account;
-
-            String one = 'Account id: ' + String.valueOf(account.Id);
-            String two = String.valueOf(account.Id);
-
-            Expect.that(one).shouldNotContain(two);
+            Expect.that('ab').shouldNotContain('ab');
         }
 
         protected override void testCase(String message) {
@@ -66,7 +60,7 @@ public class ExpectString_Tests {
 
     @isTest
     static void ExpectStringShouldNotContainThrowsWhenStringDoesContain() {
-        new StringDoesContain().verify();
-        new StringDoesContain().verifyCustomMessage('hello');
+        new StringDoesContainThrows().verify();
+        new StringDoesContainThrows().verifyCustomMessage('hello');
     }
 }
