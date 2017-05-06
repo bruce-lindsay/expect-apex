@@ -55,7 +55,7 @@ public class ExpectSObject extends Expect {
         } catch(Exception ex) {
             return new ExpectError(ex);
         }
-        assert(false, 'error wanted');
+        assert(false, 'Expected ' + String.valueOf(expected) + ' should error on insert');
         return null;
     }
 
@@ -65,7 +65,7 @@ public class ExpectSObject extends Expect {
         } catch(Exception ex) {
             return new ExpectError(ex);
         }
-        assert(False, 'error wanted');
+        assert(false, 'Expected ' + String.valueOf(expected) + ' should error on update');
         return null;
     }
 
@@ -75,7 +75,7 @@ public class ExpectSObject extends Expect {
         } catch(Exception ex) {
             return new ExpectError(ex);
         }
-        assert(False, 'error wanted');
+        assert(False, 'Expected ' + String.valueOf(expected) + ' should error on upsert');
         return null;
     }
 
@@ -85,7 +85,7 @@ public class ExpectSObject extends Expect {
         } catch(Exception ex) {
             return new ExpectError(ex);
         }
-        assert(False, 'error wanted');
+        assert(False, 'Expected ' + String.valueOf(expected) + ' should error on delete');
         return null;
     }
 }
