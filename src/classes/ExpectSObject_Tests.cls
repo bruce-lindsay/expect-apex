@@ -100,26 +100,6 @@ public class ExpectSObject_Tests {
     }
 
     @isTest
-    static void ExpectErrorMessageDoesNotThrow() {
-        Account account = new Account(Name='TooLong'.center(500, '-'));
-        Expect.that(account).hasError().onInsert();
-    }
-
-    class ShouldHaveErrorOnInsertThrows extends ThrowCheck {
-        protected override void testCase() {
-            Account account = new Account(Name='NotTooLong');
-            Expect.that(account).hasError().onInsert();
-        }
-
-        protected override void testCase(String message) {}
-    }
-
-    @isTest
-    static void ExpectShouldHaveErrorOnInsertThrows() {
-        new ShouldHaveErrorOnInsertThrows().verify();
-    }
-
-    @isTest
     static void ExpectShouldHaveInsertErrorDoesNotThrow() {
         Account account = new Account();
         Expect.that(account).shouldHaveInsertError();
@@ -162,6 +142,8 @@ public class ExpectSObject_Tests {
 
     @isTest
     static void ExpectShouldHaveInsertErrorWithExpectStringThrows() {
-        new ShouldHaveInsertErrorWithExpectStringThrows().verify();
+        String message = new ShouldHaveInsertErrorWithExpectStringThrows().verify();
+        Expect.that(message.startsWith('Expected')).shouldBeTrue();
+        Expect.that(message.endsWith('should contain ExpectSObject_Tests.cls')).shouldBeTrue();
     }
 }

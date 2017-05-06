@@ -49,10 +49,6 @@ public class ExpectSObject extends Expect {
         return this;
     }
 
-    public ExpectSObjectError hasError() {
-        return new ExpectSObjectError(expected);
-    }
-
     public ExpectError shouldHaveInsertError() {
         try {
             insert expected;
@@ -60,6 +56,36 @@ public class ExpectSObject extends Expect {
             return new ExpectError(ex);
         }
         assert(false, 'error wanted');
+        return null;
+    }
+
+    public ExpectError shouldHaveUpdateError() {
+        try {
+            update expected;
+        } catch(Exception ex) {
+            return new ExpectError(ex);
+        }
+        assert(False, 'error wanted');
+        return null;
+    }
+
+    public ExpectError shouldHaveUpsertError() {
+        try {
+            upsert expected;
+        } catch(Exception ex) {
+            return new ExpectError(ex);
+        }
+        assert(False, 'error wanted');
+        return null;
+    }
+
+    public ExpectError shouldHaveDeleteError() {
+        try {
+            delete expected;
+        } catch(Exception ex) {
+            return new ExpectError(ex);
+        }
+        assert(False, 'error wanted');
         return null;
     }
 }
