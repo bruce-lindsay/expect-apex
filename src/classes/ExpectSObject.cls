@@ -49,14 +49,18 @@ public class ExpectSObject extends Expect {
         return this;
     }
 
+    private ExpectError failDmlExpectation(string dmlOperationName) {
+        assert(false, 'Expected ' + String.valueOf(expected) + ' should error on ' + dmlOperationName);
+        return null;
+    }
+
     public ExpectError shouldHaveInsertError() {
         try {
             insert expected;
         } catch(Exception ex) {
             return new ExpectError(ex);
         }
-        assert(false, 'Expected ' + String.valueOf(expected) + ' should error on insert');
-        return null;
+        return failDmlExpectation('insert');
     }
 
     public ExpectError shouldHaveUpdateError() {
@@ -65,8 +69,7 @@ public class ExpectSObject extends Expect {
         } catch(Exception ex) {
             return new ExpectError(ex);
         }
-        assert(false, 'Expected ' + String.valueOf(expected) + ' should error on update');
-        return null;
+        return failDmlExpectation('update');
     }
 
     public ExpectError shouldHaveUpsertError() {
@@ -75,8 +78,7 @@ public class ExpectSObject extends Expect {
         } catch(Exception ex) {
             return new ExpectError(ex);
         }
-        assert(False, 'Expected ' + String.valueOf(expected) + ' should error on upsert');
-        return null;
+        return failDmlExpectation('upsert');
     }
 
     public ExpectError shouldHaveDeleteError() {
@@ -85,7 +87,6 @@ public class ExpectSObject extends Expect {
         } catch(Exception ex) {
             return new ExpectError(ex);
         }
-        assert(False, 'Expected ' + String.valueOf(expected) + ' should error on delete');
-        return null;
+        return failDmlExpectation('delete');
     }
 }
