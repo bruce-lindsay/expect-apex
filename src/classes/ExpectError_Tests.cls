@@ -18,13 +18,4 @@ public class ExpectError_Tests {
         wrappedType.shouldEqual(nullPtr.getTypeName());
     }
 
-    @isTest
-    static void ExpectErrorShouldChainMessageAndErrorType() {
-        Exception nullPtr = new NullPointerException();
-        nullPtr.setMessage('explode');
-        new ExpectError(nullPtr)
-            .andErrorType.shouldEqual(nullPtr.getTypeName())
-            .andErrorMessage.shouldEqual(nullPtr.getMessage());
-    }
-
 }
