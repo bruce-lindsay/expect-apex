@@ -1,21 +1,28 @@
 @isTest
 public class ExpectError_Tests {
+    private static final Exception nullPtr = new NullPointerException();
 
     @isTest
     static void ExpectErrorShouldExposeErrorMessageAsExpectString() {
-        Exception nullPtr = new NullPointerException();
         nullPtr.setMessage('explode');
         ExpectError wrappedError = new ExpectError(nullPtr);
-        ExpectString wrappedMessage = wrappedError.andErrorMessage;
-        wrappedMessage.shouldEqual('explode');
+        wrappedError.andErrorMessage
+            .shouldEqual(nullPtr.getMessage());
     }
 
     @isTest
     static void ExpectErrorShouldExposeErrorTypeAsExpectString() {
-        Exception nullPtr = new NullPointerException();
         ExpectError wrappedError = new ExpectError(nullPtr);
-        ExpectString wrappedType = wrappedError.andErrorType;
-        wrappedType.shouldEqual(nullPtr.getTypeName());
+        wrappedError.andErrorType
+            .shouldEqual(nullPtr.getTypeName());
+    }
+
+    @isTest
+    static void ExpectErrorShouldChainMessageAndErrorType() {
+        nullPtr.setMessage('explode');
+        new ExpectError(nullPtr)
+            .andErrorType.shouldEqual(nullPtr.getTypeName())
+            .andErrorMessage.shouldEqual(nullPtr.getMessage());
     }
 
 }
