@@ -1,4 +1,4 @@
-public virtual class ExpectString extends ExpectStringBase {
+public class ExpectString extends ExpectStringBase {
     public ExpectString(string s) {
         super(s);
     }
