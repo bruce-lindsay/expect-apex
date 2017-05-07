@@ -48,4 +48,45 @@ public class ExpectSObject extends Expect {
         assert(test, message);
         return this;
     }
+
+    private ExpectError failDmlExpectation(string dmlOperationName) {
+        assert(false, 'Expected ' + String.valueOf(expected) + ' should error on ' + dmlOperationName);
+        return null;
+    }
+
+    public ExpectError shouldHaveInsertError() {
+        try {
+            insert expected;
+        } catch(Exception ex) {
+            return new ExpectError(ex);
+        }
+        return failDmlExpectation('insert');
+    }
+
+    public ExpectError shouldHaveUpdateError() {
+        try {
+            update expected;
+        } catch(Exception ex) {
+            return new ExpectError(ex);
+        }
+        return failDmlExpectation('update');
+    }
+
+    public ExpectError shouldHaveUpsertError() {
+        try {
+            upsert expected;
+        } catch(Exception ex) {
+            return new ExpectError(ex);
+        }
+        return failDmlExpectation('upsert');
+    }
+
+    public ExpectError shouldHaveDeleteError() {
+        try {
+            delete expected;
+        } catch(Exception ex) {
+            return new ExpectError(ex);
+        }
+        return failDmlExpectation('delete');
+    }
 }

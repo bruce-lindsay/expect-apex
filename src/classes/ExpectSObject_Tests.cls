@@ -98,4 +98,156 @@ public class ExpectSObject_Tests {
 
         Expect.that(oneAccount).shouldNotEqual(twoAccount);
     }
+
+    @isTest
+    static void ExpectShouldHaveInsertErrorDoesNotThrow() {
+        Account account = new Account();
+        Expect.that(account).shouldHaveInsertError();
+    }
+
+    @isTest
+    static void ExpectShouldHaveInsertErrorWithExpectStringAndErrorMessageDoesNotThrow() {
+        Account account = new Account();
+        Expect.that(account)
+            .shouldHaveInsertError()
+            .andErrorMessage
+            .shouldContain('REQUIRED_FIELD_MISSING');
+    }
+
+    class ShouldHaveInsertErrorThrows extends ThrowCheck {
+        private final SObject sobjectx;
+        ShouldHaveInsertErrorThrows(SObject sobjectx) {
+            this.sobjectx = sobjectx;
+        }
+        protected override void testCase() {
+            Expect.that(sobjectx).shouldHaveInsertError();
+        }
+
+        protected override void testCase(String message) {
+            System.assert(false, 'not implemented');
+        }
+    }
+
+    @isTest
+    static void ExpectShouldHaveInsertErrorThrows() {
+        Account validAccount = new Account(Name='Name');
+        ThrowCheck throwCheckInstance = new ShouldHaveInsertErrorThrows(validAccount);
+
+        Expect.that(throwCheckInstance.verify())
+            .shouldEqual('Expected ' + String.valueOf(validAccount) +
+                         ' should error on insert');
+    }
+
+    class ShouldHaveInsertErrorWithExpectStringThrows extends ThrowCheck {
+        protected override void testCase() {
+            Account account = new Account();
+            Expect.that(account)
+                .shouldHaveInsertError()
+                .andErrorMessage
+                .shouldContain('ExpectSObject_Tests.cls');
+        }
+
+        protected override void testCase(String message) {
+            System.assert(false, 'not implemented');
+        }
+    }
+
+    @isTest
+    static void ExpectShouldHaveInsertErrorWithExpectStringThrows() {
+        String message = new ShouldHaveInsertErrorWithExpectStringThrows().verify();
+        Expect.that(message.startsWith('Expected')).shouldBeTrue();
+        Expect.that(message.endsWith('should contain ExpectSObject_Tests.cls')).shouldBeTrue();
+    }
+
+    @isTest
+    static void ExpectShouldHaveUpsertErrorDoesNotThrow() {
+        Expect.that(new Account()).shouldHaveUpsertError();
+    }
+
+    class ShouldHaveUpsertErrorThrows extends ThrowCheck {
+        private final SObject sobjectx;
+        ShouldHaveUpsertErrorThrows(SObject sobjectx) {
+            this.sobjectx = sobjectx;
+        }
+        protected override void testCase() {
+            Expect.that(sobjectx).shouldHaveUpsertError();
+        }
+
+        protected override void testCase(String message) {
+            System.assert(false, 'not implemented');
+        }
+    }
+
+    @isTest
+    static void ExpectShouldHaveUpsertErrorThrows() {
+        Account validAccount = new Account(Name='Name');
+        ThrowCheck throwCheckInstance = new ShouldHaveUpsertErrorThrows(validAccount);
+
+        Expect.that(throwCheckInstance.verify())
+            .shouldEqual('Expected ' + String.valueOf(validAccount) +
+                         ' should error on upsert');
+    }
+
+
+    @isTest
+    static void ExpectShouldHaveUpdateErrorDoesNotThrow() {
+        Expect.that(new Account()).shouldHaveUpdateError();
+    }
+
+    class ShouldHaveUpdateErrorThrows extends ThrowCheck {
+        private final SObject sobjectx;
+        ShouldHaveUpdateErrorThrows(SObject sobjectx) {
+            this.sobjectx = sobjectx;
+        }
+        protected override void testCase() {
+            Expect.that(sobjectx).shouldHaveUpdateError();
+        }
+
+        protected override void testCase(String message) {
+            System.assert(false, 'not implemented');
+        }
+    }
+
+    @isTest
+    static void ExpectShouldHaveUpdateErrorThrows() {
+        Account validAccount = new Account(Name='Name');
+        insert validAccount;
+
+        ThrowCheck throwCheckInstance = new ShouldHaveUpdateErrorThrows(validAccount);
+
+        Expect.that(throwCheckInstance.verify())
+            .shouldEqual('Expected ' + String.valueOf(validAccount) +
+                         ' should error on update');
+    }
+
+    @isTest
+    static void ExpectShouldHaveDeleteErrorDoesNotThrow() {
+        Expect.that(new Account()).shouldHaveDeleteError();
+    }
+
+    class ShouldHaveDeleteErrorThrows extends ThrowCheck {
+        private final SObject sobjectx;
+        ShouldHaveDeleteErrorThrows(SObject sobjectx) {
+            this.sobjectx = sobjectx;
+        }
+        protected override void testCase() {
+            Expect.that(sobjectx).shouldHaveDeleteError();
+        }
+
+        protected override void testCase(String message) {
+            System.assert(false, 'not implemented');
+        }
+    }
+
+    @isTest
+    static void ExpectShouldHaveDeleteErrorThrows() {
+        Account validAccount = new Account(Name='Name');
+        insert validAccount;
+
+        ThrowCheck throwCheckInstance = new ShouldHaveDeleteErrorThrows(validAccount);
+
+        Expect.that(throwCheckInstance.verify())
+            .shouldEqual('Expected ' + String.valueOf(validAccount) +
+                         ' should error on delete');
+    }
 }
