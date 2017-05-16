@@ -13,28 +13,10 @@ public class ExpectInteger extends Expect {
         this.negate = negate;
         this.parent = parent;
     }
-    public ExpectInteger nnot {
+    public ExpectInteger negated {
         get {
             return negate ? this : new ExpectInteger(this.expected, true, this);
         }
-    }
-    public ExpectInteger negated {
-        get {
-            return nnot;
-        }
-    }
-    public ExpectInteger shouldBe {
-        get {
-            return this;
-        }
-    }
-    public ExpectInteger shouldNotBe {
-        get {
-            return nnot;
-        }
-    }
-    public ExpectInteger lessThan(Integer actual) {
-        return shouldBeLessThan(actual);
     }
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
@@ -43,13 +25,13 @@ public class ExpectInteger extends Expect {
         Expect.assert(negate ? !test : test, message);
         return this.parent;
     }
-    public ExpectInteger toEqual(Integer actual) {
-        return toEqual(actual,
+    public ExpectInteger shouldEqual(Integer actual) {
+        return shouldEqual(actual,
             negate ? expectedShouldNotBeMessage(String.valueOf(actual)) :
             expectedShouldBeMessage(String.valueOf(actual))
         );
     }
-    public ExpectInteger toEqual(Integer actual, String message) {
+    public ExpectInteger shouldEqual(Integer actual, String message) {
         return assertThis(expected == actual, message);
     }
     public ExpectInteger shouldBeLessThan(Integer actual, string message) {
@@ -87,6 +69,4 @@ public class ExpectInteger extends Expect {
         return assertThis(testedBetween, message);
     }
     public ExpectInteger andIt { get { return this; } }
-    public ExpectInteger andShouldBe { get { return this; } }
-    public ExpectInteger andShouldNotBe { get { return this.negated; } }
 }

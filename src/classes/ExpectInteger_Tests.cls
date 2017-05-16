@@ -13,15 +13,15 @@ public class ExpectInteger_Tests {
 
     @isTest
     static void ExpectShouldEqualMatchingValueDoesNotThrow() {
-        expect(INTEGER_LOWEST).toEqual(INTEGER_LOWEST);
+        expect(INTEGER_LOWEST).shouldEqual(INTEGER_LOWEST);
     }
 
     private class ShouldEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            expect(INTEGER_LOWEST).toEqual(INTEGER_MIDDLE);
+            expect(INTEGER_LOWEST).shouldEqual(INTEGER_MIDDLE);
         }
         protected override void testCase(string message) {
-            expect(INTEGER_LOWEST).toEqual(INTEGER_MIDDLE, message);
+            expect(INTEGER_LOWEST).shouldEqual(INTEGER_MIDDLE, message);
         }
     }
 
@@ -39,21 +39,21 @@ public class ExpectInteger_Tests {
 
     @isTest
     static void ExpectShouldNotEqualDoesNotThrow() {
-        expect(INTEGER_LOWEST).nnot.toEqual(INTEGER_MIDDLE);
+        expect(INTEGER_LOWEST).negated.shouldEqual(INTEGER_MIDDLE);
     }
 
     @isTest
-    static void ExpectNNotLastsForOneTest() {
-        expect(INTEGER_LOWEST).nnot.toEqual(INTEGER_MIDDLE)
-            .toEqual(INTEGER_LOWEST);
+    static void ExpectNegatedLastsForOneTest() {
+        expect(INTEGER_LOWEST).negated.shouldEqual(INTEGER_MIDDLE)
+            .shouldEqual(INTEGER_LOWEST);
     }
 
     private class ShouldNotEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            expect(INTEGER_LOWEST).nnot.toEqual(INTEGER_LOWEST);
+            expect(INTEGER_LOWEST).negated.shouldEqual(INTEGER_LOWEST);
         }
         protected override void testCase(string message) {
-            expect(INTEGER_LOWEST).nnot.toEqual(INTEGER_LOWEST, message);
+            expect(INTEGER_LOWEST).negated.shouldEqual(INTEGER_LOWEST, message);
         }
     }
 
@@ -72,16 +72,15 @@ public class ExpectInteger_Tests {
     @isTest
     static void ExpectShouldBeLessThanDoesNotThrow() {
         Expect.that(INTEGER_LOWEST).shouldBeLessThan(INTEGER_MIDDLE);
-        Expect.that(INTEGER_LOWEST).shouldBe.lessThan(INTEGER_MIDDLE)
-            .andShouldBe.lessThan(INTEGER_HIGHEST);
     }
 
     @isTest
     static void ExpectShouldBeLessThanNegatedDoesNotThrow() {
         Expect.that(INTEGER_MIDDLE).negated.shouldBeLessThan(INTEGER_LOWEST);
 
-        Expect.that(INTEGER_MIDDLE).shouldNotBe.lessThan(INTEGER_LOWEST)
-            .andShouldNotBe.lessThan(-INTEGER_MIDDLE);
+        Expect.that(INTEGER_MIDDLE).negated.shouldBeLessThan(INTEGER_LOWEST)
+            .andIt.shouldBeLessThan(INTEGER_HIGHEST)
+            .negated.shouldBeLessThan(-INTEGER_MIDDLE);
     }
 
     private class ShouldBeLessThanThrows extends ThrowCheck {
@@ -217,7 +216,7 @@ public class ExpectInteger_Tests {
     @isTest
     static void ExpectIntegerChains() {
         Expect.that(INTEGER_LOWEST).shouldBeLessThan(INTEGER_MIDDLE)
-            .andit.toEqual(INTEGER_LOWEST);
+            .andit.shouldEqual(INTEGER_LOWEST);
     }
 
 }
