@@ -72,11 +72,9 @@ public class ExpectInteger_Tests {
 
     @isTest
     static void ExpectShouldBeLessThanNegatedDoesNotThrow() {
-        Expect.that(INTEGER_MIDDLE).negated.shouldBeLessThan(INTEGER_LOWEST);
-
         Expect.that(INTEGER_MIDDLE).negated.shouldBeLessThan(INTEGER_LOWEST)
             .andIt.shouldBeLessThan(INTEGER_HIGHEST)
-            .negated.shouldBeLessThan(-INTEGER_MIDDLE);
+            .andIt.negated.shouldBeLessThan(-INTEGER_MIDDLE);
     }
 
     private class ShouldBeLessThanThrows extends ThrowCheck {
