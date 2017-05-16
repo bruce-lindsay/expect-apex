@@ -7,21 +7,17 @@ public class ExpectInteger_Tests {
     private static final String INTEGER_MIDDLE_S = String.valueOf(INTEGER_MIDDLE);
     private static final String INTEGER_HIGHEST_S = String.valueOf(INTEGER_HIGHEST);
 
-    private static ExpectInteger expect(Integer i) {
-        return Expect.that(i);
-    }
-
     @isTest
     static void ExpectShouldEqualMatchingValueDoesNotThrow() {
-        expect(INTEGER_LOWEST).shouldEqual(INTEGER_LOWEST);
+        Expect.that(INTEGER_LOWEST).shouldEqual(INTEGER_LOWEST);
     }
 
     private class ShouldEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            expect(INTEGER_LOWEST).shouldEqual(INTEGER_MIDDLE);
+            Expect.that(INTEGER_LOWEST).shouldEqual(INTEGER_MIDDLE);
         }
         protected override void testCase(string message) {
-            expect(INTEGER_LOWEST).shouldEqual(INTEGER_MIDDLE, message);
+            Expect.that(INTEGER_LOWEST).shouldEqual(INTEGER_MIDDLE, message);
         }
     }
 
@@ -39,21 +35,21 @@ public class ExpectInteger_Tests {
 
     @isTest
     static void ExpectShouldNotEqualDoesNotThrow() {
-        expect(INTEGER_LOWEST).negated.shouldEqual(INTEGER_MIDDLE);
+        Expect.that(INTEGER_LOWEST).negated.shouldEqual(INTEGER_MIDDLE);
     }
 
     @isTest
     static void ExpectNegatedLastsForOneTest() {
-        expect(INTEGER_LOWEST).negated.shouldEqual(INTEGER_MIDDLE)
+        Expect.that(INTEGER_LOWEST).negated.shouldEqual(INTEGER_MIDDLE)
             .shouldEqual(INTEGER_LOWEST);
     }
 
     private class ShouldNotEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            expect(INTEGER_LOWEST).negated.shouldEqual(INTEGER_LOWEST);
+            Expect.that(INTEGER_LOWEST).negated.shouldEqual(INTEGER_LOWEST);
         }
         protected override void testCase(string message) {
-            expect(INTEGER_LOWEST).negated.shouldEqual(INTEGER_LOWEST, message);
+            Expect.that(INTEGER_LOWEST).negated.shouldEqual(INTEGER_LOWEST, message);
         }
     }
 
