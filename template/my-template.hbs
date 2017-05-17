@@ -1,5 +1,6 @@
 public {{#if subclass}}virtual {{/if}}class Expect{{datatype}}{{#if subclass}}Base{{/if}} extends Expect {
     protected final {{datatype}} expected;
+    protected final Expect{{datatype}} parent;
 
 {{#if subclass}}
     protected Expect{{datatype}}Base({{datatype}} expected) {
@@ -7,16 +8,31 @@ public {{#if subclass}}virtual {{/if}}class Expect{{datatype}}{{#if subclass}}Ba
     public Expect{{datatype}}({{datatype}} expected) {
 {{/if}}
         this.expected = expected;
+        this.parent = this;
+    }
+{{#if subclass}}
+    protected Expect{{datatype}}Base({{datatype}} expected, Boolean negate, Expect{{datatype}}Base parent) {
+{{else}}
+    private Expect{{datatype}}({{datatype}} expected, Boolean negate, Expect{{datatype}} parent) {
+{{/if}}
+        super(negate);
+        this.expected = expected;
+        this.parent = parent;
+    }
+    public Expect{{datatype}} negated {
+        get {
+            return negate ? {{#if subclass}}(Expect{{datatype}}) {{/if}}this : new Expect{{datatype}}(this.expected, true, this);
+        }
     }
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
     {{#if subclass}}protected{{else}}private{{/if}} Expect{{datatype}} assertThis(Boolean test, String message) {
-        Expect.assert(test, message);
-        return {{#if subclass}}(Expect{{datatype}}) {{/if}}this;
+        assertNegatable(test, message);
+        return {{#if subclass}}(Expect{{datatype}}) {{/if}}this.parent;
     }
     public Expect{{datatype}} shouldEqual({{datatype}} actual) {
-        return shouldEqual(actual, expectedShouldBeMessage(String.valueOf(actual)));
+        return shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, String.valueOf(actual)));
     }
     public Expect{{datatype}} shouldEqual({{datatype}} actual, String message) {
 {{#if equalityExpression}}
@@ -24,12 +40,6 @@ public {{#if subclass}}virtual {{/if}}class Expect{{datatype}}{{#if subclass}}Ba
 {{else}}
         return assertThis(expected == actual, message);
 {{/if}}
-    }
-    public Expect{{datatype}} shouldNotEqual({{datatype}} actual) {
-        return shouldNotEqual(actual, expectedShouldNotBeMessage(String.valueOf(actual)));
-    }
-    public Expect{{datatype}} shouldNotEqual({{datatype}} actual, String message) {
-        return assertThis(expected != actual, message);
     }
     public Expect{{datatype}} shouldBeLessThan({{datatype}} actual, string message) {
         return assertThis(expected < actual, message);
