@@ -3,8 +3,8 @@ public class ExpectDatetime extends Expect {
     protected final ExpectDatetime parent;
 
     public ExpectDatetime(Datetime expected) {
-        this.expected = expected;
         this.parent = this;
+        this.expected = expected;
     }
     private ExpectDatetime(Datetime expected, Boolean negate, ExpectDatetime parent) {
         super(negate);

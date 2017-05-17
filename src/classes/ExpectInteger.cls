@@ -3,8 +3,8 @@ public class ExpectInteger extends Expect {
     protected final ExpectInteger parent;
 
     public ExpectInteger(Integer expected) {
-        this.expected = expected;
         this.parent = this;
+        this.expected = expected;
     }
     private ExpectInteger(Integer expected, Boolean negate, ExpectInteger parent) {
         super(negate);

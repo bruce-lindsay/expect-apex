@@ -3,8 +3,8 @@ public class ExpectId extends Expect {
     protected final ExpectId parent;
 
     public ExpectId(Id expected) {
-        this.expected = expected;
         this.parent = this;
+        this.expected = expected;
     }
     private ExpectId(Id expected, Boolean negate, ExpectId parent) {
         super(negate);

@@ -3,8 +3,8 @@ public class ExpectDate extends Expect {
     protected final ExpectDate parent;
 
     public ExpectDate(Date expected) {
-        this.expected = expected;
         this.parent = this;
+        this.expected = expected;
     }
     private ExpectDate(Date expected, Boolean negate, ExpectDate parent) {
         super(negate);

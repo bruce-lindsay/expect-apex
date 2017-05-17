@@ -4,14 +4,15 @@ public {{#if subclass}}virtual {{/if}}class Expect{{datatype}}{{#if subclass}}Ba
 
 {{#if subclass}}
     protected Expect{{datatype}}Base({{datatype}} expected) {
+        this.parent = (Expect{{datatype}}) this;
 {{else}}
     public Expect{{datatype}}({{datatype}} expected) {
+        this.parent = this;
 {{/if}}
         this.expected = expected;
-        this.parent = this;
     }
 {{#if subclass}}
-    protected Expect{{datatype}}Base({{datatype}} expected, Boolean negate, Expect{{datatype}}Base parent) {
+    protected Expect{{datatype}}Base({{datatype}} expected, Boolean negate, Expect{{datatype}} parent) {
 {{else}}
     private Expect{{datatype}}({{datatype}} expected, Boolean negate, Expect{{datatype}} parent) {
 {{/if}}
@@ -21,7 +22,7 @@ public {{#if subclass}}virtual {{/if}}class Expect{{datatype}}{{#if subclass}}Ba
     }
     public Expect{{datatype}} negated {
         get {
-            return negate ? {{#if subclass}}(Expect{{datatype}}) {{/if}}this : new Expect{{datatype}}(this.expected, true, this);
+            return negate ? {{#if subclass}}(Expect{{datatype}}) {{/if}}this : new Expect{{datatype}}(this.expected, true, {{#if subclass}}(Expect{{datatype}}) {{/if}}this);
         }
     }
     protected override String getExpectedAsString() {

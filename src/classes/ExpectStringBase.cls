@@ -3,8 +3,8 @@ public virtual class ExpectStringBase extends Expect {
     protected final ExpectString parent;
 
     protected ExpectStringBase(String expected) {
-        this.expected = expected;
         this.parent = (ExpectString) this;
+        this.expected = expected;
     }
     protected ExpectStringBase(String expected, Boolean negate, ExpectString parent) {
         super(negate);
