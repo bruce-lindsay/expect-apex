@@ -207,6 +207,27 @@ public class ExpectInteger_Tests {
             .verifyCustomMessage('outside allowed range');
     }
 
+    private class ShouldNotBeBetweenThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that(INTEGER_MIDDLE).negated.shouldBeBetween(INTEGER_LOWEST, INTEGER_HIGHEST);
+        }
+        protected override void testCase(String message) {
+            Expect.that(INTEGER_MIDDLE).negated.shouldBeBetween(INTEGER_LOWEST, INTEGER_HIGHEST, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldNotBeBetweenThrowsThrowsDefaultMessage() {
+        new ShouldNotBeBetweenThrows()
+            .verifyMessage('Expected ' + INTEGER_MIDDLE_S + ' should not be between ' + INTEGER_LOWEST_S + ' and ' + INTEGER_HIGHEST_S);
+    }
+
+    @isTest
+    static void ExpectShouldNotBeBetweenThrowsSpecificMessage() {
+        new ShouldNotBeBetweenThrows()
+            .verifyCustomMessage('outside allowed range');
+    }
+
     @isTest
     static void ExpectIntegerChains() {
         Expect.that(INTEGER_LOWEST).shouldBeLessThan(INTEGER_MIDDLE)

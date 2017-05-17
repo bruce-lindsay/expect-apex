@@ -7,10 +7,21 @@ public abstract class Expect {
     public static final String SHOULD_BE_GREATER_OR_EQUAL_MESSAGE = 'Expected {0} {1} be greater than or equal to {2}';
     private static final String SHOULD_BE_BETWEEN_MESSAGE = 'Expected {0} {1} be between {2} and {3}';
     public static final String SHOULD_CONTAIN_MESSAGE = 'Expected {0} {1} contain {2}';
+    protected final Boolean negate;
 
-    protected Expect() {}
-
+    protected Expect() {
+        negate = false;
+    }
+    protected Expect(boolean negatedState) {
+        negate = negatedState;
+    }
     protected abstract String getExpectedAsString();
+
+    private string shouldOrShouldNot {
+        get {
+            return negate ? 'should not' : 'should';
+        }
+    }
 
     public class AssertException extends System.Exception {}
 
@@ -20,6 +31,10 @@ public abstract class Expect {
         } else if (!expected) {
             throw new Expect.AssertException(message);
         }
+    }
+
+    protected void assertNegatable(Boolean testResult, String message) {
+        Expect.assert(negate ? !testResult : testResult, message);
     }
 
     public static ExpectObject that(Object expected) {
@@ -74,10 +89,14 @@ public abstract class Expect {
         return expectedMessage(formatString, actual, 'should not');
     }
 
+    protected String formatMessage(String formatString, Object actual) {
+        return expectedMessage(formatString, actual, shouldOrShouldNot);
+    }
+
     protected String expectedShouldBeBetweenMessage(Object beginRange, Object endRange) {
         return String.format(SHOULD_BE_BETWEEN_MESSAGE, new String[] {
             this.getExpectedAsString(),
-            'should',
+            shouldOrShouldNot,
             String.valueOf(beginRange),
             String.valueOf(endRange)
         });

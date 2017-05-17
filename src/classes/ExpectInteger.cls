@@ -1,16 +1,14 @@
 public class ExpectInteger extends Expect {
     protected final Integer expected;
-    protected final Boolean negate;
     protected final ExpectInteger parent;
 
     public ExpectInteger(Integer expected) {
         this.expected = expected;
-        this.negate = false;
         this.parent = this;
     }
-    public ExpectInteger(Integer expected, Boolean negate, ExpectInteger parent) {
+    private ExpectInteger(Integer expected, Boolean negate, ExpectInteger parent) {
+        super(negate);
         this.expected = expected;
-        this.negate = negate;
         this.parent = parent;
     }
     public ExpectInteger negated {
@@ -22,14 +20,11 @@ public class ExpectInteger extends Expect {
         return String.valueOf(expected);
     }
     private ExpectInteger assertThis(Boolean test, String message) {
-        Expect.assert(negate ? !test : test, message);
+        assertNegatable(test, message);
         return this.parent;
     }
     public ExpectInteger shouldEqual(Integer actual) {
-        return shouldEqual(actual,
-            negate ? expectedShouldNotBeMessage(String.valueOf(actual)) :
-            expectedShouldBeMessage(String.valueOf(actual))
-        );
+        return shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, String.valueOf(actual)));
     }
     public ExpectInteger shouldEqual(Integer actual, String message) {
         return assertThis(expected == actual, message);
