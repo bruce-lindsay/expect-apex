@@ -1,27 +1,33 @@
 public virtual class ExpectStringBase extends Expect {
     protected final String expected;
+    protected final ExpectString parent;
 
     protected ExpectStringBase(String expected) {
         this.expected = expected;
+        this.parent = (ExpectString) this;
+    }
+    protected ExpectStringBase(String expected, Boolean negate, ExpectString parent) {
+        super(negate);
+        this.expected = expected;
+        this.parent = parent;
+    }
+    public ExpectString negated {
+        get {
+            return negate ? (ExpectString) this : new ExpectString(this.expected, true, (ExpectString) this);
+        }
     }
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
     protected ExpectString assertThis(Boolean test, String message) {
-        Expect.assert(test, message);
-        return (ExpectString) this;
+        assertNegatable(test, message);
+        return (ExpectString) this.parent;
     }
     public ExpectString shouldEqual(String actual) {
-        return shouldEqual(actual, expectedShouldBeMessage(String.valueOf(actual)));
+        return shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, String.valueOf(actual)));
     }
     public ExpectString shouldEqual(String actual, String message) {
         return assertThis(expected.equals(actual), message);
-    }
-    public ExpectString shouldNotEqual(String actual) {
-        return shouldNotEqual(actual, expectedShouldNotBeMessage(String.valueOf(actual)));
-    }
-    public ExpectString shouldNotEqual(String actual, String message) {
-        return assertThis(expected != actual, message);
     }
     public ExpectString shouldBeLessThan(String actual, string message) {
         return assertThis(expected < actual, message);

@@ -2,6 +2,9 @@ public class ExpectString extends ExpectStringBase {
     public ExpectString(string s) {
         super(s);
     }
+    public ExpectString(String expected, Boolean negate, ExpectString parent) {
+        super(expected, negate, parent);
+    }
 
     public ExpectString shouldEqualIgnoreOrdinalCase(String actual) {
         return shouldEqualIgnoreOrdinalCase(actual, expectedShouldBeMessage(actual));

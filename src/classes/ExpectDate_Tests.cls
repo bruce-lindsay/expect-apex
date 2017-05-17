@@ -35,15 +35,15 @@ public class ExpectDate_Tests {
 
     @isTest
     static void ExpectShouldNotEqualDoesNotThrow() {
-        Expect.that(DATE_LOWEST).shouldNotEqual(DATE_MIDDLE);
+        Expect.that(DATE_LOWEST).negated.shouldEqual(DATE_MIDDLE);
     }
 
     private class ShouldNotEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(DATE_LOWEST).shouldNotEqual(DATE_LOWEST);
+            Expect.that(DATE_LOWEST).negated.shouldEqual(DATE_LOWEST);
         }
         protected override void testCase(string message) {
-            Expect.that(DATE_LOWEST).shouldNotEqual(DATE_LOWEST, message);
+            Expect.that(DATE_LOWEST).negated.shouldEqual(DATE_LOWEST, message);
         }
     }
 
@@ -62,6 +62,12 @@ public class ExpectDate_Tests {
     @isTest
     static void ExpectShouldBeLessThanDoesNotThrow() {
         Expect.that(DATE_LOWEST).shouldBeLessThan(DATE_MIDDLE);
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanNegatedDoesNotThrow() {
+        Expect.that(DATE_MIDDLE).negated.shouldBeLessThan(DATE_LOWEST)
+            .andIt.shouldBeLessThan(DATE_HIGHEST);
     }
 
     private class ShouldBeLessThanThrows extends ThrowCheck {
@@ -191,6 +197,27 @@ public class ExpectDate_Tests {
     @isTest
     static void ExpectShouldBeBetweenThrowsSpecificMessage() {
         new ShouldBeBetweenThrows()
+            .verifyCustomMessage('outside allowed range');
+    }
+
+    private class ShouldNotBeBetweenThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that(DATE_MIDDLE).negated.shouldBeBetween(DATE_LOWEST, DATE_HIGHEST);
+        }
+        protected override void testCase(String message) {
+            Expect.that(DATE_MIDDLE).negated.shouldBeBetween(DATE_LOWEST, DATE_HIGHEST, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldNotBeBetweenThrowsThrowsDefaultMessage() {
+        new ShouldNotBeBetweenThrows()
+            .verifyMessage('Expected ' + DATE_MIDDLE_S + ' should not be between ' + DATE_LOWEST_S + ' and ' + DATE_HIGHEST_S);
+    }
+
+    @isTest
+    static void ExpectShouldNotBeBetweenThrowsSpecificMessage() {
+        new ShouldNotBeBetweenThrows()
             .verifyCustomMessage('outside allowed range');
     }
 

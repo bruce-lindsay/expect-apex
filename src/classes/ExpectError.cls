@@ -61,11 +61,11 @@ public class ExpectError {
             return this;
         }
         public ExpectStringDecorator shouldNotEqual(String actual) {
-            wrappedString.shouldNotEqual(actual);
+            wrappedString.negated.shouldEqual(actual);
             return this;
         }
         public ExpectStringDecorator shouldNotEqual(String actual, String message) {
-            wrappedString.shouldNotEqual(actual, message);
+            wrappedString.negated.shouldEqual(actual, message);
             return this;
         }
     }
