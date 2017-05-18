@@ -1,10 +1,15 @@
 @isTest
 public class ExpectError_Tests {
-    private static final Exception nullPtr = new NullPointerException();
+    private static final Exception nullPtr = setupException();
+
+    static Exception setupException() {
+        Exception ex = new NullPointerException();
+        ex.setMessage('explode');
+        return ex;
+    }
 
     @isTest
     static void ExpectErrorShouldExposeErrorMessageAsExpectString() {
-        nullPtr.setMessage('explode');
         ExpectError wrappedError = new ExpectError(nullPtr);
         wrappedError.andErrorMessage
             .shouldEqual(nullPtr.getMessage());
@@ -19,10 +24,20 @@ public class ExpectError_Tests {
 
     @isTest
     static void ExpectErrorShouldChainMessageAndErrorType() {
-        nullPtr.setMessage('explode');
         new ExpectError(nullPtr)
             .andErrorType.shouldEqual(nullPtr.getTypeName())
             .andErrorMessage.shouldEqual(nullPtr.getMessage());
+    }
+
+    @isTest
+    static void ExpectErrorShouldNegate() {
+        new ExpectError(nullPtr)
+            .andErrorType
+                .negated.shouldEqual('assemble')
+                .shouldEqual(nullPtr.getTypeName()) // verify negation lasts for 1 assert
+            .andErrorMessage
+                .negated.shouldEqual('shuffle')
+                .shouldEqual(nullPtr.getMessage()); // verify negation lasts for 1 assert
     }
 
 }
