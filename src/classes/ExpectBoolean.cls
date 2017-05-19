@@ -31,7 +31,7 @@ public class ExpectBoolean extends Expect {
     }
 
     public ExpectBoolean shouldEqual(Boolean actual) {
-        return shouldEqual(actual, expectedShouldBeMessage(actual));
+        return shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, actual));
     }
 
     public ExpectBoolean shouldEqual(Boolean actual, String message) {

@@ -28,25 +28,25 @@ public class ExpectId extends Expect {
         return assertThis(expected < actual, message);
     }
     public ExpectId shouldBeLessThan(Id actual) {
-        return shouldBeLessThan(actual, expectedFormatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
+        return shouldBeLessThan(actual, formatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
     }
     public ExpectId shouldBeLessThanOrEqualTo(Id actual, string message) {
         return assertThis(expected <= actual, message);
     }
     public ExpectId shouldBeLessThanOrEqualTo(Id actual) {
-        return shouldBeLessThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
+        return shouldBeLessThanOrEqualTo(actual, formatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
     public ExpectId shouldBeGreaterThan(Id actual, string message) {
         return assertThis(expected > actual, message);
     }
     public ExpectId shouldBeGreaterThan(Id actual) {
-        return shouldBeGreaterThan(actual, expectedFormatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
+        return shouldBeGreaterThan(actual, formatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
     }
     public ExpectId shouldBeGreaterThanOrEqualTo(Id actual, string message) {
         return assertThis(expected >= actual, message);
     }
     public ExpectId shouldBeGreaterThanOrEqualTo(Id actual) {
-        return shouldBeGreaterThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
+        return shouldBeGreaterThanOrEqualTo(actual, formatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
     public ExpectId shouldBeBetween(Id rangeStart, Id rangeEnd) {
         return shouldBeBetween(rangeStart, rangeEnd, expectedShouldBeBetweenMessage(String.valueOf(rangeStart), String.valueOf(rangeEnd)));

@@ -80,23 +80,6 @@ public abstract class Expect {
         return new ExpectId(expected);
     }
 
-    protected String expectedShouldBeMessage(Object actual) {
-        return expectedFormatMessage(SHOULD_BE_MESSAGE, actual);
-    }
-
-    protected String expectedShouldNotBeMessage(Object actual) {
-        return expectedFormatNotMessage(SHOULD_BE_MESSAGE, actual);
-    }
-
-//remove
-    protected String expectedFormatMessage(String formatString, Object actual) {
-        return expectedMessage(formatString, actual, 'should');
-    }
-//remove
-    protected String expectedFormatNotMessage(String formatString, Object actual) {
-        return expectedMessage(formatString, actual, 'should not');
-    }
-
     protected String formatMessage(String formatString, Object actual) {
         return expectedMessage(formatString, actual, shouldOrShouldNot);
     }

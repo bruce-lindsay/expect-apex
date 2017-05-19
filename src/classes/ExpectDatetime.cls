@@ -28,25 +28,25 @@ public class ExpectDatetime extends Expect {
         return assertThis(expected < actual, message);
     }
     public ExpectDatetime shouldBeLessThan(Datetime actual) {
-        return shouldBeLessThan(actual, expectedFormatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
+        return shouldBeLessThan(actual, formatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
     }
     public ExpectDatetime shouldBeLessThanOrEqualTo(Datetime actual, string message) {
         return assertThis(expected <= actual, message);
     }
     public ExpectDatetime shouldBeLessThanOrEqualTo(Datetime actual) {
-        return shouldBeLessThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
+        return shouldBeLessThanOrEqualTo(actual, formatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
     public ExpectDatetime shouldBeGreaterThan(Datetime actual, string message) {
         return assertThis(expected > actual, message);
     }
     public ExpectDatetime shouldBeGreaterThan(Datetime actual) {
-        return shouldBeGreaterThan(actual, expectedFormatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
+        return shouldBeGreaterThan(actual, formatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
     }
     public ExpectDatetime shouldBeGreaterThanOrEqualTo(Datetime actual, string message) {
         return assertThis(expected >= actual, message);
     }
     public ExpectDatetime shouldBeGreaterThanOrEqualTo(Datetime actual) {
-        return shouldBeGreaterThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
+        return shouldBeGreaterThanOrEqualTo(actual, formatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
     public ExpectDatetime shouldBeBetween(Datetime rangeStart, Datetime rangeEnd) {
         return shouldBeBetween(rangeStart, rangeEnd, expectedShouldBeBetweenMessage(String.valueOf(rangeStart), String.valueOf(rangeEnd)));

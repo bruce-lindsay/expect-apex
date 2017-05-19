@@ -28,25 +28,25 @@ public class ExpectInteger extends Expect {
         return assertThis(expected < actual, message);
     }
     public ExpectInteger shouldBeLessThan(Integer actual) {
-        return shouldBeLessThan(actual, expectedFormatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
+        return shouldBeLessThan(actual, formatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
     }
     public ExpectInteger shouldBeLessThanOrEqualTo(Integer actual, string message) {
         return assertThis(expected <= actual, message);
     }
     public ExpectInteger shouldBeLessThanOrEqualTo(Integer actual) {
-        return shouldBeLessThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
+        return shouldBeLessThanOrEqualTo(actual, formatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
     public ExpectInteger shouldBeGreaterThan(Integer actual, string message) {
         return assertThis(expected > actual, message);
     }
     public ExpectInteger shouldBeGreaterThan(Integer actual) {
-        return shouldBeGreaterThan(actual, expectedFormatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
+        return shouldBeGreaterThan(actual, formatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
     }
     public ExpectInteger shouldBeGreaterThanOrEqualTo(Integer actual, string message) {
         return assertThis(expected >= actual, message);
     }
     public ExpectInteger shouldBeGreaterThanOrEqualTo(Integer actual) {
-        return shouldBeGreaterThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
+        return shouldBeGreaterThanOrEqualTo(actual, formatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
     public ExpectInteger shouldBeBetween(Integer rangeStart, Integer rangeEnd) {
         return shouldBeBetween(rangeStart, rangeEnd, expectedShouldBeBetweenMessage(String.valueOf(rangeStart), String.valueOf(rangeEnd)));

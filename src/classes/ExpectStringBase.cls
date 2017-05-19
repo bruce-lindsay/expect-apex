@@ -28,25 +28,25 @@ public abstract class ExpectStringBase extends Expect {
         return assertThis(expected < actual, message);
     }
     public ExpectString shouldBeLessThan(String actual) {
-        return shouldBeLessThan(actual, expectedFormatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
+        return shouldBeLessThan(actual, formatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
     }
     public ExpectString shouldBeLessThanOrEqualTo(String actual, string message) {
         return assertThis(expected <= actual, message);
     }
     public ExpectString shouldBeLessThanOrEqualTo(String actual) {
-        return shouldBeLessThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
+        return shouldBeLessThanOrEqualTo(actual, formatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
     public ExpectString shouldBeGreaterThan(String actual, string message) {
         return assertThis(expected > actual, message);
     }
     public ExpectString shouldBeGreaterThan(String actual) {
-        return shouldBeGreaterThan(actual, expectedFormatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
+        return shouldBeGreaterThan(actual, formatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
     }
     public ExpectString shouldBeGreaterThanOrEqualTo(String actual, string message) {
         return assertThis(expected >= actual, message);
     }
     public ExpectString shouldBeGreaterThanOrEqualTo(String actual) {
-        return shouldBeGreaterThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
+        return shouldBeGreaterThanOrEqualTo(actual, formatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
     public ExpectString shouldBeBetween(String rangeStart, String rangeEnd) {
         return shouldBeBetween(rangeStart, rangeEnd, expectedShouldBeBetweenMessage(String.valueOf(rangeStart), String.valueOf(rangeEnd)));

@@ -28,25 +28,25 @@ public class ExpectDate extends Expect {
         return assertThis(expected < actual, message);
     }
     public ExpectDate shouldBeLessThan(Date actual) {
-        return shouldBeLessThan(actual, expectedFormatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
+        return shouldBeLessThan(actual, formatMessage(SHOULD_BE_LESS_MESSAGE, String.valueOf(actual)));
     }
     public ExpectDate shouldBeLessThanOrEqualTo(Date actual, string message) {
         return assertThis(expected <= actual, message);
     }
     public ExpectDate shouldBeLessThanOrEqualTo(Date actual) {
-        return shouldBeLessThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
+        return shouldBeLessThanOrEqualTo(actual, formatMessage(SHOULD_BE_LESS_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
     public ExpectDate shouldBeGreaterThan(Date actual, string message) {
         return assertThis(expected > actual, message);
     }
     public ExpectDate shouldBeGreaterThan(Date actual) {
-        return shouldBeGreaterThan(actual, expectedFormatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
+        return shouldBeGreaterThan(actual, formatMessage(SHOULD_BE_GREATER_MESSAGE, String.valueOf(actual)));
     }
     public ExpectDate shouldBeGreaterThanOrEqualTo(Date actual, string message) {
         return assertThis(expected >= actual, message);
     }
     public ExpectDate shouldBeGreaterThanOrEqualTo(Date actual) {
-        return shouldBeGreaterThanOrEqualTo(actual, expectedFormatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
+        return shouldBeGreaterThanOrEqualTo(actual, formatMessage(SHOULD_BE_GREATER_OR_EQUAL_MESSAGE, String.valueOf(actual)));
     }
     public ExpectDate shouldBeBetween(Date rangeStart, Date rangeEnd) {
         return shouldBeBetween(rangeStart, rangeEnd, expectedShouldBeBetweenMessage(String.valueOf(rangeStart), String.valueOf(rangeEnd)));

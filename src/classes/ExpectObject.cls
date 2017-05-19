@@ -21,7 +21,7 @@ public class ExpectObject extends Expect {
     }
 
     public ExpectObject shouldEqual(Object actual) {
-        return shouldEqual(actual, expectedShouldBeMessage(actual));
+        return shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, actual));
     }
 
     public ExpectObject shouldEqual(Object actual, String message) {
@@ -29,7 +29,7 @@ public class ExpectObject extends Expect {
     }
 
     public ExpectObject shouldBeEquivalentTo(Object actual) {
-        return shouldBeEquivalentTo(actual, expectedShouldBeMessage(actual));
+        return shouldBeEquivalentTo(actual, formatMessage(SHOULD_BE_MESSAGE, actual));
     }
 
     public ExpectObject shouldBeEquivalentTo(Object actual, String message) {

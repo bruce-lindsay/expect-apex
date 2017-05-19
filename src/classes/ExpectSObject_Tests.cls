@@ -36,20 +36,20 @@ public class ExpectSObject_Tests {
         Account one = getAccount();
         Account two = getAccount();
 
-        Expect.that(one).shouldNotEqual(two);
+        Expect.that(one).negated.shouldEqual(two);
     }
 
     private class EqualObjectShouldThrowForNotEqual extends ThrowCheck {
         protected override void testCase() {
             Account one = getAccount();
             Account two = one;
-            Expect.that(one).shouldNotEqual(two);
+            Expect.that(one).negated.shouldEqual(two);
         }
 
         protected override void testCase(String message) {
             Account one = getAccount();
             Account two = one;
-            Expect.that(one).shouldNotEqual(two, message);
+            Expect.that(one).negated.shouldEqual(two, message);
         }
     }
 
@@ -88,7 +88,7 @@ public class ExpectSObject_Tests {
 
         sObjectInstance = new Account();
 
-        Expect.that(sObjectInstance).shouldNotEqual(null);
+        Expect.that(sObjectInstance).negated.shouldEqual(null);
     }
 
     @isTest
@@ -96,7 +96,7 @@ public class ExpectSObject_Tests {
         Account oneAccount = getAccount();
         Account twoAccount = getAccount();
 
-        Expect.that(oneAccount).shouldNotEqual(twoAccount);
+        Expect.that(oneAccount).negated.shouldEqual(twoAccount);
     }
 
     @isTest
