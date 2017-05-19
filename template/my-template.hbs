@@ -1,36 +1,30 @@
 public {{#if subclass}}abstract {{/if}}class Expect{{datatype}}{{#if subclass}}Base{{/if}} extends Expect {
     protected final {{datatype}} expected;
-    protected final Expect{{datatype}} parent;
 
 {{#if subclass}}
     protected Expect{{datatype}}Base({{datatype}} expected) {
-        this.parent = (Expect{{datatype}}) this;
 {{else}}
     public Expect{{datatype}}({{datatype}} expected) {
-        this.parent = this;
 {{/if}}
         this.expected = expected;
     }
 {{#if subclass}}
-    protected Expect{{datatype}}Base({{datatype}} expected, Boolean negate, Expect{{datatype}} parent) {
+    protected Expect{{datatype}}Base(Expect{{datatype}} existingInstance) {
 {{else}}
-    private Expect{{datatype}}({{datatype}} expected, Boolean negate, Expect{{datatype}} parent) {
+    private Expect{{datatype}}(Expect{{datatype}} existingInstance) {
 {{/if}}
-        super(negate);
-        this.expected = expected;
-        this.parent = parent;
+        super(NegatedAssert, existingInstance);
+        this.expected = existingInstance.expected;
     }
-    public Expect{{datatype}} negated {
-        get {
-            return negate ? {{#if subclass}}(Expect{{datatype}}) {{/if}}this : new Expect{{datatype}}(this.expected, true, {{#if subclass}}(Expect{{datatype}}) {{/if}}this);
-        }
-    }
+
+    public Expect{{datatype}} negated { get { return new Expect{{datatype}}({{#if subclass}}(Expect{{datatype}}) {{/if}}this); }}
+
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
     {{#if subclass}}protected{{else}}private{{/if}} Expect{{datatype}} assertThis(Boolean test, String message) {
         assertNegatable(test, message);
-        return {{#if subclass}}(Expect{{datatype}}) {{/if}}this.parent;
+        return (Expect{{datatype}}) parentInstance;
     }
     public Expect{{datatype}} shouldEqual({{datatype}} actual) {
         return shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, String.valueOf(actual)));
@@ -76,5 +70,5 @@ public {{#if subclass}}abstract {{/if}}class Expect{{datatype}}{{#if subclass}}B
 
         return assertThis(testedBetween, message);
     }
-    public Expect{{datatype}} andIt { get { return{{#if subclass}} (Expect{{datatype}}){{/if}} this; } }
+    public Expect{{datatype}} andIt { get { return (Expect{{datatype}}) parentInstance; } }
 }

@@ -1,27 +1,22 @@
 public class ExpectId extends Expect {
     protected final Id expected;
-    protected final ExpectId parent;
 
     public ExpectId(Id expected) {
-        this.parent = this;
         this.expected = expected;
     }
-    private ExpectId(Id expected, Boolean negate, ExpectId parent) {
-        super(negate);
-        this.expected = expected;
-        this.parent = parent;
+    private ExpectId(ExpectId existingInstance) {
+        super(NegatedAssert, existingInstance);
+        this.expected = existingInstance.expected;
     }
-    public ExpectId negated {
-        get {
-            return negate ? this : new ExpectId(this.expected, true, this);
-        }
-    }
+
+    public ExpectId negated { get { return new ExpectId(this); }}
+
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
     private ExpectId assertThis(Boolean test, String message) {
         assertNegatable(test, message);
-        return this.parent;
+        return (ExpectId) parentInstance;
     }
     public ExpectId shouldEqual(Id actual) {
         return shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, String.valueOf(actual)));
@@ -63,5 +58,5 @@ public class ExpectId extends Expect {
 
         return assertThis(testedBetween, message);
     }
-    public ExpectId andIt { get { return this; } }
+    public ExpectId andIt { get { return (ExpectId) parentInstance; } }
 }

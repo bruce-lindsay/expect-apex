@@ -1,27 +1,22 @@
 public class ExpectInteger extends Expect {
     protected final Integer expected;
-    protected final ExpectInteger parent;
 
     public ExpectInteger(Integer expected) {
-        this.parent = this;
         this.expected = expected;
     }
-    private ExpectInteger(Integer expected, Boolean negate, ExpectInteger parent) {
-        super(negate);
-        this.expected = expected;
-        this.parent = parent;
+    private ExpectInteger(ExpectInteger existingInstance) {
+        super(NegatedAssert, existingInstance);
+        this.expected = existingInstance.expected;
     }
-    public ExpectInteger negated {
-        get {
-            return negate ? this : new ExpectInteger(this.expected, true, this);
-        }
-    }
+
+    public ExpectInteger negated { get { return new ExpectInteger(this); }}
+
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
     private ExpectInteger assertThis(Boolean test, String message) {
         assertNegatable(test, message);
-        return this.parent;
+        return (ExpectInteger) parentInstance;
     }
     public ExpectInteger shouldEqual(Integer actual) {
         return shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, String.valueOf(actual)));
@@ -63,5 +58,5 @@ public class ExpectInteger extends Expect {
 
         return assertThis(testedBetween, message);
     }
-    public ExpectInteger andIt { get { return this; } }
+    public ExpectInteger andIt { get { return (ExpectInteger) parentInstance; } }
 }

@@ -8,11 +8,9 @@ public abstract class ExpectStringBase extends Expect {
         super(NegatedAssert, existingInstance);
         this.expected = existingInstance.expected;
     }
-    public ExpectString negated {
-        get {
-            return new ExpectString((ExpectString) this);
-        }
-    }
+
+    public ExpectString negated { get { return new ExpectString((ExpectString) this); }}
+
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }

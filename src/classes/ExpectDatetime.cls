@@ -1,27 +1,22 @@
 public class ExpectDatetime extends Expect {
     protected final Datetime expected;
-    protected final ExpectDatetime parent;
 
     public ExpectDatetime(Datetime expected) {
-        this.parent = this;
         this.expected = expected;
     }
-    private ExpectDatetime(Datetime expected, Boolean negate, ExpectDatetime parent) {
-        super(negate);
-        this.expected = expected;
-        this.parent = parent;
+    private ExpectDatetime(ExpectDatetime existingInstance) {
+        super(NegatedAssert, existingInstance);
+        this.expected = existingInstance.expected;
     }
-    public ExpectDatetime negated {
-        get {
-            return negate ? this : new ExpectDatetime(this.expected, true, this);
-        }
-    }
+
+    public ExpectDatetime negated { get { return new ExpectDatetime(this); }}
+
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
     private ExpectDatetime assertThis(Boolean test, String message) {
         assertNegatable(test, message);
-        return this.parent;
+        return (ExpectDatetime) parentInstance;
     }
     public ExpectDatetime shouldEqual(Datetime actual) {
         return shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, String.valueOf(actual)));
@@ -63,5 +58,5 @@ public class ExpectDatetime extends Expect {
 
         return assertThis(testedBetween, message);
     }
-    public ExpectDatetime andIt { get { return this; } }
+    public ExpectDatetime andIt { get { return (ExpectDatetime) parentInstance; } }
 }
