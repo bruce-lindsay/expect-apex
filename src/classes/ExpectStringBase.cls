@@ -1,4 +1,4 @@
-public virtual class ExpectStringBase extends Expect {
+public abstract class ExpectStringBase extends Expect {
     protected final String expected;
     protected final ExpectString parent;
 
