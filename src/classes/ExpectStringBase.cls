@@ -1,19 +1,16 @@
 public abstract class ExpectStringBase extends Expect {
     protected final String expected;
-    protected final ExpectString parent;
 
     protected ExpectStringBase(String expected) {
-        this.parent = (ExpectString) this;
         this.expected = expected;
     }
-    protected ExpectStringBase(String expected, Boolean negate, ExpectString parent) {
-        super(negate);
-        this.expected = expected;
-        this.parent = parent;
+    protected ExpectStringBase(ExpectString existingInstance) {
+        super(NegatedAssert, existingInstance);
+        this.expected = existingInstance.expected;
     }
     public ExpectString negated {
         get {
-            return negate ? (ExpectString) this : new ExpectString(this.expected, true, (ExpectString) this);
+            return new ExpectString((ExpectString) this);
         }
     }
     protected override String getExpectedAsString() {
@@ -21,7 +18,7 @@ public abstract class ExpectStringBase extends Expect {
     }
     protected ExpectString assertThis(Boolean test, String message) {
         assertNegatable(test, message);
-        return (ExpectString) this.parent;
+        return (ExpectString) parentInstance;
     }
     public ExpectString shouldEqual(String actual) {
         return shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, String.valueOf(actual)));
@@ -63,5 +60,5 @@ public abstract class ExpectStringBase extends Expect {
 
         return assertThis(testedBetween, message);
     }
-    public ExpectString andIt { get { return (ExpectString) this; } }
+    public ExpectString andIt { get { return (ExpectString) parentInstance; } }
 }

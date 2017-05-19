@@ -4,6 +4,10 @@ public class ExpectSObjectType extends Expect {
     public ExpectSObjectType(SObjectType expected) {
         this.expected = expected;
     }
+    private ExpectSObjectType(ExpectSObjectType existingInstance) {
+        super(NegatedAssert, existingInstance);
+        this.expected = existingInstance.expected;
+    }
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
@@ -11,21 +15,14 @@ public class ExpectSObjectType extends Expect {
         SObject[] records = Database.query('select Id from ' + expected.getDescribe().getName() + ' LIMIT 1');
         return records.size() > 0;
     }
-    public ExpectSObjectType shouldNotHaveRecords() {
-        shouldNotHaveRecords(expectedFormatNotMessage(SHOULD_HAVE_RECORDS, null));
-        return this;
-    }
-    public ExpectSObjectType shouldNotHaveRecords(String message) {
-        assert(isRecord() == false, message);
-        return this;
-    }
     public ExpectSObjectType shouldHaveRecords() {
-        shouldHaveRecords(expectedFormatMessage(SHOULD_HAVE_RECORDS, null));
-        return this;
+        shouldHaveRecords(formatMessage(SHOULD_HAVE_RECORDS, null));
+        return (ExpectSObjectType) parentInstance;
     }
     public ExpectSObjectType shouldHaveRecords(String message) {
-        assert(isRecord(), message);
-        return this;
+        assertNegatable(isRecord(), message);
+        return (ExpectSObjectType) parentInstance;
     }
-    public ExpectSObjectType andIt { get { return this; } }
+    public ExpectSObjectType andIt { get { return (ExpectSObjectType) parentInstance; } }
+    public ExpectSObjectType negated { get { return new ExpectSObjectType(this); }}
 }

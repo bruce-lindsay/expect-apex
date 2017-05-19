@@ -45,12 +45,12 @@ public class ExpectSObject extends Expect {
     }
 
     private ExpectSObject assertSObject(Boolean test, String message) {
-        assert(test, message);
+        assertNegatable(test, message);
         return this;
     }
 
     private ExpectError failDmlExpectation(string dmlOperationName) {
-        assert(false, 'Expected ' + String.valueOf(expected) + ' should error on ' + dmlOperationName);
+        assertNegatable(false, 'Expected ' + String.valueOf(expected) + ' should error on ' + dmlOperationName);
         return null;
     }
 

@@ -6,13 +6,18 @@ public class ExpectObject extends Expect {
         this.expected = expected;
     }
 
+    private ExpectObject(ExpectObject existingInstance) {
+        super(NegatedAssert, existingInstance);
+        this.expected = existingInstance.expected;
+    }
+
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
 
     private ExpectObject assertThis(Boolean test, String message) {
-        Expect.assert(test, message);
-        return this;
+        assertNegatable(test, message);
+        return (ExpectObject) parentInstance;
     }
 
     public ExpectObject shouldEqual(Object actual) {
@@ -23,14 +28,6 @@ public class ExpectObject extends Expect {
         return assertThis(expected === actual, message);
     }
 
-    public Expect shouldNotEqual(Object actual) {
-        return shouldNotEqual(actual, expectedShouldNotBeMessage(actual));
-    }
-
-    public Expect shouldNotEqual(Object actual, String message) {
-        return assertThis(expected !== actual, message);
-    }
-
     public ExpectObject shouldBeEquivalentTo(Object actual) {
         return shouldBeEquivalentTo(actual, expectedShouldBeMessage(actual));
     }
@@ -39,13 +36,11 @@ public class ExpectObject extends Expect {
         return assertThis(expected == actual, message);
     }
 
-    public ExpectObject shouldNotBeEquivalentTo(Object actual) {
-        return shouldNotBeEquivalentTo(actual, expectedShouldNotBeMessage(actual));
-    }
+    public ExpectObject andIt { get { return (ExpectObject) parentInstance; } }
 
-    public ExpectObject shouldNotBeEquivalentTo(Object actual, string message) {
-        return assertThis(expected != actual, message);
+    public ExpectObject negated {
+        get {
+            return new ExpectObject(this);
+        }
     }
-
-    public ExpectObject andIt { get { return this; } }
 }

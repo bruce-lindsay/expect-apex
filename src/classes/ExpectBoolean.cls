@@ -3,12 +3,16 @@ public class ExpectBoolean extends Expect {
     public ExpectBoolean(Boolean expected) {
         this.expected = expected;
     }
+    private ExpectBoolean(ExpectBoolean existingInstance) {
+        super(NegatedAssert, existingInstance);
+        this.expected = existingInstance.expected;
+    }
 
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
 
-    public ExpectBoolean andIt { get { return this; } }
+    public ExpectBoolean andIt { get { return (ExpectBoolean) parentInstance; } }
 
     public ExpectBoolean shouldBeFalse() {
         return shouldEqual(false);
@@ -31,7 +35,13 @@ public class ExpectBoolean extends Expect {
     }
 
     public ExpectBoolean shouldEqual(Boolean actual, String message) {
-        Expect.assert(expected == actual, message);
-        return this;
+        assertNegatable(this.expected == actual, message);
+        return (ExpectBoolean) parentInstance;
     }
+    public ExpectBoolean negated {
+        get {
+            return new ExpectBoolean(this);
+        }
+    }
+
 }

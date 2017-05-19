@@ -1,4 +1,7 @@
 public abstract class Expect {
+    public class ExpectNegation {
+        private ExpectNegation() {}
+    }
     public static Boolean UseSystemAssert = true;
     public static final String SHOULD_BE_MESSAGE = 'Expected {0} {1} be {2}';
     public static final String SHOULD_BE_LESS_MESSAGE = 'Expected {0} {1} be less than {2}';
@@ -8,12 +11,19 @@ public abstract class Expect {
     private static final String SHOULD_BE_BETWEEN_MESSAGE = 'Expected {0} {1} be between {2} and {3}';
     public static final String SHOULD_CONTAIN_MESSAGE = 'Expected {0} {1} contain {2}';
     protected final Boolean negate;
+    public static final ExpectNegation NegatedAssert = new ExpectNegation();
+    protected final Expect parentInstance;
 
     protected Expect() {
         negate = false;
+        parentInstance = this;
     }
     protected Expect(boolean negatedState) {
         negate = negatedState;
+    }
+    protected Expect(ExpectNegation forceNegated, Expect parent) {
+        negate = true;
+        parentInstance = parent;
     }
     protected abstract String getExpectedAsString();
 
@@ -25,16 +35,13 @@ public abstract class Expect {
 
     public class AssertException extends System.Exception {}
 
-    public static void assert(Boolean expected, String message) {
+    protected void assertNegatable(Boolean testResult, String message) {
+        Boolean expected = negate ? !testResult : testResult;
         if(UseSystemAssert) {
             System.assert(expected, message);
         } else if (!expected) {
             throw new Expect.AssertException(message);
         }
-    }
-
-    protected void assertNegatable(Boolean testResult, String message) {
-        Expect.assert(negate ? !testResult : testResult, message);
     }
 
     public static ExpectObject that(Object expected) {
@@ -81,10 +88,11 @@ public abstract class Expect {
         return expectedFormatNotMessage(SHOULD_BE_MESSAGE, actual);
     }
 
+//remove
     protected String expectedFormatMessage(String formatString, Object actual) {
         return expectedMessage(formatString, actual, 'should');
     }
-
+//remove
     protected String expectedFormatNotMessage(String formatString, Object actual) {
         return expectedMessage(formatString, actual, 'should not');
     }

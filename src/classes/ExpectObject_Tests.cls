@@ -61,21 +61,21 @@ public class ExpectObject_Tests {
 
     @isTest
     static void ExpectNotEqualObjectsShouldNotThrowForNotEquals() {
-        Expect.that(EqualsOneInstanceA).shouldNotEqual(EqualsOneInstanceB);
+        Expect.that(EqualsOneInstanceA).negated.shouldEqual(EqualsOneInstanceB);
     }
 
     @isTest
     static void ExpectSObjectsExposesAndIt() {
-        Expect.that(EqualsOneInstanceA).shouldEqual(EqualsOneInstanceA).andIt.shouldNotEqual(EqualsOneInstanceB);
+        Expect.that(EqualsOneInstanceA).shouldEqual(EqualsOneInstanceA).andIt.negated.shouldEqual(EqualsOneInstanceB);
     }
 
     private class NotEqualObject extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(EqualsOneInstanceA).shouldNotEqual(EqualsOneInstanceA);
+            Expect.that(EqualsOneInstanceA).negated.shouldEqual(EqualsOneInstanceA);
         }
 
         protected override void testCase(String message) {
-            Expect.that(EqualsOneInstanceA).shouldNotEqual(EqualsOneInstanceA, message);
+            Expect.that(EqualsOneInstanceA).negated.shouldEqual(EqualsOneInstanceA, message);
         }
     }
 
@@ -87,16 +87,16 @@ public class ExpectObject_Tests {
 
     @isTest
     static void ExpectShouldNotBeEquivalentDoesNotThrow() {
-        Expect.that(EqualsOneInstanceA).shouldNotBeEquivalentTo(EqualsTwo);
-        Expect.that(EqualsOneInstanceA).shouldNotBeEquivalentTo(EqualsTwo, 'NotEquivalent');
+        Expect.that(EqualsOneInstanceA).negated.shouldBeEquivalentTo(EqualsTwo);
+        Expect.that(EqualsOneInstanceA).negated.shouldBeEquivalentTo(EqualsTwo, 'NotEquivalent');
     }
 
     private class ShouldNotBeEquivalentThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(EqualsOneInstanceA).shouldNotBeEquivalentTo(EqualsOneInstanceB);
+            Expect.that(EqualsOneInstanceA).negated.shouldBeEquivalentTo(EqualsOneInstanceB);
         }
         protected override void testCase(String message) {
-            Expect.that(EqualsOneInstanceA).shouldNotBeEquivalentTo(EqualsOneInstanceB, message);
+            Expect.that(EqualsOneInstanceA).negated.shouldBeEquivalentTo(EqualsOneInstanceB, message);
         }
     }
 

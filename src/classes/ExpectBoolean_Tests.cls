@@ -90,4 +90,11 @@ public class ExpectBoolean_Tests {
         final Boolean TRUE_VALUE = true;
         Expect.that(TRUE_VALUE).shouldBeTrue().andIt.shouldEqual(TRUE_VALUE);
     }
+
+    @isTest
+    public static void ExpectBooleanSupportsNegation() {
+        Expect.that(true).negated.andIt.shouldBeTrue(); // andIt removes negation
+        Expect.that(true).negated.shouldBeFalse() // negation works
+            .shouldBeTrue(); // evaluating once removes negation
+    }
 }

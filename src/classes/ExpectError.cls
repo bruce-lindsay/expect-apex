@@ -52,14 +52,6 @@ public class ExpectError {
             wrappedString.shouldContain(actual, message);
             return parent;
         }
-        public ExpectStringDecorator shouldNotContain(String actual) {
-            wrappedString.shouldNotContain(actual);
-            return parent;
-        }
-        public ExpectStringDecorator shouldNotContain(String actual, String message) {
-            wrappedString.shouldNotContain(actual, message);
-            return parent;
-        }
         public ExpectStringDecorator shouldEqual(String actual) {
             wrappedString.shouldEqual(actual);
             return parent;
