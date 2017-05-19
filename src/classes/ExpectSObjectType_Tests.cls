@@ -4,7 +4,7 @@ public class ExpectSObjectType_Tests {
 
     @isTest
     static void ExpectShouldNotHaveRecordsDoesNotThrow() {
-        sObjectTypeExpectation.shouldNotHaveRecords();
+        sObjectTypeExpectation.negated.shouldHaveRecords();
     }
 
     private class ShouldNotHaveRecordsThrows extends ThrowCheck {
@@ -12,11 +12,11 @@ public class ExpectSObjectType_Tests {
             insert new Account(Name='NewAccount');
         }
         protected override void testCase() {
-            sObjectTypeExpectation.shouldNotHaveRecords();
+            sObjectTypeExpectation.negated.shouldHaveRecords();
         }
 
         protected override void testCase(String message) {
-            sObjectTypeExpectation.shouldNotHaveRecords(message);
+            sObjectTypeExpectation.negated.shouldHaveRecords(message);
         }
     }
 
@@ -28,7 +28,7 @@ public class ExpectSObjectType_Tests {
 
     @isTest
     static void ExpectShouldHaveRecordsDoesNotThrow() {
-        new ExpectSObjectType(Schema.Account.SObjectType).shouldNotHaveRecords();
+        new ExpectSObjectType(Schema.Account.SObjectType).negated.shouldHaveRecords();
     }
 
     private class ShouldHaveRecordsThrows extends ThrowCheck {

@@ -35,15 +35,15 @@ public class Expect{{datatype}}{{#if subclass}}Base{{/if}}_Tests {
 
     @isTest
     static void ExpectShouldNotEqualDoesNotThrow() {
-        Expect.that({{upper datatype}}_LOWEST).shouldNotEqual({{upper datatype}}_MIDDLE);
+        Expect.that({{upper datatype}}_LOWEST).negated.shouldEqual({{upper datatype}}_MIDDLE);
     }
 
     private class ShouldNotEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that({{upper datatype}}_LOWEST).shouldNotEqual({{upper datatype}}_LOWEST);
+            Expect.that({{upper datatype}}_LOWEST).negated.shouldEqual({{upper datatype}}_LOWEST);
         }
         protected override void testCase(string message) {
-            Expect.that({{upper datatype}}_LOWEST).shouldNotEqual({{upper datatype}}_LOWEST, message);
+            Expect.that({{upper datatype}}_LOWEST).negated.shouldEqual({{upper datatype}}_LOWEST, message);
         }
     }
 
@@ -62,6 +62,12 @@ public class Expect{{datatype}}{{#if subclass}}Base{{/if}}_Tests {
     @isTest
     static void ExpectShouldBeLessThanDoesNotThrow() {
         Expect.that({{upper datatype}}_LOWEST).shouldBeLessThan({{upper datatype}}_MIDDLE);
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanNegatedDoesNotThrow() {
+        Expect.that({{upper datatype}}_MIDDLE).negated.shouldBeLessThan({{upper datatype}}_LOWEST)
+            .andIt.shouldBeLessThan({{upper datatype}}_HIGHEST);
     }
 
     private class ShouldBeLessThanThrows extends ThrowCheck {
@@ -191,6 +197,27 @@ public class Expect{{datatype}}{{#if subclass}}Base{{/if}}_Tests {
     @isTest
     static void ExpectShouldBeBetweenThrowsSpecificMessage() {
         new ShouldBeBetweenThrows()
+            .verifyCustomMessage('outside allowed range');
+    }
+
+    private class ShouldNotBeBetweenThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that({{upper datatype}}_MIDDLE).negated.shouldBeBetween({{upper datatype}}_LOWEST, {{upper datatype}}_HIGHEST);
+        }
+        protected override void testCase(String message) {
+            Expect.that({{upper datatype}}_MIDDLE).negated.shouldBeBetween({{upper datatype}}_LOWEST, {{upper datatype}}_HIGHEST, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldNotBeBetweenThrowsThrowsDefaultMessage() {
+        new ShouldNotBeBetweenThrows()
+            .verifyMessage('Expected ' + {{upper datatype}}_MIDDLE_S + ' should not be between ' + {{upper datatype}}_LOWEST_S + ' and ' + {{upper datatype}}_HIGHEST_S);
+    }
+
+    @isTest
+    static void ExpectShouldNotBeBetweenThrowsSpecificMessage() {
+        new ShouldNotBeBetweenThrows()
             .verifyCustomMessage('outside allowed range');
     }
 

@@ -35,15 +35,15 @@ public class ExpectStringBase_Tests {
 
     @isTest
     static void ExpectShouldNotEqualDoesNotThrow() {
-        Expect.that(STRING_LOWEST).shouldNotEqual(STRING_MIDDLE);
+        Expect.that(STRING_LOWEST).negated.shouldEqual(STRING_MIDDLE);
     }
 
     private class ShouldNotEqualThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that(STRING_LOWEST).shouldNotEqual(STRING_LOWEST);
+            Expect.that(STRING_LOWEST).negated.shouldEqual(STRING_LOWEST);
         }
         protected override void testCase(string message) {
-            Expect.that(STRING_LOWEST).shouldNotEqual(STRING_LOWEST, message);
+            Expect.that(STRING_LOWEST).negated.shouldEqual(STRING_LOWEST, message);
         }
     }
 
@@ -62,6 +62,12 @@ public class ExpectStringBase_Tests {
     @isTest
     static void ExpectShouldBeLessThanDoesNotThrow() {
         Expect.that(STRING_LOWEST).shouldBeLessThan(STRING_MIDDLE);
+    }
+
+    @isTest
+    static void ExpectShouldBeLessThanNegatedDoesNotThrow() {
+        Expect.that(STRING_MIDDLE).negated.shouldBeLessThan(STRING_LOWEST)
+            .andIt.shouldBeLessThan(STRING_HIGHEST);
     }
 
     private class ShouldBeLessThanThrows extends ThrowCheck {
@@ -191,6 +197,27 @@ public class ExpectStringBase_Tests {
     @isTest
     static void ExpectShouldBeBetweenThrowsSpecificMessage() {
         new ShouldBeBetweenThrows()
+            .verifyCustomMessage('outside allowed range');
+    }
+
+    private class ShouldNotBeBetweenThrows extends ThrowCheck {
+        protected override void testCase() {
+            Expect.that(STRING_MIDDLE).negated.shouldBeBetween(STRING_LOWEST, STRING_HIGHEST);
+        }
+        protected override void testCase(String message) {
+            Expect.that(STRING_MIDDLE).negated.shouldBeBetween(STRING_LOWEST, STRING_HIGHEST, message);
+        }
+    }
+
+    @isTest
+    static void ExpectShouldNotBeBetweenThrowsThrowsDefaultMessage() {
+        new ShouldNotBeBetweenThrows()
+            .verifyMessage('Expected ' + STRING_MIDDLE_S + ' should not be between ' + STRING_LOWEST_S + ' and ' + STRING_HIGHEST_S);
+    }
+
+    @isTest
+    static void ExpectShouldNotBeBetweenThrowsSpecificMessage() {
+        new ShouldNotBeBetweenThrows()
             .verifyCustomMessage('outside allowed range');
     }
 

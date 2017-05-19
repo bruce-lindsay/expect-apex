@@ -18,9 +18,17 @@ public class ExpectError {
     public class ExpectStringDecorator {
         private final ExpectError wrapped;
         private final ExpectString wrappedString;
+        private final ExpectStringDecorator parent;
         private ExpectStringDecorator(String value, ExpectError wrapped) {
             this.wrapped = wrapped;
             this.wrappedString = new ExpectString(value);
+            this.parent = this;
+        }
+        // negation constructor
+        private ExpectStringDecorator(ExpectStringDecorator parent) {
+            this.wrapped = parent.wrapped;
+            this.wrappedString = parent.wrappedString.negated;
+            this.parent = parent;
         }
         public ExpectStringDecorator andErrorMessage {
             get { return wrapped.andErrorMessage; }
@@ -30,43 +38,32 @@ public class ExpectError {
         }
         public ExpectStringDecorator shouldEqualIgnoreOrdinalCase(String actual) {
             wrappedString.shouldEqualIgnoreOrdinalCase(actual);
-            return this;
+            return parent;
         }
         public ExpectStringDecorator shouldEqualIgnoreOrdinalCase(String actual, String message) {
             wrappedString.shouldEqualIgnoreOrdinalCase(actual, message);
-            return this;
+            return parent;
         }
         public ExpectStringDecorator shouldContain(String actual) {
             wrappedString.shouldContain(actual);
-            return this;
+            return parent;
         }
         public ExpectStringDecorator shouldContain(String actual, String message) {
             wrappedString.shouldContain(actual, message);
-            return this;
-        }
-        public ExpectStringDecorator shouldNotContain(String actual) {
-            wrappedString.shouldNotContain(actual);
-            return this;
-        }
-        public ExpectStringDecorator shouldNotContain(String actual, String message) {
-            wrappedString.shouldNotContain(actual, message);
-            return this;
+            return parent;
         }
         public ExpectStringDecorator shouldEqual(String actual) {
             wrappedString.shouldEqual(actual);
-            return this;
+            return parent;
         }
         public ExpectStringDecorator shouldEqual(String actual, String message) {
             wrappedString.shouldEqual(actual, message);
-            return this;
+            return parent;
         }
-        public ExpectStringDecorator shouldNotEqual(String actual) {
-            wrappedString.shouldNotEqual(actual);
-            return this;
-        }
-        public ExpectStringDecorator shouldNotEqual(String actual, String message) {
-            wrappedString.shouldNotEqual(actual, message);
-            return this;
+        public ExpectStringDecorator negated {
+            get {
+                return new ExpectStringDecorator(this);
+            }
         }
     }
 }

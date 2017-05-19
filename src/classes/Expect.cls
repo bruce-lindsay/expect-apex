@@ -1,4 +1,7 @@
 public abstract class Expect {
+    public class ExpectNegation {
+        private ExpectNegation() {}
+    }
     public static Boolean UseSystemAssert = true;
     public static final String SHOULD_BE_MESSAGE = 'Expected {0} {1} be {2}';
     public static final String SHOULD_BE_LESS_MESSAGE = 'Expected {0} {1} be less than {2}';
@@ -7,14 +10,33 @@ public abstract class Expect {
     public static final String SHOULD_BE_GREATER_OR_EQUAL_MESSAGE = 'Expected {0} {1} be greater than or equal to {2}';
     private static final String SHOULD_BE_BETWEEN_MESSAGE = 'Expected {0} {1} be between {2} and {3}';
     public static final String SHOULD_CONTAIN_MESSAGE = 'Expected {0} {1} contain {2}';
+    protected final Boolean negate;
+    public static final ExpectNegation NegatedAssert = new ExpectNegation();
+    protected final Expect parentInstance;
 
-    protected Expect() {}
-
+    protected Expect() {
+        negate = false;
+        parentInstance = this;
+    }
+    protected Expect(boolean negatedState) {
+        negate = negatedState;
+    }
+    protected Expect(ExpectNegation forceNegated, Expect parent) {
+        negate = true;
+        parentInstance = parent;
+    }
     protected abstract String getExpectedAsString();
+
+    private string shouldOrShouldNot {
+        get {
+            return negate ? 'should not' : 'should';
+        }
+    }
 
     public class AssertException extends System.Exception {}
 
-    public static void assert(Boolean expected, String message) {
+    protected void assertNegatable(Boolean testResult, String message) {
+        Boolean expected = negate ? !testResult : testResult;
         if(UseSystemAssert) {
             System.assert(expected, message);
         } else if (!expected) {
@@ -58,26 +80,14 @@ public abstract class Expect {
         return new ExpectId(expected);
     }
 
-    protected String expectedShouldBeMessage(Object actual) {
-        return expectedFormatMessage(SHOULD_BE_MESSAGE, actual);
-    }
-
-    protected String expectedShouldNotBeMessage(Object actual) {
-        return expectedFormatNotMessage(SHOULD_BE_MESSAGE, actual);
-    }
-
-    protected String expectedFormatMessage(String formatString, Object actual) {
-        return expectedMessage(formatString, actual, 'should');
-    }
-
-    protected String expectedFormatNotMessage(String formatString, Object actual) {
-        return expectedMessage(formatString, actual, 'should not');
+    protected String formatMessage(String formatString, Object actual) {
+        return expectedMessage(formatString, actual, shouldOrShouldNot);
     }
 
     protected String expectedShouldBeBetweenMessage(Object beginRange, Object endRange) {
         return String.format(SHOULD_BE_BETWEEN_MESSAGE, new String[] {
             this.getExpectedAsString(),
-            'should',
+            shouldOrShouldNot,
             String.valueOf(beginRange),
             String.valueOf(endRange)
         });

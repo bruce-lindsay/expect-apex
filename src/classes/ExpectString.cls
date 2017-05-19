@@ -2,9 +2,12 @@ public class ExpectString extends ExpectStringBase {
     public ExpectString(string s) {
         super(s);
     }
+    public ExpectString(ExpectString parent) {
+        super(parent);
+    }
 
     public ExpectString shouldEqualIgnoreOrdinalCase(String actual) {
-        return shouldEqualIgnoreOrdinalCase(actual, expectedShouldBeMessage(actual));
+        return shouldEqualIgnoreOrdinalCase(actual, formatMessage(SHOULD_BE_MESSAGE, actual));
     }
 
     public ExpectString shouldEqualIgnoreOrdinalCase(String actual, String message) {
@@ -12,18 +15,10 @@ public class ExpectString extends ExpectStringBase {
     }
 
     public ExpectString shouldContain(String actual) {
-        return shouldContain(actual, expectedFormatMessage(SHOULD_CONTAIN_MESSAGE, actual));
+        return shouldContain(actual, formatMessage(SHOULD_CONTAIN_MESSAGE, actual));
     }
 
     public ExpectString shouldContain(String actual, String message) {
         return assertThis(expected.contains(actual), message);
-    }
-
-    public ExpectString shouldNotContain(String actual) {
-        return shouldNotContain(actual, expectedFormatNotMessage(SHOULD_CONTAIN_MESSAGE, actual));
-    }
-
-    public ExpectString shouldNotContain(String actual, String message) {
-        return assertThis(expected.containsNone(actual), message);
     }
 }

@@ -45,16 +45,16 @@ public class ExpectString_Tests {
 
     @isTest
     static void ExpectStringShouldNotContainDoesNotThrowWhenStringDoesNotContain() {
-        Expect.that('a').shouldNotContain('A');
+        Expect.that('a').negated.shouldContain('A');
     }
 
     private class ShouldNotContainThrows extends ThrowCheck {
         protected override void testCase() {
-            Expect.that('ab').shouldNotContain('ab');
+            Expect.that('ab').negated.shouldContain('ab');
         }
 
         protected override void testCase(String message) {
-            Expect.that('ab').shouldNotContain('ab', message);
+            Expect.that('ab').negated.shouldContain('ab', message);
         }
     }
 

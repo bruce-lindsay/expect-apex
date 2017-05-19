@@ -3,29 +3,32 @@ public class ExpectSObject extends Expect {
 
     public ExpectSObject(SObject expected) {
         this.expected = expected;
+
+    }
+    private ExpectSObject(ExpectSObject existingInstance) {
+        super(NegatedAssert, existingInstance);
+        this.expected = existingInstance.expected;
     }
 
     protected override String getExpectedAsString() {
         return String.valueOf(expected);
     }
 
-    public ExpectSObject andIt { get { return this; } }
+    public ExpectSObject andIt { get { return (ExpectSObject) parentInstance; } }
+
+    public ExpectSObject negated {
+        get {
+            return new ExpectSObject(this);
+        }
+    }
 
     public ExpectSObject shouldEqual(SObject actual) {
-        shouldEqual(actual, expectedShouldBeMessage(actual));
+        shouldEqual(actual, formatMessage(SHOULD_BE_MESSAGE, actual));
         return this;
     }
 
     public ExpectSObject shouldEqual(SObject actual, String message) {
         return assertSObject(expected === actual, message);
-    }
-
-    public ExpectSObject shouldNotEqual(SObject actual) {
-        return shouldNotEqual(actual, expectedShouldNotBeMessage(actual));
-    }
-
-    public ExpectSObject shouldNotEqual(SObject actual, String message) {
-        return assertSObject(expected !== actual, message);
     }
 
     public ExpectSObject sObjectTypeEquals(SObject actual) {
@@ -37,7 +40,7 @@ public class ExpectSObject extends Expect {
     }
 
     public ExpectSObject sObjectTypeEquals(SObjectType objType) {
-        return sObjectTypeEquals(objType, expectedShouldBeMessage(objType));
+        return sObjectTypeEquals(objType, formatMessage(SHOULD_BE_MESSAGE, objType));
     }
 
     public ExpectSObject sObjectTypeEquals(SObjectType objType, String message) {
@@ -45,12 +48,12 @@ public class ExpectSObject extends Expect {
     }
 
     private ExpectSObject assertSObject(Boolean test, String message) {
-        assert(test, message);
+        assertNegatable(test, message);
         return this;
     }
 
     private ExpectError failDmlExpectation(string dmlOperationName) {
-        assert(false, 'Expected ' + String.valueOf(expected) + ' should error on ' + dmlOperationName);
+        assertNegatable(false, 'Expected ' + String.valueOf(expected) + ' should error on ' + dmlOperationName);
         return null;
     }
 
